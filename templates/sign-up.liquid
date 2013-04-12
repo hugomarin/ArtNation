@@ -1,0 +1,27 @@
+{% layout "login" %}
+
+{% block content %} 
+<div class="row">
+	<div class="large-6 large-centered columns">
+		<div class="panel {{ mixture.url }}">
+			<h2>{{ title }}</h2>
+			
+			<form action="">
+				<label>{{ global.user-name }}</label>
+				<input type="text" placeholder="{{ global.user-name }}">
+				<label>{{ global.user-lastName }}</label>
+				<input type="text" placeholder="{{ global.user-lastName }}">
+				<label>{{ global.mail }}</label>
+				<input type="text" placeholder="{{ global.mail }}">
+				<label>{{ global.password }}</label>
+				<input type="password" placeholder="{{ global.password }}">
+				<label>{{ global.re-password }}</label>
+				<input type="password" placeholder="{{ global.re-password }}">
+				<a href="select-profile" class="button radius">{{ action }}</a> 
+			</form>
+			
+		</div><!--/panel-->
+	</div><!--col-->
+</div><!--/row-->
+
+{% endblock %}

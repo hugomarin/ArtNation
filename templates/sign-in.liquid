@@ -1,0 +1,21 @@
+{% layout "login" %}
+
+{% block content %} 
+<div class="row">
+	<div class="large-6 large-centered columns">
+		<div class="panel {{ mixture.url }}">
+			<h2>{{ title }}</h2>
+			
+			<form action="">
+				<label>{{ global.mail }}</label>
+				<input type="text" placeholder="{{ global.mail }}">
+				<label>{{ global.password }}</label>
+				<input type="password" placeholder="{{ global.password }}">
+				<a href="select-profile" class="button radius">{{ action }}</a> 
+				<a href="recover-password" class="">Olvidaste tu contraseña</a>
+			</form>
+			
+		</div><!--/panel-->
+	</div><!--col-->
+</div><!--/row-->	
+{% endblock %}

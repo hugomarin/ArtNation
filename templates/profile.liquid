@@ -1,0 +1,54 @@
+{% block title %}Perfil de {{ global.user }} {% endblock %}
+
+
+{% block content %} 
+  <div class="row" itemscope="" itemtype="http://schema.org/Person" role="main">    
+    
+    <div class="large-12 columns">
+	    <header>
+	    <h2>{{ global.user | truncate:15 }}<small class="subheader"> {{ city }}, {{ country }} | {{ age }} años</small></h2>
+	    
+		    <p>	
+		    	{% for item in activities %}
+		    		<span class="label primary radius">{{ item.activity }}</span>
+		    	{% endfor %}
+		    </p>
+		</header>
+    </div>
+  
+  
+  
+   {% include "profile_sidebar" %}
+    
+    <div class="large-9 columns">
+       {% include "artist_resume" %}
+      
+      <div class="panel">
+      	<h4>Información de contacto</h4>
+      	<p>Web: <strong><a href="http://{{ website }}">{{ website }}</a></strong></p>
+      	<p>Correo: <strong><a mailto="{{ mail }}">{{ mail }}</a></strong></p>
+      	<p>Teléfono: <strong>{{ phone }}</strong></p>
+      	<p>Dirección: <strong>{{ address }}</strong></p>
+      	
+      </div>
+    </div>
+    
+    <div class="large-9 columns">
+    	<div class="panel">
+	    	<div class="row">
+	    		<div class="large-9 columns">
+	    			<h4 class="subheader">Exposiciones <strong>Individuales</strong></h4>
+	    		</div>
+	    		<div class="large-3 columns">
+	    			<a href="http://" class="label right round">Agregar</a>
+	    		</div>
+	    		
+	    	</div>
+	    	<p><strong>Premio Luis Caballero</strong> / 2010 / Bogotá Colombia</p>
+    	
+    	</div>
+    </div>
+  
+       
+  </div><!--/row-->
+{% endblock %}

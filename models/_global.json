@@ -1,0 +1,12 @@
+{
+  "mail": "correo electrónico",
+  "password": "contraseña",
+  "re-password": "repetir contraseña",
+  "sign-in": "Ingresar",
+  "sign-up": "Registro",
+  "user-name": "nombre",
+  "user-lastName": "apellido",
+  "artist": "Artista",
+  "call": "Convocatoria", 
+  "user": "Hugo Marín"
+}

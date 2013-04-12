@@ -1,0 +1,54 @@
+
+.no-margin {
+	margin: 0;
+}
+
+$primary : #717781;
+
+
+@function quantity($context:4) {
+	@return	100% / ($context);
+}
+
+.panoramic {
+	@include clearfix;
+	background-color: lighten($primary,47%);
+	li {
+		display: inline-block;
+		padding-top: emCalc(15px);
+		padding-bottom: emCalc(15px);
+		float: left;
+		text-align: center;
+		@include box-sizing(border-box);
+		
+		small {
+			font-size: 12px;
+			font-weight: bold;
+			color: lighten($primary,20%);
+		}
+		
+		h3 {
+			color: lighten($primary,5%);
+		}
+		 
+		}
+		
+	&.three{
+		li {
+			width: quantity(3);
+			margin: 0;
+		}
+	}	
+		
+	&.four{
+		li {
+			width: quantity();
+		}
+	}
+	&.five{
+		li {
+	    	width: quantity(5);
+		}
+	}
+}
+
