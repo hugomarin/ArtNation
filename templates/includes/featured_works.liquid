@@ -1,0 +1,35 @@
+<div class="panel featured_works">
+	<div class="row">
+		<div class="large-9 columns">
+			<h4 class="subheader"><strong>Obras</strong> destacadas</h4>
+		</div>
+		<div class="large-3 columns">
+			<a href="http://" class="label right round">Agregar</a>
+		</div>
+		
+	</div>
+	<div class="row">
+		<div class="large-12 columns">
+			<ul class="no-bullet">
+			{% for item in model.works %}
+				<li>
+					<div class="row">
+						<div class="large-3 columns">
+							<img src="{{ item.image }}" alt="{{ item.name }}" /> 
+						</div>
+						
+						<div class="large-9 columns">
+							<div> 
+							<h4>{{ item.name }} <small>{{ item.type }}, {{ item.duration }}, {{ item.year }}, {{ item.dimension }} </small> </h4> 
+							    <p>{{ item.description | truncatewords: 52 }}</p>   
+							</div>
+						</div>
+					</div>
+					<hr />
+				</li>
+			{% endfor %}
+			</ul>
+		</div>
+	</div>
+
+</div>

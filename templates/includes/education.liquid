@@ -1,0 +1,21 @@
+<div class="panel education">
+	<div class="row">
+		<div class="large-9 columns">
+			<h4 class="subheader"><strong>Educación</strong></h4>
+		</div>
+		<div class="large-3 columns">
+			<a href="http://" class="label right round">Agregar</a>
+		</div>
+		
+	</div>
+	<div class="row">
+		<div class="large-12 columns">
+			<ul class="no-bullet">
+			{% for item in model.education %}
+				<li><p><strong>{{ item.school }}</strong> / {{ item.degree }} / {{ item.field }} / {{ item.city }} {{ item.country }} / {{ item.year-start }} - {{ item.year-finish }} </p></li>
+			{% endfor %}
+			</ul>
+		</div>
+	</div>
+
+</div>
