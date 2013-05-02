@@ -3,15 +3,15 @@
     <hr />
     <div class="row">
       <div class="large-6 columns">
-        <p>&copy; Copyright no one at all. Go to town.</p>
+        <p>&copy; ArtNation</p>
       </div>
-      <div class="large-6 columns">
-        <ul class="inline-list right">
-          <li><a href="#">Section 1</a></li>
-          <li><a href="#">Section 2</a></li>
-          <li><a href="#">Section 3</a></li>
-          <li><a href="#">Section 4</a></li>
-        </ul>
+      <div class="large-6 columns">		
+		<dl class="sub-nav right">
+		  <dd {% if mixture.url == "home" %}class="active"{% endif %}><a href="#">Inicio</a></dd>
+		  <dd {% if mixture.url == "profile" %}class="active"{% endif %} ><a href="#">Perfil</a></dd>
+		  <dd {% if mixture.url == "calls" %}class="active"{% endif %}><a href="#">Convocatorias</a></dd>
+		  <dd {% if mixture.url == "exhibitions" %}class="active"{% endif %}><a href="#">Exposiciones</a></dd>
+		</dl>
       </div>
     </div>
   </div> 

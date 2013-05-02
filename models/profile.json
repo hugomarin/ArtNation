@@ -11,6 +11,152 @@
 			"activity": "digital"
 		}
 	],
+
+
+	"education": [
+		{
+			"school": "Universidad Nacional de Colombia",
+			"degree": "Maestro Artes Plásticas",
+			"field": "Historia y Teoría del Arte",
+			"year-start": "2003",
+			"year-finish": "2009",
+			"city": "Bogotá",
+			"country": "Colombia"
+		},
+		
+		{
+			"school": "Pontificia Universidad Javeriana",
+			"degree": "Filósofo",
+			"field": "Estética",
+			"year-start": "2000",
+			"year-finish": "Actualmente",
+			"city": "Bogotá",
+			"country": "Colombia"
+		}
+		
+	],
+	
+	"awards": [
+		{
+			"work": "Universidad Nacional de Colombia",
+			"institution": "II Concurso Nacional de Video Danza",
+			"award": "Mención de Honor",
+			"year": "2003",
+			"city": "Bogotá",
+			"country": "Colombia"
+		}
+		
+		
+	],
+	
+	"exhibitions-ind": [
+		{
+			"name": "Premio Luis Caballero",
+			"institution": "Fundación Gilberto Alzate Avendaño",
+			"work": "Documentales Premio Luis Caballero",
+			"year": "2010",
+			"city": "Bogotá",
+			"country": "Colombia",
+			"media": "Video"
+		}
+		
+	],
+	
+	"exhibitions-col": [
+		{
+			"name": "II Concurso Nacional de Video Danza",
+			"institution": "Festival de Vídeo Danza",
+			"work": "SOUTENE",
+			"year": "2008",
+			"city": "Bogotá",
+			"country": "Colombia",
+			"media": "Video"
+		},
+		{
+			"name": "XXXVIII Salón Cano",
+			"institution": "Universidad Nacional de Colombia",
+			"work": "BUCOLIA",
+			"year": "2007",
+			"city": "Bogotá",
+			"country": "Colombia",
+			"media": "Video"
+		},
+		{
+			"name": "Loop 08",
+			"institution": "Festival Loop",
+			"work": "BUCOLIA",
+			"year": "2008",
+			"city": "Barcelona",
+			"country": "España",
+			"media": "Video"
+		},
+		{
+			"name": "Tesis de Grado",
+			"institution": "Universidad Nacional de Colombia",
+			"work": "ANÁLISIS Y COMPOSICIÓN DE UN SISTEMA DIFUSO",
+			"year": "2008",
+			"city": "Bogotá",
+			"country": "Colombia",
+			"media": "Video"
+		}
+
+		
+	],
+	
+	"works": [
+		{
+			"type": "Vídeo",
+			"name": "Las sirenas ya no cantan",
+			"image": "https://dl.dropboxusercontent.com/u/991960/lassirenas.jpg",
+			"year": "2010",
+			"dimension": "720 x 480",
+			"description": "El proyecto surge de un fracaso amoroso. De éste, tan sólo quedo una pequeña grabación en video de ella cantando. La captura la realizo a partir de una edición análoga, capturo nuevamente la imagen desde el televisor, mediante una cámara de video averiada, y con un lente de fotografía invertido, también averiado. Del relato personal y alimentado por el relato mítico, el cual empleo como un motivo alegórico, en un intento por dignificar el fracaso amoroso como hecho mítico, se configurado una reflexión poética sobre lo análogo. Se produce vuelta a lo análogo desde su fracaso en la captura, asimismo fracaso de la mirada, del amor, del deseo y de la memoria (La sirena etimológicamente es una encadenada). La captura se presenta como un recuerdo avereiado, pues ha perdi­do su poder sonoro. La captura es el intento de un falso encadenamiento.",
+			"duration": "5:32min"
+		},
+		
+		{
+			"type": "Vídeo",
+			"name": "Nocturnos",
+			"image": "https://dl.dropboxusercontent.com/u/991960/nocturnos.jpg",
+			"year": "2008",
+			"dimension": "720 x 480",
+			"description": "La serie Nocturnos se compone de cuatro videos instalados, presentados como capítulos de una misma obra, e inspirados en la Ética de Spinoza. Nocturnos, explora la relación entre la imagen y la luz en conjunción con distintos ritmos de respiración.",
+			"duration": "4:04min"
+		},
+		
+		{
+			"type": "Vídeo",
+			"name": "Bucolia",
+			"image": "https://dl.dropboxusercontent.com/u/991960/bucolia.jpg",
+			"year": "2007",
+			"dimension": "720 x 480",
+			"description": "La realización de un afecto iconoclasta.",
+			"duration": "2:33min"
+		},
+		
+		{
+			"type": "Vídeo",
+			"name": "Antropofagia",
+			"image": "https://dl.dropboxusercontent.com/u/991960/antropofagia.jpg",
+			"year": "2006",
+			"dimension": "720 x 480",
+			"description": "",
+			"duration": "2:16min"
+		},
+		
+		{
+			"type": "Vídeo",
+			"name": "Teoría del Color",
+			"image": "https://dl.dropboxusercontent.com/u/991960/teoria.jpg",
+			"year": "2011",
+			"dimension": "1280 x 1920",
+			"description": "Teoría del Color, es tan sólo un teoría del fracaso. Quizás una entropía interrumpida, o una dialéctica inconciliable. Un suceso de principio a fin idénticos, donde la historia no puede distinguir un alfa o un omega. No obstante, el relato se construye en una dinámica de repetición incesante donde el construir y el destruir, de la dialéctica irresuelta, no concluye en un momento de síntesis. El fracaso se da en la posibilidad de un horizonte para la creación y la construcción. El audio se realizó a través del registro de la demolición del complejo Pruit-Igoe en St. Louis, Missouri. Este es el momento exacto que Charles Jencks considera como el fin de la arquitectura moderna.",
+			"duration": "2:44min"
+		}
+
+		
+	],
+	
 	
 	"no_works":9,
 	"no_ind_exhibitions": 1,

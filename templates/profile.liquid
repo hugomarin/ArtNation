@@ -2,11 +2,11 @@
 
 
 {% block content %} 
-  <div class="row" itemscope="" itemtype="http://schema.org/Person" role="main">    
-    
-    <div class="large-12 columns">
+<div class="row" itemscope="" itemtype="http://schema.org/Person" role="main">    
+
+	<div class="large-12 columns">
 	    <header>
-	    <h2>{{ global.user | truncate:15 }}<small class="subheader"> {{ city }}, {{ country }} | {{ age }} años</small></h2>
+	    <h2 class="no-margin">{{ global.user | truncate:15 }}<small class="subheader"> {{ city }}, {{ country }} | {{ age }} años</small></h2>
 	    
 		    <p>	
 		    	{% for item in activities %}
@@ -14,41 +14,38 @@
 		    	{% endfor %}
 		    </p>
 		</header>
-    </div>
-  
-  
-  
-   {% include "profile_sidebar" %}
-    
-    <div class="large-9 columns">
-       {% include "artist_resume" %}
-      
-      <div class="panel">
-      	<h4>Información de contacto</h4>
-      	<p>Web: <strong><a href="http://{{ website }}">{{ website }}</a></strong></p>
-      	<p>Correo: <strong><a mailto="{{ mail }}">{{ mail }}</a></strong></p>
-      	<p>Teléfono: <strong>{{ phone }}</strong></p>
-      	<p>Dirección: <strong>{{ address }}</strong></p>
-      	
-      </div>
-    </div>
-    
-    <div class="large-9 columns">
-    	<div class="panel">
-	    	<div class="row">
-	    		<div class="large-9 columns">
-	    			<h4 class="subheader">Exposiciones <strong>Individuales</strong></h4>
-	    		</div>
-	    		<div class="large-3 columns">
-	    			<a href="http://" class="label right round">Agregar</a>
-	    		</div>
-	    		
-	    	</div>
-	    	<p><strong>Premio Luis Caballero</strong> / 2010 / Bogotá Colombia</p>
-    	
-    	</div>
-    </div>
-  
-       
-  </div><!--/row-->
+	</div><!--/12 col-->
+
+	
+	<div class="large-12 columns">
+		{% include "artist_resume" %}
+	</div>
+	
+	<div class="large-12 columns">      
+		<div class="panel">
+			<div class="row">
+				<div class="large-4 columns">
+					<img src="http://cambelt.co/icon/avatar/580x580?Colors?color=25d54e" />
+				</div>
+				<div class="large-4 columns">
+					{% include "profile_sidebar" %}
+				</div>
+				<div class="large-4 columns">
+					{% include "artist_contact" %} 
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	<div class="large-12 columns">
+		{% include "ind_exhibitions" %}
+		{% include "colec_exhibitions" %}
+		{% include "education" %}
+		{% include "awards" %}
+		{% include "featured_works" %}
+	</div>
+
+   
+</div><!--/row-->
 {% endblock %}

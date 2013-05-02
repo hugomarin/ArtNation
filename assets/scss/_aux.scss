@@ -1,9 +1,14 @@
 
+/*Aux*/
 .no-margin {
 	margin: 0;
 }
 
+/*Variables*/
+
 $primary : #717781;
+
+
 
 
 @function quantity($context:4) {
@@ -12,7 +17,11 @@ $primary : #717781;
 
 .panoramic {
 	@include clearfix;
+	
+	
 	background-color: lighten($primary,47%);
+	margin-bottom: 2em;
+	
 	li {
 		display: inline-block;
 		padding-top: emCalc(15px);
@@ -21,15 +30,9 @@ $primary : #717781;
 		text-align: center;
 		@include box-sizing(border-box);
 		
-		small {
-			font-size: 12px;
-			font-weight: bold;
-			color: lighten($primary,20%);
-		}
+			small { font-size: 12px; font-weight: bold; color: lighten($primary,20%);}
 		
-		h3 {
-			color: lighten($primary,5%);
-		}
+			h3 {color: lighten($primary,5%);}
 		 
 		}
 		
@@ -50,5 +53,9 @@ $primary : #717781;
 	    	width: quantity(5);
 		}
 	}
+}
+
+.panel {
+	border: none;
 }
 
