@@ -8,6 +8,10 @@
   {{ "normalize.css" | asset_url | stylesheet_tag }}
   {{ "app.css" | asset_url | stylesheet_tag }}
   <script src="{{ "custom.modernizr.js" | asset_url }}"></script>
+  
+  <script type="text/javascript" src="//use.typekit.net/abj5aps.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  
 </head>
 <body>
   <div>{% include "header" %}</div>
