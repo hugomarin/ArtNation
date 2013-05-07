@@ -13,7 +13,7 @@
   "serverPort": null,
   "simpleModePartnerServer": null,
   "templateDefaultLayout": "layout",
-  "templateDefaultPage": "index",
+  "templateDefaultPage": "profile",
   "templateDirectory": "templates",
   "type": "mixture",
   "useCompass": false
