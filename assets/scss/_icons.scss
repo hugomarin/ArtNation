@@ -1,0 +1,279 @@
+@font-face {
+	font-family: 'ArtNation';
+	src:url('fonts/ArtNation.eot');
+	src:url('fonts/ArtNation.eot?#iefix') format('embedded-opentype'),
+		url('fonts/ArtNation.woff') format('woff'),
+		url('fonts/ArtNation.ttf') format('truetype'),
+		url('fonts/ArtNation.svg#ArtNation') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+	font-family: 'ArtNation';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+/*
+Instead of a list of all class selectors,
+you can use the generic selector below, but it's slower:
+[class*="icon-"] {
+*/
+.icon-clock, .icon-search, .icon-mail, .icon-paperplane, .icon-pencil, .icon-paperclip, .icon-reply, .icon-reply-all, .icon-forward, .icon-user, .icon-users, .icon-user-add, .icon-vcard, .icon-export, .icon-location, .icon-heart, .icon-heart-2, .icon-star, .icon-star-2, .icon-thumbs-up, .icon-thumbs-down, .icon-tag, .icon-book, .icon-graduation, .icon-newspaper, .icon-eye, .icon-briefcase, .icon-hourglass, .icon-key, .icon-brush, .icon-suitcase, .icon-earth, .icon-clipboard, .icon-checkmark, .icon-cross, .icon-minus, .icon-plus, .icon-cross-2, .icon-minus-2, .icon-plus-2, .icon-info, .icon-warning, .icon-cycle, .icon-shuffle, .icon-pictures, .icon-folder, .icon-bookmarks, .icon-disk, .icon-resize-enlarge, .icon-play, .icon-next, .icon-previous, .icon-first, .icon-last, .icon-arrow-left, .icon-arrow-down, .icon-arrow-up, .icon-arrow-right, .icon-arrow-left-2, .icon-arrow-down-2, .icon-arrow-up-2, .icon-arrow-right-2, .icon-arrow-left-3, .icon-arrow-down-3, .icon-arrow-up-3, .icon-untitled, .icon-twitter, .icon-facebook, .icon-pinterest, .icon-linkedin, .icon-docs, .icon-cog, .icon-flag, .icon-palette, .icon-lock, .icon-trash, .icon-network, .icon-text, .icon-megaphone, .icon-share {
+	font-family: 'ArtNation';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+.icon-clock:before {
+	content: "\e00b";
+}
+.icon-search:before {
+	content: "\e00e";
+}
+.icon-mail:before {
+	content: "\e00f";
+}
+.icon-paperplane:before {
+	content: "\e010";
+}
+.icon-pencil:before {
+	content: "\e011";
+}
+.icon-paperclip:before {
+	content: "\e012";
+}
+.icon-reply:before {
+	content: "\e013";
+}
+.icon-reply-all:before {
+	content: "\e014";
+}
+.icon-forward:before {
+	content: "\e015";
+}
+.icon-user:before {
+	content: "\e016";
+}
+.icon-users:before {
+	content: "\e017";
+}
+.icon-user-add:before {
+	content: "\e018";
+}
+.icon-vcard:before {
+	content: "\e019";
+}
+.icon-export:before {
+	content: "\e01a";
+}
+.icon-location:before {
+	content: "\e01b";
+}
+.icon-heart:before {
+	content: "\e01c";
+}
+.icon-heart-2:before {
+	content: "\e01d";
+}
+.icon-star:before {
+	content: "\e01e";
+}
+.icon-star-2:before {
+	content: "\e01f";
+}
+.icon-thumbs-up:before {
+	content: "\e020";
+}
+.icon-thumbs-down:before {
+	content: "\e021";
+}
+.icon-tag:before {
+	content: "\e022";
+}
+.icon-book:before {
+	content: "\e023";
+}
+.icon-graduation:before {
+	content: "\e024";
+}
+.icon-newspaper:before {
+	content: "\e025";
+}
+.icon-eye:before {
+	content: "\e026";
+}
+.icon-briefcase:before {
+	content: "\e027";
+}
+.icon-hourglass:before {
+	content: "\e028";
+}
+.icon-key:before {
+	content: "\e029";
+}
+.icon-brush:before {
+	content: "\e02a";
+}
+.icon-suitcase:before {
+	content: "\e02b";
+}
+.icon-earth:before {
+	content: "\e02c";
+}
+.icon-clipboard:before {
+	content: "\e02d";
+}
+.icon-checkmark:before {
+	content: "\e02e";
+}
+.icon-cross:before {
+	content: "\e02f";
+}
+.icon-minus:before {
+	content: "\e030";
+}
+.icon-plus:before {
+	content: "\e031";
+}
+.icon-cross-2:before {
+	content: "\e032";
+}
+.icon-minus-2:before {
+	content: "\e033";
+}
+.icon-plus-2:before {
+	content: "\e034";
+}
+.icon-info:before {
+	content: "\e035";
+}
+.icon-warning:before {
+	content: "\e036";
+}
+.icon-cycle:before {
+	content: "\e037";
+}
+.icon-shuffle:before {
+	content: "\e038";
+}
+.icon-pictures:before {
+	content: "\e039";
+}
+.icon-folder:before {
+	content: "\e03a";
+}
+.icon-bookmarks:before {
+	content: "\e03b";
+}
+.icon-disk:before {
+	content: "\e03c";
+}
+.icon-resize-enlarge:before {
+	content: "\e03d";
+}
+.icon-play:before {
+	content: "\e03e";
+}
+.icon-next:before {
+	content: "\e03f";
+}
+.icon-previous:before {
+	content: "\e040";
+}
+.icon-first:before {
+	content: "\e041";
+}
+.icon-last:before {
+	content: "\e042";
+}
+.icon-arrow-left:before {
+	content: "\e043";
+}
+.icon-arrow-down:before {
+	content: "\e044";
+}
+.icon-arrow-up:before {
+	content: "\e045";
+}
+.icon-arrow-right:before {
+	content: "\e046";
+}
+.icon-arrow-left-2:before {
+	content: "\e047";
+}
+.icon-arrow-down-2:before {
+	content: "\e048";
+}
+.icon-arrow-up-2:before {
+	content: "\e049";
+}
+.icon-arrow-right-2:before {
+	content: "\e04a";
+}
+.icon-arrow-left-3:before {
+	content: "\e04b";
+}
+.icon-arrow-down-3:before {
+	content: "\e04c";
+}
+.icon-arrow-up-3:before {
+	content: "\e04d";
+}
+.icon-untitled:before {
+	content: "\e04e";
+}
+.icon-twitter:before {
+	content: "\e04f";
+}
+.icon-facebook:before {
+	content: "\e050";
+}
+.icon-pinterest:before {
+	content: "\e051";
+}
+.icon-linkedin:before {
+	content: "\e052";
+}
+.icon-docs:before {
+	content: "\e000";
+}
+.icon-cog:before {
+	content: "\e001";
+}
+.icon-flag:before {
+	content: "\e002";
+}
+.icon-palette:before {
+	content: "\e003";
+}
+.icon-lock:before {
+	content: "\e004";
+}
+.icon-trash:before {
+	content: "\e005";
+}
+.icon-network:before {
+	content: "\e006";
+}
+.icon-text:before {
+	content: "\e007";
+}
+.icon-megaphone:before {
+	content: "\e008";
+}
+.icon-share:before {
+	content: "\e009";
+}
