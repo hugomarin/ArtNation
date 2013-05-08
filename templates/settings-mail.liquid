@@ -1,0 +1,64 @@
+
+{% block content %}
+<!-- Header and Nav -->
+ 
+
+<div class="row">
+<!-- Nav Sidebar -->
+<div class="large-3 columns">
+ 
+ 
+{% include "side-nav" %}
+ 
+ 
+</div>
+ 
+<div class="large-9 columns">
+	<div class="settings-content">
+		<div class="panel">
+		<h3>Correo electrónico</h3>
+			
+			<div class="boxed-group-inner">
+			      <ul id="settings-emails" class="boxed-group-list standalone">
+			        <li class="clearfix settings-email">
+			          <img height="20" src="https://secure.gravatar.com/avatar/d9b97b6f5f148d8b15d996f56bcf9f91?s=140&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png" width="20"> hm@hugomarin.com
+			            <span class="label default">Default</span>
+			          <span class="email-actions">
+			      
+			
+			  <a href="/users/hugomarin/emails/2043745" class="button minibutton settings-remove-email js-remove-item js-remove-email remove danger" data-method="delete" data-remote="true">Delete</a>
+			  <a href="#" class="button minibutton settings-disabled-remove-email remove disabled danger tooltipped leftwards" original-title="At least one email is required.">Delete</a>
+			</span>
+			
+			        </li>
+			        <li class="clearfix settings-email">
+			          <img height="20" src="https://secure.gravatar.com/avatar/abcd87913f4baed356b1ebdf1f13b090?s=140&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png" width="20"> web.hugomarin@gmail.com
+			          <span class="email-actions">
+			      <a href="/users/hugomarin/emails/2365060/set_default" class="button minibutton " data-method="put">Set as Default</a>
+			
+			  <a href="/users/hugomarin/emails/2365060" class="button minibutton settings-remove-email js-remove-item js-remove-email remove danger" data-method="delete" data-remote="true">Delete</a>
+			  <a href="#" class="button minibutton settings-disabled-remove-email remove disabled danger tooltipped leftwards" original-title="At least one email is required.">Delete</a>
+			</span>
+			
+			        </li>
+			      </ul>
+			      <form accept-charset="UTF-8" action="/users/hugomarin/emails" class="new_user_email" id="new_user_email" method="post"><div style="margin:0;padding:0;display:inline"><input name="authenticity_token" type="hidden" value="MtCNUz4I6qN3/XoC4V2KYsHRWcs9R5nHoeiTKzqS1rY="></div>
+			      <dl class="form new-email-form">
+			        <dt><label>Add another email address</label></dt>
+			        <dd>
+			          <div class="fieldWithErrors"><input class="short" id="email" name="user_email[email]" required="true" size="30" tabindex="2" type="text"></div>
+			          <button type="submit" class="button">Add</button>
+			        </dd>
+			      </dl>
+			</form>    </div>
+			
+			
+		</div>
+	</div>
+</div>
+
+
+</div>
+<!-- TODO: Terminar HTML  --> 
+
+{% endblock %}

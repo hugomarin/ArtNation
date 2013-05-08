@@ -1,0 +1,52 @@
+
+{% block content %}
+<!-- Header and Nav -->
+ 
+
+<div class="row">
+<!-- Nav Sidebar -->
+<div class="large-3 columns">
+ 
+ 
+{% include "side-nav" %}
+ 
+ 
+</div>
+ 
+<div class="large-9 columns">
+	<div class="settings-content">
+		<div class="panel">
+		<h3>Perfil</h3>
+			<div class="boxed-group-inner">
+			      <h4>Participating</h4>
+			      <p>When you participate in a discussion or someone brings you in with an <a href="https://github.com/blog/821" class="user-mention">@mention</a>.</p>
+			      <ul class="compact-options">
+			        <li>
+			          <label for="participating_settings_email_1"><input id="participating_settings_email_0" name="participating_settings[email]" type="hidden" value="0"><input checked="checked" id="participating_settings_email_1" name="participating_settings[email]" tabindex="2" type="checkbox" value="1"> Email</label>
+			        </li>
+			        <li>
+			          <label for="participating_settings_web_1"><input id="participating_settings_web_0" name="participating_settings[web]" type="hidden" value="0"><input checked="checked" id="participating_settings_web_1" name="participating_settings[web]" tabindex="2" type="checkbox" value="1"> Web</label>
+			        </li>
+			      </ul>
+			      <hr class="bleed-flush compact">
+			
+			      <h4>Watching</h4>
+			      <p>Updates to any repositories or threads you’re <a href="/watching">watching</a>.</p>
+			      <ul class="compact-options">
+			        <li>
+			          <label for="subscribed_settings_email_1"><input id="subscribed_settings_email_0" name="subscribed_settings[email]" type="hidden" value="0"><input checked="checked" id="subscribed_settings_email_1" name="subscribed_settings[email]" tabindex="2" type="checkbox" value="1"> Email</label>
+			        </li>
+			        <li>
+			          <label for="subscribed_settings_web_1"><input id="subscribed_settings_web_0" name="subscribed_settings[web]" type="hidden" value="0"><input checked="checked" id="subscribed_settings_web_1" name="subscribed_settings[web]" tabindex="2" type="checkbox" value="1"> Web</label>
+			        </li>
+			      </ul>
+			    </div>
+		</div>
+	</div>
+</div>
+<!-- TODO: Terminar HTML  -->
+
+</div>
+ 
+
+{% endblock %}

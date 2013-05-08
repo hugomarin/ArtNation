@@ -11,7 +11,7 @@
   <section class="top-bar-section">
 	<!-- Left Nav Section -->
 	<ul class="left">
-	  <li {% if mixture.url == "home" %}class="active"{% endif %}><a href="inicio">Inicio</a></li>
+	  <li {% if mixture.url == "home" %}class="active"{% endif %}><a href="home">Inicio</a></li>
 	  <li {% if mixture.url == "profile" %}class="active"{% endif %} ><a href="profile">Perfil</a></li>
 	  <li {% if mixture.url == "calls" %}class="active"{% endif %}><a href="calls">Convocatorias</a></li>
 	  <li {% if mixture.url == "exhibitions" %}class="active"{% endif %}><a href="exhibitions">Exposiciones</a></li>
@@ -19,11 +19,9 @@
 
 	<!-- Right Nav Section -->
 	<ul class="right">
-		<li><a href="#"><span class="" aria-hidden="true" data-icon="&#xe00f;"></span></a></li>
-		<li><a href="#"><span class="" aria-hidden="true" data-icon="&#xe010;"></span></a></li>	
-		<li><a href="#"><span class="" aria-hidden="true" data-icon="&#xe001;"></span></a></li>
 		<li><a href="#">{{ global.user }}</a></li>
-	
+		<li><a href="#"><span class="" aria-hidden="true" data-icon="&#xe00f;"></span></a></li>
+		<li {% if mixture.url == "settings-profile" %}class="active"{% endif %}><a href="settings-profile"><span class="" aria-hidden="true" data-icon="&#xe001;"></span></a></li>
 	</ul>
   </section>
 </nav>

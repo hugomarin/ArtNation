@@ -1,0 +1,54 @@
+
+{% block content %}
+<!-- Header and Nav -->
+ 
+
+<div class="row">
+<!-- Nav Sidebar -->
+<div class="large-3 columns">
+ 
+ 
+{% include "side-nav" %}
+ 
+ 
+</div>
+ 
+<div class="large-9 columns">
+	<div class="settings-content">
+		<div class="panel">
+		<h3>Ajustes de la cuenta</h3>
+			<div class="boxed-group-inner clearfix">
+			
+			<dl class="form autosave " data-name="profile_name" data-action="/users/hugomarin">
+				<dt><label>Antigua Contraseña</label></dt>
+				<dd>
+				<input type="password" value="{{ global.user }}" tabindex="2">
+				</dd>
+			</dl>
+			
+			<dl class="form autosave " data-name="profile_email" data-action="/users/hugomarin">
+				<dt><label>Nueva Contraseña</label></dt>
+				<dd>
+				<input type="password" value="" tabindex="2">			
+				</dd>
+			</dl>
+			
+			<dl class="form autosave " data-name="profile_blog" data-action="/users/hugomarin">
+				<dt><label>Repetir Contraseña</label></dt>
+				<dd>
+				<input type="password" value="metaphysic.co" tabindex="2">
+				</dd>
+			</dl>
+			<button class="button" tabindex="2">Actualizar contraseña</button>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</div>
+ 
+
+{% endblock %}

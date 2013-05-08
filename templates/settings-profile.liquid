@@ -1,0 +1,59 @@
+
+{% block content %}
+<!-- Header and Nav -->
+ 
+
+<div class="row">
+<!-- Nav Sidebar -->
+<div class="large-3 columns">
+ 
+ 
+{% include "side-nav" %}
+ 
+ 
+</div>
+ <!-- TODO: Revisar variables  -->
+<div class="large-9 columns">
+	<div class="settings-content">
+		<div class="panel">
+		<h3>Perfil</h3>
+			<div class="boxed-group-inner clearfix">
+			
+			<dl class="form autosave " data-name="profile_name" data-action="/users/hugomarin">
+				<dt><label>Hombre</label></dt>
+				<dd>
+				<input type="text" value="{{ global.user }}" tabindex="2">
+				</dd>
+			</dl>
+			
+			<dl class="form autosave " data-name="profile_email" data-action="/users/hugomarin">
+				<dt><label>Correo electrónico</label></dt>
+				<dd>
+				<input type="text" value="" tabindex="2">			
+				</dd>
+			</dl>
+			
+			<dl class="form autosave " data-name="profile_blog" data-action="/users/hugomarin">
+				<dt><label>URL</label></dt>
+				<dd>
+				<input type="text" value="metaphysic.co" tabindex="2">
+				</dd>
+			</dl>
+			
+			<dl class="form autosave " data-name="profile_location" data-action="/users/hugomarin">
+				<dt><label>Lugar de residencia</label></dt>
+				<dd>
+				<input type="text" value="Bogotá" tabindex="2">
+				</dd>
+			</dl>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</div>
+ 
+
+{% endblock %}
