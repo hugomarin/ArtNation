@@ -1,5 +1,3 @@
-/* [sass, assets/css, app.css] */
-/* [sass, assets/css, app.css] */
 @charset "UTF-8";
 /* line 4, ../scss/foundation/components/_global.scss */
 *,
@@ -19,11 +17,11 @@ body {
 /* line 12, ../scss/foundation/components/_global.scss */
 body {
   background: white;
-  color: #272c3a;
+  color: #222222;
   padding: 0;
   margin: 0;
-  font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
-  font-weight: 300;
+  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-weight: normal;
   font-style: normal;
   line-height: 1;
   position: relative;
@@ -1428,7 +1426,7 @@ p.lead {
 /* line 111, ../scss/foundation/components/_type.scss */
 .subheader {
   line-height: 1.4;
-  color: #657195;
+  color: #6f6f6f;
   font-weight: 300;
   margin-top: 0.2em;
   margin-bottom: 0.5em;
@@ -1463,13 +1461,13 @@ td {
 /* Default Link Styles */
 /* line 146, ../scss/foundation/components/_type.scss */
 a {
-  color: #717781;
+  color: #2ba6cb;
   text-decoration: none;
   line-height: inherit;
 }
 /* line 152, ../scss/foundation/components/_type.scss */
 a:hover, a:focus {
-  color: #656a73;
+  color: #2795b6;
 }
 /* line 154, ../scss/foundation/components/_type.scss */
 a img {
@@ -1496,10 +1494,10 @@ p aside {
 /* Default header styles */
 /* line 176, ../scss/foundation/components/_type.scss */
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
-  font-weight: 500;
+  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-weight: bold;
   font-style: normal;
-  color: #272c3a;
+  color: #222222;
   text-rendering: optimizeLegibility;
   margin-top: 0.2em;
   margin-bottom: 0.5em;
@@ -1508,7 +1506,7 @@ h1, h2, h3, h4, h5, h6 {
 /* line 186, ../scss/foundation/components/_type.scss */
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
   font-size: 60%;
-  color: #657195;
+  color: #6f6f6f;
   line-height: 0;
 }
 
@@ -1646,7 +1644,7 @@ abbr,
 acronym {
   text-transform: uppercase;
   font-size: 90%;
-  color: #272c3a;
+  color: #222222;
   border-bottom: 1px dotted #dddddd;
   cursor: help;
 }
@@ -1667,7 +1665,7 @@ blockquote {
 blockquote cite {
   display: block;
   font-size: 0.8125em;
-  color: #505a77;
+  color: #555555;
 }
 /* line 310, ../scss/foundation/components/_type.scss */
 blockquote cite:before {
@@ -1676,14 +1674,14 @@ blockquote cite:before {
 /* line 315, ../scss/foundation/components/_type.scss */
 blockquote cite a,
 blockquote cite a:visited {
-  color: #505a77;
+  color: #555555;
 }
 
 /* line 321, ../scss/foundation/components/_type.scss */
 blockquote,
 blockquote p {
   line-height: 1.6;
-  color: #657195;
+  color: #6f6f6f;
 }
 
 /* Microformats */
@@ -1868,13 +1866,13 @@ button, .button {
   padding-bottom: 0.8125em;
   padding-left: 1.5em;
   font-size: 1em;
-  background-color: #717781;
-  border-color: #595e66;
+  background-color: #2ba6cb;
+  border-color: #2284a1;
   color: white;
 }
 /* line 114, ../scss/foundation/components/_buttons.scss */
 button:hover, button:focus, .button:hover, .button:focus {
-  background-color: #595e66;
+  background-color: #2284a1;
 }
 /* line 125, ../scss/foundation/components/_buttons.scss */
 button:hover, button:focus, .button:hover, .button:focus {
@@ -1966,8 +1964,8 @@ button.right-align, .button.right-align {
 }
 /* line 178, ../scss/foundation/components/_buttons.scss */
 button.disabled, button[disabled], .button.disabled, .button[disabled] {
-  background-color: #717781;
-  border-color: #595e66;
+  background-color: #2ba6cb;
+  border-color: #2284a1;
   color: white;
   cursor: default;
   opacity: 0.6;
@@ -1976,7 +1974,7 @@ button.disabled, button[disabled], .button.disabled, .button[disabled] {
 }
 /* line 114, ../scss/foundation/components/_buttons.scss */
 button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
-  background-color: #595e66;
+  background-color: #2284a1;
 }
 /* line 125, ../scss/foundation/components/_buttons.scss */
 button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
@@ -1984,7 +1982,7 @@ button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[dis
 }
 /* line 136, ../scss/foundation/components/_buttons.scss */
 button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
-  background-color: #717781;
+  background-color: #2ba6cb;
 }
 /* line 179, ../scss/foundation/components/_buttons.scss */
 button.disabled.secondary, button[disabled].secondary, .button.disabled.secondary, .button[disabled].secondary {
@@ -2352,9 +2350,9 @@ input[type="url"],
 textarea {
   background-color: white;
   font-family: inherit;
-  border: 1px solid #d9d9d9;
-  -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #cccccc;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   color: rgba(0, 0, 0, 0.75);
   display: block;
   font-size: 0.875em;
@@ -2952,7 +2950,7 @@ form.custom .custom.disabled {
 }
 /* line 78, ../scss/foundation/components/_split-buttons.scss */
 .split.button span {
-  border-left-color: #4d5158;
+  border-left-color: #1e728c;
 }
 /* line 111, ../scss/foundation/components/_split-buttons.scss */
 .split.button span {
@@ -3378,7 +3376,7 @@ form.custom .custom.disabled {
   line-height: 45px;
   position: relative;
   background: #111111;
-  margin-bottom: 0em;
+  margin-bottom: 1.875em;
 }
 /* line 71, ../scss/foundation/components/_top-bar.scss */
 .top-bar ul {
@@ -3534,12 +3532,12 @@ form.custom .custom.disabled {
 }
 /* line 222, ../scss/foundation/components/_top-bar.scss */
 .top-bar-section ul li > a.button {
-  background: #717781;
+  background: #2ba6cb;
   font-size: 0.8125em;
 }
 /* line 225, ../scss/foundation/components/_top-bar.scss */
 .top-bar-section ul li > a.button:hover {
-  background: #595e66;
+  background: #2284a1;
 }
 /* line 229, ../scss/foundation/components/_top-bar.scss */
 .top-bar-section ul li > a.button.secondary {
@@ -4501,8 +4499,8 @@ form.custom .custom.disabled {
   position: relative;
   padding: 0.6875em 1.3125em 0.75em 0.6875em;
   font-size: 0.875em;
-  background-color: #717781;
-  border-color: #595e66;
+  background-color: #2ba6cb;
+  border-color: #2284a1;
   color: white;
 }
 /* line 96, ../scss/foundation/components/_alert-boxes.scss */
@@ -4580,7 +4578,7 @@ form.custom .custom.disabled {
   font-size: 0.6875em;
   padding-left: 0.75em;
   text-transform: uppercase;
-  color: #717781;
+  color: #2ba6cb;
 }
 /* line 71, ../scss/foundation/components/_breadcrumbs.scss */
 .breadcrumbs li.current a {
@@ -4647,7 +4645,7 @@ kbd {
   position: relative;
   padding: 0.1875em 0.625em 0.25em;
   font-size: 0.875em;
-  background-color: #717781;
+  background-color: #2ba6cb;
   color: #fff;
 }
 /* line 74, ../scss/foundation/components/_labels.scss */
@@ -4734,14 +4732,14 @@ kbd {
 }
 /* line 69, ../scss/foundation/components/_pagination.scss */
 .pagination li.current a {
-  background: #717781;
+  background: #2ba6cb;
   color: white;
   font-weight: bold;
   cursor: default;
 }
 /* line 76, ../scss/foundation/components/_pagination.scss */
 .pagination li.current a:hover, .pagination li.current a:focus {
-  background: #717781;
+  background: #2ba6cb;
 }
 
 /* line 82, ../scss/foundation/components/_pagination.scss */
@@ -4789,10 +4787,10 @@ kbd {
 .panel.callout {
   border-style: solid;
   border-width: 1px;
-  border-color: #595e66;
+  border-color: #2284a1;
   margin-bottom: 1.25em;
   padding: 1.25em;
-  background: #717781;
+  background: #2ba6cb;
   -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
 }
@@ -4892,7 +4890,7 @@ kbd {
 }
 /* line 53, ../scss/foundation/components/_progress-bars.scss */
 .progress .meter {
-  background: #717781;
+  background: #2ba6cb;
   height: 100%;
   display: block;
 }
@@ -4952,7 +4950,7 @@ kbd {
 /* line 42, ../scss/foundation/components/_side-nav.scss */
 .side-nav li a {
   display: block;
-  color: #717781;
+  color: #2ba6cb;
 }
 /* line 47, ../scss/foundation/components/_side-nav.scss */
 .side-nav li.active a {
@@ -5001,7 +4999,7 @@ kbd {
   -webkit-border-radius: 1000px;
   border-radius: 1000px;
   font-weight: bold;
-  background: #717781;
+  background: #2ba6cb;
   padding: 0.1875em 0.5625em;
   cursor: default;
   color: white;
@@ -5313,8 +5311,8 @@ table tfoot tr td {
 }
 /* line 28, ../scss/foundation/components/_thumbs.scss */
 .th:hover, .th:focus {
-  -webkit-box-shadow: 0 0 6px 1px rgba(113, 119, 129, 0.5);
-  box-shadow: 0 0 6px 1px rgba(113, 119, 129, 0.5);
+  -webkit-box-shadow: 0 0 6px 1px rgba(43, 166, 203, 0.5);
+  box-shadow: 0 0 6px 1px rgba(43, 166, 203, 0.5);
 }
 /* line 40, ../scss/foundation/components/_thumbs.scss */
 .th.radius {
@@ -5332,8 +5330,8 @@ table tfoot tr td {
 }
 /* line 34, ../scss/foundation/components/_tooltips.scss */
 .has-tip:hover, .has-tip:focus {
-  border-bottom: dotted 1px #41454b;
-  color: #717781;
+  border-bottom: dotted 1px #196177;
+  color: #2ba6cb;
 }
 /* line 40, ../scss/foundation/components/_tooltips.scss */
 .has-tip.tip-left, .has-tip.tip-right {
@@ -5369,8 +5367,8 @@ table tfoot tr td {
 }
 /* line 68, ../scss/foundation/components/_tooltips.scss */
 .tooltip.opened {
-  color: #717781 !important;
-  border-bottom: dotted 1px #41454b !important;
+  color: #2ba6cb !important;
+  border-bottom: dotted 1px #196177 !important;
 }
 
 /* line 74, ../scss/foundation/components/_tooltips.scss */
@@ -5537,604 +5535,4 @@ table tfoot tr td {
 /* line 143, ../scss/foundation/components/_dropdown.scss */
 .f-dropdown.large {
   max-width: 800px;
-}
-
-@font-face {
-  font-family: 'ArtNation';
-  src: url("fonts/ArtNation.eot");
-  src: url("fonts/ArtNation.eot?#iefix") format("embedded-opentype"), url("fonts/ArtNation.woff") format("woff"), url("fonts/ArtNation.ttf") format("truetype"), url("fonts/ArtNation.svg#ArtNation") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* Use the following CSS code if you want to use data attributes for inserting your icons */
-/* line 13, ../scss/_icons.scss */
-[data-icon]:before {
-  font-family: 'ArtNation';
-  content: attr(data-icon);
-  speak: none;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Use the following CSS code if you want to have a class per icon */
-/*
-Instead of a list of all class selectors,
-you can use the generic selector below, but it's slower:
-[class*="icon-"] {
-*/
-/* line 30, ../scss/_icons.scss */
-.icon-clock, .icon-search, .icon-mail, .icon-paperplane, .icon-pencil, .icon-paperclip, .icon-reply, .icon-reply-all, .icon-forward, .icon-user, .icon-users, .icon-user-add, .icon-vcard, .icon-export, .icon-location, .icon-heart, .icon-heart-2, .icon-star, .icon-star-2, .icon-thumbs-up, .icon-thumbs-down, .icon-tag, .icon-book, .icon-graduation, .icon-newspaper, .icon-eye, .icon-briefcase, .icon-hourglass, .icon-key, .icon-brush, .icon-suitcase, .icon-earth, .icon-clipboard, .icon-checkmark, .icon-cross, .icon-minus, .icon-plus, .icon-cross-2, .icon-minus-2, .icon-plus-2, .icon-info, .icon-warning, .icon-cycle, .icon-shuffle, .icon-pictures, .icon-folder, .icon-bookmarks, .icon-disk, .icon-resize-enlarge, .icon-play, .icon-next, .icon-previous, .icon-first, .icon-last, .icon-arrow-left, .icon-arrow-down, .icon-arrow-up, .icon-arrow-right, .icon-arrow-left-2, .icon-arrow-down-2, .icon-arrow-up-2, .icon-arrow-right-2, .icon-arrow-left-3, .icon-arrow-down-3, .icon-arrow-up-3, .icon-untitled, .icon-twitter, .icon-facebook, .icon-pinterest, .icon-linkedin, .icon-docs, .icon-cog, .icon-flag, .icon-palette, .icon-lock, .icon-trash, .icon-network, .icon-text, .icon-megaphone, .icon-share {
-  font-family: 'ArtNation';
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* line 40, ../scss/_icons.scss */
-.icon-clock:before {
-  content: "\e00b";
-}
-
-/* line 43, ../scss/_icons.scss */
-.icon-search:before {
-  content: "\e00e";
-}
-
-/* line 46, ../scss/_icons.scss */
-.icon-mail:before {
-  content: "\e00f";
-}
-
-/* line 49, ../scss/_icons.scss */
-.icon-paperplane:before {
-  content: "\e010";
-}
-
-/* line 52, ../scss/_icons.scss */
-.icon-pencil:before {
-  content: "\e011";
-}
-
-/* line 55, ../scss/_icons.scss */
-.icon-paperclip:before {
-  content: "\e012";
-}
-
-/* line 58, ../scss/_icons.scss */
-.icon-reply:before {
-  content: "\e013";
-}
-
-/* line 61, ../scss/_icons.scss */
-.icon-reply-all:before {
-  content: "\e014";
-}
-
-/* line 64, ../scss/_icons.scss */
-.icon-forward:before {
-  content: "\e015";
-}
-
-/* line 67, ../scss/_icons.scss */
-.icon-user:before {
-  content: "\e016";
-}
-
-/* line 70, ../scss/_icons.scss */
-.icon-users:before {
-  content: "\e017";
-}
-
-/* line 73, ../scss/_icons.scss */
-.icon-user-add:before {
-  content: "\e018";
-}
-
-/* line 76, ../scss/_icons.scss */
-.icon-vcard:before {
-  content: "\e019";
-}
-
-/* line 79, ../scss/_icons.scss */
-.icon-export:before {
-  content: "\e01a";
-}
-
-/* line 82, ../scss/_icons.scss */
-.icon-location:before {
-  content: "\e01b";
-}
-
-/* line 85, ../scss/_icons.scss */
-.icon-heart:before {
-  content: "\e01c";
-}
-
-/* line 88, ../scss/_icons.scss */
-.icon-heart-2:before {
-  content: "\e01d";
-}
-
-/* line 91, ../scss/_icons.scss */
-.icon-star:before {
-  content: "\e01e";
-}
-
-/* line 94, ../scss/_icons.scss */
-.icon-star-2:before {
-  content: "\e01f";
-}
-
-/* line 97, ../scss/_icons.scss */
-.icon-thumbs-up:before {
-  content: "\e020";
-}
-
-/* line 100, ../scss/_icons.scss */
-.icon-thumbs-down:before {
-  content: "\e021";
-}
-
-/* line 103, ../scss/_icons.scss */
-.icon-tag:before {
-  content: "\e022";
-}
-
-/* line 106, ../scss/_icons.scss */
-.icon-book:before {
-  content: "\e023";
-}
-
-/* line 109, ../scss/_icons.scss */
-.icon-graduation:before {
-  content: "\e024";
-}
-
-/* line 112, ../scss/_icons.scss */
-.icon-newspaper:before {
-  content: "\e025";
-}
-
-/* line 115, ../scss/_icons.scss */
-.icon-eye:before {
-  content: "\e026";
-}
-
-/* line 118, ../scss/_icons.scss */
-.icon-briefcase:before {
-  content: "\e027";
-}
-
-/* line 121, ../scss/_icons.scss */
-.icon-hourglass:before {
-  content: "\e028";
-}
-
-/* line 124, ../scss/_icons.scss */
-.icon-key:before {
-  content: "\e029";
-}
-
-/* line 127, ../scss/_icons.scss */
-.icon-brush:before {
-  content: "\e02a";
-}
-
-/* line 130, ../scss/_icons.scss */
-.icon-suitcase:before {
-  content: "\e02b";
-}
-
-/* line 133, ../scss/_icons.scss */
-.icon-earth:before {
-  content: "\e02c";
-}
-
-/* line 136, ../scss/_icons.scss */
-.icon-clipboard:before {
-  content: "\e02d";
-}
-
-/* line 139, ../scss/_icons.scss */
-.icon-checkmark:before {
-  content: "\e02e";
-}
-
-/* line 142, ../scss/_icons.scss */
-.icon-cross:before {
-  content: "\e02f";
-}
-
-/* line 145, ../scss/_icons.scss */
-.icon-minus:before {
-  content: "\e030";
-}
-
-/* line 148, ../scss/_icons.scss */
-.icon-plus:before {
-  content: "\e031";
-}
-
-/* line 151, ../scss/_icons.scss */
-.icon-cross-2:before {
-  content: "\e032";
-}
-
-/* line 154, ../scss/_icons.scss */
-.icon-minus-2:before {
-  content: "\e033";
-}
-
-/* line 157, ../scss/_icons.scss */
-.icon-plus-2:before {
-  content: "\e034";
-}
-
-/* line 160, ../scss/_icons.scss */
-.icon-info:before {
-  content: "\e035";
-}
-
-/* line 163, ../scss/_icons.scss */
-.icon-warning:before {
-  content: "\e036";
-}
-
-/* line 166, ../scss/_icons.scss */
-.icon-cycle:before {
-  content: "\e037";
-}
-
-/* line 169, ../scss/_icons.scss */
-.icon-shuffle:before {
-  content: "\e038";
-}
-
-/* line 172, ../scss/_icons.scss */
-.icon-pictures:before {
-  content: "\e039";
-}
-
-/* line 175, ../scss/_icons.scss */
-.icon-folder:before {
-  content: "\e03a";
-}
-
-/* line 178, ../scss/_icons.scss */
-.icon-bookmarks:before {
-  content: "\e03b";
-}
-
-/* line 181, ../scss/_icons.scss */
-.icon-disk:before {
-  content: "\e03c";
-}
-
-/* line 184, ../scss/_icons.scss */
-.icon-resize-enlarge:before {
-  content: "\e03d";
-}
-
-/* line 187, ../scss/_icons.scss */
-.icon-play:before {
-  content: "\e03e";
-}
-
-/* line 190, ../scss/_icons.scss */
-.icon-next:before {
-  content: "\e03f";
-}
-
-/* line 193, ../scss/_icons.scss */
-.icon-previous:before {
-  content: "\e040";
-}
-
-/* line 196, ../scss/_icons.scss */
-.icon-first:before {
-  content: "\e041";
-}
-
-/* line 199, ../scss/_icons.scss */
-.icon-last:before {
-  content: "\e042";
-}
-
-/* line 202, ../scss/_icons.scss */
-.icon-arrow-left:before {
-  content: "\e043";
-}
-
-/* line 205, ../scss/_icons.scss */
-.icon-arrow-down:before {
-  content: "\e044";
-}
-
-/* line 208, ../scss/_icons.scss */
-.icon-arrow-up:before {
-  content: "\e045";
-}
-
-/* line 211, ../scss/_icons.scss */
-.icon-arrow-right:before {
-  content: "\e046";
-}
-
-/* line 214, ../scss/_icons.scss */
-.icon-arrow-left-2:before {
-  content: "\e047";
-}
-
-/* line 217, ../scss/_icons.scss */
-.icon-arrow-down-2:before {
-  content: "\e048";
-}
-
-/* line 220, ../scss/_icons.scss */
-.icon-arrow-up-2:before {
-  content: "\e049";
-}
-
-/* line 223, ../scss/_icons.scss */
-.icon-arrow-right-2:before {
-  content: "\e04a";
-}
-
-/* line 226, ../scss/_icons.scss */
-.icon-arrow-left-3:before {
-  content: "\e04b";
-}
-
-/* line 229, ../scss/_icons.scss */
-.icon-arrow-down-3:before {
-  content: "\e04c";
-}
-
-/* line 232, ../scss/_icons.scss */
-.icon-arrow-up-3:before {
-  content: "\e04d";
-}
-
-/* line 235, ../scss/_icons.scss */
-.icon-untitled:before {
-  content: "\e04e";
-}
-
-/* line 238, ../scss/_icons.scss */
-.icon-twitter:before {
-  content: "\e04f";
-}
-
-/* line 241, ../scss/_icons.scss */
-.icon-facebook:before {
-  content: "\e050";
-}
-
-/* line 244, ../scss/_icons.scss */
-.icon-pinterest:before {
-  content: "\e051";
-}
-
-/* line 247, ../scss/_icons.scss */
-.icon-linkedin:before {
-  content: "\e052";
-}
-
-/* line 250, ../scss/_icons.scss */
-.icon-docs:before {
-  content: "\e000";
-}
-
-/* line 253, ../scss/_icons.scss */
-.icon-cog:before {
-  content: "\e001";
-}
-
-/* line 256, ../scss/_icons.scss */
-.icon-flag:before {
-  content: "\e002";
-}
-
-/* line 259, ../scss/_icons.scss */
-.icon-palette:before {
-  content: "\e003";
-}
-
-/* line 262, ../scss/_icons.scss */
-.icon-lock:before {
-  content: "\e004";
-}
-
-/* line 265, ../scss/_icons.scss */
-.icon-trash:before {
-  content: "\e005";
-}
-
-/* line 268, ../scss/_icons.scss */
-.icon-network:before {
-  content: "\e006";
-}
-
-/* line 271, ../scss/_icons.scss */
-.icon-text:before {
-  content: "\e007";
-}
-
-/* line 274, ../scss/_icons.scss */
-.icon-megaphone:before {
-  content: "\e008";
-}
-
-/* line 277, ../scss/_icons.scss */
-.icon-share:before {
-  content: "\e009";
-}
-
-/*Aux*/
-/* line 5, ../scss/_aux.scss */
-.no-margin {
-  margin: 0;
-}
-
-/*Variables*/
-/* line 20, ../scss/_aux.scss */
-.panoramic {
-  *zoom: 1;
-  background-color: #f0f1f2;
-  margin-bottom: 2em;
-}
-/* line 184, ../scss/foundation/_foundation-global.scss */
-.panoramic:before, .panoramic:after {
-  content: " ";
-  display: table;
-}
-/* line 185, ../scss/foundation/_foundation-global.scss */
-.panoramic:after {
-  clear: both;
-}
-/* line 27, ../scss/_aux.scss */
-.panoramic li {
-  display: inline-block;
-  padding-top: 0.9375em;
-  padding-bottom: 0.9375em;
-  float: left;
-  text-align: center;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-/* line 35, ../scss/_aux.scss */
-.panoramic li small {
-  font-size: 12px;
-  font-weight: bold;
-  color: #a7abb1;
-}
-/* line 37, ../scss/_aux.scss */
-.panoramic li h3 {
-  color: #7e848e;
-}
-/* line 42, ../scss/_aux.scss */
-.panoramic.three li {
-  width: 33.33333%;
-  margin: 0;
-}
-/* line 49, ../scss/_aux.scss */
-.panoramic.four li {
-  width: 25%;
-}
-/* line 54, ../scss/_aux.scss */
-.panoramic.five li {
-  width: 20%;
-}
-
-/* line 60, ../scss/_aux.scss */
-.panel {
-  border: none;
-}
-
-/* line 64, ../scss/_aux.scss */
-.button {
-  -moz-box-shadow: 0 0 0;
-  -webkit-box-shadow: 0 0 0;
-  box-shadow: 0 0 0;
-}
-
-/* line 70, ../scss/_aux.scss */
-p.small {
-  font-size: 0.8125em;
-}
-
-/* line 74, ../scss/_aux.scss */
-.x-small {
-  font-size: 0.75em;
-  color: #c4c4c4;
-}
-
-/* line 79, ../scss/_aux.scss */
-.stream-filter {
-  margin: 0.375em 0 0;
-}
-
-/* line 84, ../scss/_aux.scss */
-article.main {
-  background-color: #f7f7f7;
-  border-bottom: 2px solid #e6e6e6;
-  margin-bottom: 1em;
-  min-height: 550px;
-  position: relative;
-  z-index: 1;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1px;
-}
-
-/* line 96, ../scss/_aux.scss */
-.share-panel {
-  background-color: #f7f7f7;
-  border-bottom: 2px solid #e6e6e6;
-  margin-bottom: 1em;
-  position: relative;
-  z-index: 1;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1px;
-  padding: .5em;
-}
-
-/* line 106, ../scss/_aux.scss */
-.article-head {
-  position: relative;
-  z-index: 10;
-}
-
-/* line 116, ../scss/_aux.scss */
-.article-img {
-  position: relative;
-  overflow: hidden;
-  height: auto;
-  width: 100%;
-  z-index: 10;
-}
-
-/* line 125, ../scss/_aux.scss */
-.article-img img {
-  width: 100%;
-}
-
-/* line 134, ../scss/_aux.scss */
-.article-text, .article-footer, .article-comment {
-  padding: .5em;
-}
-
-/* line 138, ../scss/_aux.scss */
-.article-comment {
-  background-color: #e0e0e0;
-}
-
-/* line 143, ../scss/_aux.scss */
-.full-img {
-  height: auto;
-  width: 100%;
-}
-
-/* line 149, ../scss/_aux.scss */
-.full-profile-work {
-  bottom: 0;
-  color: #fff;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 0;
-  overflow: hidden;
-  position: relative;
-  right: 0;
-  vertical-align: middle;
-  height: 400px;
 }

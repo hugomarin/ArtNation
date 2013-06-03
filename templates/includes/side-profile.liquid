@@ -1,0 +1,22 @@
+	<div class="sidebar-avatar">
+		<a href="#"><img src="{{ global.user_img }}" class="th" /></a>
+	</div>
+
+	 <div class="sidebar" itemscope="" itemtype="http://schema.org/Person">
+	 
+	 <h4><a href="#">{{ global.user }}</a></h4>
+	 <a href="#" class="button small primary"><span aria-hidden="true" data-icon="&#xe017;"></span> Seguir</a>
+	 <a href="#" class="button small primary"><span aria-hidden="true" data-icon="&#xe00f;"></span> Mensaje</a>
+	 <div class="details">
+			<ul class="side-nav">
+			  <li>{{ global.user_statement | truncate:200  }} <a href="#">Ver más</a></li>
+			   <li class="divider"></li>
+			  <li><span aria-hidden="true" data-icon="&#xe027;"></span> Portafolio {{ global.user_url }}</li>
+			  <li><span aria-hidden="true" data-icon="&#xe01b;"></span> Vive en {{ global.user_city }}, {{ global.user_country }}</li>
+			  <li><span aria-hidden="true" data-icon="&#xe024;"></span> Estudió en {{ global.user_study | truncate:10 }}</li>
+			  <li><span aria-hidden="true" data-icon="&#xe017;"></span> {{ global.user_follow }} personas lo siguen</li>
+			  <li><span aria-hidden="true" data-icon="&#xe00b;"></span> Registrado desde {{ global.user_registry }} </li>
+			</ul>
+	 </div>
+	 
+	 </div>

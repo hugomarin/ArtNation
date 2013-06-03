@@ -8,7 +8,7 @@
   "preprocessorStyleOutput": "assets/css",
   "projectDescription": "The most advanced responsive front-end framework in the world.",
   "projectName": "ArtNation",
-  "publishedId": null,
+  "publishedId": "3598",
   "serverHostname": null,
   "serverPort": null,
   "simpleModePartnerServer": null,
@@ -16,5 +16,5 @@
   "templateDefaultPage": "profile",
   "templateDirectory": "templates",
   "type": "mixture",
-  "useCompass": false
+  "useCompass": true
 }

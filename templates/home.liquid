@@ -3,77 +3,31 @@
  
 
 <div class="row">
-<!-- Nav Sidebar -->
-<div class="large-3 columns">
- {% include "sidebar" %}
-</div>
- 
- <div class="large-9 columns">
-
-   <!-- Feed Entry -->
-   <div class="row">
-     <div class="large-2 columns small-3"><a href="#"><img src="https://dl.dropboxusercontent.com/u/991960/profile.jpg" /></a></div>
-     <div class="large-10 columns">
-       <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
-       <ul class="inline-list">
-         <li><a href="">Reply</a></li>
-         <li><a href="">Share</a></li>
-       </ul>
-
-
-       <h6>2 Comments</h6>
-       <div class="row">
-         <div class="large-2 columns small-3"><a href="#"><img src="https://dl.dropboxusercontent.com/u/991960/profile.jpg" /></a></div>
-         <div class="large-10 columns"><p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit</p></div>
-       </div>
-       <div class="row">
-         <div class="large-2 columns small-3"><a href="#"><img src="https://dl.dropboxusercontent.com/u/991960/profile.jpg" /></a></div>
-         <div class="large-10 columns"><p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit</p></div>
-       </div>
-     </div>
-   </div>
-   <!-- End Feed Entry -->
-
-   <hr />
-
-   <!-- Feed Entry -->
-   <div class="row">
-     <div class="large-2 columns small-3"><a href="#"><img src="https://dl.dropboxusercontent.com/u/991960/profile.jpg" /></a></div>
-     <div class="large-10 columns">
-       <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
-       <ul class="inline-list">
-         <li><a href="">Reply</a></li>
-         <li><a href="">Share</a></li>
-       </ul>
-     </div>
-   </div>
-   <!-- End Feed Entry -->
-
-   <hr />
-
-   <!-- Feed Entry -->
-   <div class="row">
-     <div class="large-2 columns small-3"><a href="#"><img src="https://dl.dropboxusercontent.com/u/991960/profile.jpg" /></a></div>
-     <div class="large-10 columns">
-       <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
-       <ul class="inline-list">
-         <li><a href="">Reply</a></li>
-         <li><a href="">Share</a></li>
-       </ul>
-
-
-       <h6>2 Comments</h6>
-       <div class="row">
-         <div class="large-2 columns small-3"><a href="#"><img src="https://dl.dropboxusercontent.com/u/991960/profile.jpg" /></a></div>
-         <div class="large-10 columns"><p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit</p></div>
-       </div>
-     </div>
-   </div>
-   <!-- End Feed Entry -->
-
- </div>
-
-
+	<!-- Nav Sidebar -->
+	<!--<div class="large-3 columns">
+	 {% include "side-profile" %}
+	</div>-->
+	 
+	<!-- Feed -->
+	<div class="large-12 columns">
+		<div class="row">
+			<div class="large-6 columns">
+				<h4 class="subheader no-margin">Actividad reciente</h4>
+			</div>
+			<div class="large-6 columns">
+				<dl class="sub-nav right stream-filter">
+				  <dd class="active"><a href="#">Todo</a></dd>
+				  <dd><a href="#">Seguidores</a></dd>
+				  <dd><a href="#">Exposiciones</a></dd>
+				  <dd><a href="#">Convocatorias</a></dd>
+				</dl>
+			</div>
+			
+			
+		</div>
+	   <hr />
+		{% include "stream" %}
+	</div>
 </div>
  
  {% endblock %}

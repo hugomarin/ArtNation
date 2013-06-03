@@ -1,3 +1,5 @@
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
 
 /*Aux*/
 .no-margin {
@@ -7,8 +9,8 @@
 /*Variables*/
 
 $primary : #717781;
-
-
+$black : #000;
+$white : #fff;
 
 
 @function quantity($context:4) {
@@ -58,4 +60,104 @@ $primary : #717781;
 .panel {
 	border: none;
 }
+
+.button {
+	-moz-box-shadow: 0 0 0;
+	-webkit-box-shadow: 0 0 0;
+	box-shadow: 0 0 0;
+}
+
+p.small {
+	font-size: emCalc(13px);
+}
+
+.x-small {
+	font-size: emCalc(12px);
+	color: lighten( $black, 77% );
+}
+
+.stream-filter {
+	margin: emCalc(6px) 0 0;
+}
+
+
+article.main {
+	background-color: lighten( $black, 97% );
+	border-bottom: 2px solid lighten( $black, 90% );
+	margin-bottom: 1em;
+	min-height: 550px;
+	position: relative;
+	z-index: 1;
+	@include box-shadow(rgba(0,0,0,0.2) 0px 0px 1px);
+
+	
+}
+
+.share-panel {
+	background-color: lighten( $black, 97% );
+	border-bottom: 2px solid lighten( $black, 90% );
+	margin-bottom: 1em;
+	position: relative;
+	z-index: 1;
+	@include box-shadow(rgba(0,0,0,0.2) 0px 0px 1px);
+	padding: .5em;	
+}
+
+.article-head {
+	position: relative;
+	z-index: 10;
+
+}
+
+
+
+
+
+.article-img {
+position: relative;
+overflow: hidden;
+height: auto;
+width: 100%;
+z-index: 10;
+
+}
+
+.article-img img {
+width: 100%;
+
+}
+
+
+
+
+
+.article-text, .article-footer, .article-comment  {
+	padding: .5em;
+}
+
+.article-comment  {
+	background-color: lighten( $black, 88% );
+}
+
+
+.full-img {
+height: auto;
+width: 100%;
+}
+
+
+.full-profile-work {
+bottom: 0;
+color: #fff;
+font-size: 20px;
+font-weight: bold;
+line-height: 0;
+overflow: hidden;
+position: relative;
+right: 0;
+vertical-align: middle;
+height: 400px;
+}
+
+
 
