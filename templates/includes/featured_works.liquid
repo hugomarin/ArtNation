@@ -1,35 +1,74 @@
-<div class="panel featured_works">
+<div class="featured_works">
 	<div class="row">
 		<div class="large-9 columns">
 			<h4 class="subheader"><strong>Obras</strong> destacadas</h4>
 		</div>
 		<div class="large-3 columns">
-			<a href="http://" class="label right round">Agregar</a>
+			<a href="http://" class="button tiny secondary right radius">Agregar</a>
 		</div>
 		
 	</div>
-	<div class="row">
-		<div class="large-12 columns">
-			<ul class="no-bullet">
-			{% for item in model.works %}
-				<li>
-					<div class="row">
-						<div class="large-3 columns">
-							<img src="{{ item.image }}" alt="{{ item.name }}" /> 
-						</div>
-						
-						<div class="large-9 columns">
-							<div> 
-							<h5>{{ item.name }} <small>{{ item.type }}, {{ item.duration }}, {{ item.year }}, {{ item.dimension }} </small> </h5> 
-							    <p>{{ item.description | truncatewords: 52 }}</p>   
-							</div>
-						</div>
-					</div>
-					<hr />
-				</li>
-			{% endfor %}
-			</ul>
-		</div>
-	</div>
+	
+	
+	
+	
+	
+</div>
 
+<div class="section-container tabs" data-section="tabs">
+  <section>
+    <p class="title" data-section-title><a href="#">Obras</a></p>
+    <div class="content" data-section-content>
+		
+		<ul class="large-block-grid-4  small-block-grid-2">
+				{% for item in model.works %}
+					<li>
+						<article class="work-item">
+							<div class="work-item-img">
+								<a href="#"><img src="{{ item.image }}" alt="{{ item.name }}" /> </a>
+							</div>
+							<header class="work-item-header">
+								<h3 class="no-margin"><small><a href="#">{{ item.name }}</a></small></h3>
+								<p class="x-small">{{ item.type }}, {{ item.duration }}, {{ item.year }}, {{ item.dimension }} </p>
+							</header>
+							
+							<section class="work-item-description">
+								<p class="small">{{ item.description | truncate: 120 }}</p>	
+							</section>
+						</article>
+					</li>
+				{% endfor %}
+		</ul> 
+  
+    </div>
+  </section>
+  
+  
+  
+  <section>
+    <p class="title" data-section-title><a href="#">Proyectos</a></p>
+    <div class="content" data-section-content>
+      
+      <ul class="large-block-grid-4 small-block-grid-2">
+      		{% for item in model.works %}
+      			<li>
+      				<article class="work-item">
+      					<div class="work-item-img">
+      						<img src="{{ item.image }}" alt="{{ item.name }}" /> 
+      					</div>
+      					<header class="work-item-header">
+      						<h3 class="no-margin"><small>{{ item.name }}</small></h3>
+      						<p class="x-small">{{ item.type }}, {{ item.duration }}, {{ item.year }}, {{ item.dimension }} </p>
+      					</header>
+      					
+      					<section class="work-item-description">
+      						<p class="small">{{ item.description | truncate: 120 }}</p>	
+      					</section>
+      				</article>
+      			</li>
+      		{% endfor %}
+      </ul>
+      
+    </div>
+  </section>
 </div>

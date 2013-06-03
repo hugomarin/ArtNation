@@ -136,16 +136,6 @@
 		
 		{
 			"type": "Vídeo",
-			"name": "Antropofagia",
-			"image": "https://dl.dropboxusercontent.com/u/991960/antropofagia.jpg",
-			"year": "2006",
-			"dimension": "720 x 480",
-			"description": "",
-			"duration": "2:16min"
-		},
-		
-		{
-			"type": "Vídeo",
 			"name": "Teoría del Color",
 			"image": "https://dl.dropboxusercontent.com/u/991960/teoria.jpg",
 			"year": "2011",

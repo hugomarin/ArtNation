@@ -104,14 +104,14 @@
 
 // These control how subheaders are styled.
 // $subheader-line-height: 1.4;
-// $subheader-font-color: lighten($header-font-color, 30%);
+   $subheader-font-color: lighten($header-font-color, 10%);
 // $subheader-font-weight: 300;
 // $subheader-top-margin: .2em;
 // $subheader-bottom-margin: .5em;
 
 // A general <small> styling
 // $small-font-size: 60%;
-// $small-font-color: lighten($header-font-color, 30%);
+   $small-font-color: lighten($header-font-color, 10%);
 
 // We use these to style paragraphs
 // $paragraph-font-family: inherit;
@@ -811,7 +811,7 @@
 // $section-title-bg-active-tabs: #fff;
 
 // Want to control border size, here ya go!
-// $section-border-size: 1px;
+   $section-border-size: 0px;
 // $section-border-style: solid;
 // $section-border-color: #ccc;
 

@@ -1,5 +1,4 @@
 /* [sass, assets/css, app.css] */
-/* [sass, assets/css, app.css] */
 @charset "UTF-8";
 /* line 4, ../scss/foundation/components/_global.scss */
 *,
@@ -1428,7 +1427,7 @@ p.lead {
 /* line 111, ../scss/foundation/components/_type.scss */
 .subheader {
   line-height: 1.4;
-  color: #657195;
+  color: #3c4358;
   font-weight: 300;
   margin-top: 0.2em;
   margin-bottom: 0.5em;
@@ -1508,7 +1507,7 @@ h1, h2, h3, h4, h5, h6 {
 /* line 186, ../scss/foundation/components/_type.scss */
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
   font-size: 60%;
-  color: #657195;
+  color: #3c4358;
   line-height: 0;
 }
 
@@ -3089,14 +3088,14 @@ form.custom .custom.disabled {
   width: 100%;
   display: block;
   margin-bottom: 1.25em;
-  border: 1px solid #cccccc;
+  border: 0px solid #cccccc;
   border-top: none;
 }
 /* line 210, ../scss/foundation/components/_section.scss */
 .section-container section,
 .section-container .section, .section-container.auto section,
 .section-container.auto .section {
-  border-top: 1px solid #cccccc;
+  border-top: 0px solid #cccccc;
   position: relative;
 }
 /* line 74, ../scss/foundation/components/_section.scss */
@@ -3181,7 +3180,7 @@ form.custom .custom.disabled {
 .section-container.tabs section .title,
 .section-container.tabs .section .title {
   width: auto;
-  border: 1px solid #cccccc;
+  border: 0px solid #cccccc;
   border-right: 0;
   border-bottom: 0;
   position: absolute;
@@ -3195,12 +3194,12 @@ form.custom .custom.disabled {
 /* line 127, ../scss/foundation/components/_section.scss */
 .section-container.tabs section:last-child .title,
 .section-container.tabs .section:last-child .title {
-  border-right: 1px solid #cccccc;
+  border-right: 0px solid #cccccc;
 }
 /* line 129, ../scss/foundation/components/_section.scss */
 .section-container.tabs section .content,
 .section-container.tabs .section .content {
-  border: 1px solid #cccccc;
+  border: 0px solid #cccccc;
   position: absolute;
   z-index: 10;
   top: -1px;
@@ -3235,7 +3234,7 @@ form.custom .custom.disabled {
   .section-container.auto section .title,
   .section-container.auto .section .title {
     width: auto;
-    border: 1px solid #cccccc;
+    border: 0px solid #cccccc;
     border-right: 0;
     border-bottom: 0;
     position: absolute;
@@ -3249,12 +3248,12 @@ form.custom .custom.disabled {
   /* line 127, ../scss/foundation/components/_section.scss */
   .section-container.auto section:last-child .title,
   .section-container.auto .section:last-child .title {
-    border-right: 1px solid #cccccc;
+    border-right: 0px solid #cccccc;
   }
   /* line 129, ../scss/foundation/components/_section.scss */
   .section-container.auto section .content,
   .section-container.auto .section .content {
-    border: 1px solid #cccccc;
+    border: 0px solid #cccccc;
     position: absolute;
     z-index: 10;
     top: -1px;
@@ -3279,7 +3278,7 @@ form.custom .custom.disabled {
 
   /* line 234, ../scss/foundation/components/_section.scss */
   .section-container.vertical-nav {
-    border: 1px solid #cccccc;
+    border: 0px solid #cccccc;
     border-top: none;
   }
   /* line 238, ../scss/foundation/components/_section.scss */
@@ -3307,14 +3306,14 @@ form.custom .custom.disabled {
     top: -1px;
     z-index: 999;
     min-width: 12.5em;
-    border: 1px solid #cccccc;
+    border: 0px solid #cccccc;
   }
 
   /* line 241, ../scss/foundation/components/_section.scss */
   .section-container.horizontal-nav {
     position: relative;
     background: #efefef;
-    border: 1px solid #cccccc;
+    border: 0px solid #cccccc;
   }
   /* line 245, ../scss/foundation/components/_section.scss */
   .section-container.horizontal-nav section,
@@ -3327,7 +3326,7 @@ form.custom .custom.disabled {
   .section-container.horizontal-nav section .title,
   .section-container.horizontal-nav .section .title {
     width: auto;
-    border: 1px solid #cccccc;
+    border: 0px solid #cccccc;
     border-left: 0;
     top: -1px;
     position: absolute;
@@ -3352,7 +3351,7 @@ form.custom .custom.disabled {
     left: 0;
     top: -2px;
     min-width: 12.5em;
-    border: 1px solid #cccccc;
+    border: 0px solid #cccccc;
   }
 }
 /* Wrapped around .top-bar to contain to grid width */
@@ -5985,7 +5984,7 @@ you can use the generic selector below, but it's slower:
 }
 
 /*Variables*/
-/* line 20, ../scss/_aux.scss */
+/* line 28, ../scss/_aux.scss */
 .panoramic {
   *zoom: 1;
   background-color: #f0f1f2;
@@ -6000,7 +5999,7 @@ you can use the generic selector below, but it's slower:
 .panoramic:after {
   clear: both;
 }
-/* line 27, ../scss/_aux.scss */
+/* line 35, ../scss/_aux.scss */
 .panoramic li {
   display: inline-block;
   padding-top: 0.9375em;
@@ -6011,72 +6010,72 @@ you can use the generic selector below, but it's slower:
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 35, ../scss/_aux.scss */
+/* line 43, ../scss/_aux.scss */
 .panoramic li small {
   font-size: 12px;
   font-weight: bold;
   color: #a7abb1;
 }
-/* line 37, ../scss/_aux.scss */
+/* line 45, ../scss/_aux.scss */
 .panoramic li h3 {
   color: #7e848e;
 }
-/* line 42, ../scss/_aux.scss */
+/* line 50, ../scss/_aux.scss */
 .panoramic.three li {
   width: 33.33333%;
   margin: 0;
 }
-/* line 49, ../scss/_aux.scss */
+/* line 57, ../scss/_aux.scss */
 .panoramic.four li {
   width: 25%;
 }
-/* line 54, ../scss/_aux.scss */
+/* line 62, ../scss/_aux.scss */
 .panoramic.five li {
   width: 20%;
 }
 
-/* line 60, ../scss/_aux.scss */
+/* line 68, ../scss/_aux.scss */
 .panel {
   border: none;
 }
 
-/* line 64, ../scss/_aux.scss */
+/* line 72, ../scss/_aux.scss */
 .button {
   -moz-box-shadow: 0 0 0;
   -webkit-box-shadow: 0 0 0;
   box-shadow: 0 0 0;
 }
 
-/* line 70, ../scss/_aux.scss */
+/* line 78, ../scss/_aux.scss */
 p.small {
   font-size: 0.8125em;
 }
 
-/* line 74, ../scss/_aux.scss */
+/* line 82, ../scss/_aux.scss */
 .x-small {
   font-size: 0.75em;
   color: #c4c4c4;
 }
 
-/* line 79, ../scss/_aux.scss */
+/* line 87, ../scss/_aux.scss */
 .stream-filter {
   margin: 0.375em 0 0;
 }
 
-/* line 84, ../scss/_aux.scss */
+/* line 92, ../scss/_aux.scss */
 article.main {
-  background-color: #f7f7f7;
+  background-color: #fafafa;
   border-bottom: 2px solid #e6e6e6;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px;
   margin-bottom: 1em;
   min-height: 550px;
   position: relative;
   z-index: 1;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1px;
 }
 
-/* line 96, ../scss/_aux.scss */
+/* line 101, ../scss/_aux.scss */
 .share-panel {
   background-color: #f7f7f7;
   border-bottom: 2px solid #e6e6e6;
@@ -6089,13 +6088,13 @@ article.main {
   padding: .5em;
 }
 
-/* line 106, ../scss/_aux.scss */
+/* line 111, ../scss/_aux.scss */
 .article-head {
   position: relative;
   z-index: 10;
 }
 
-/* line 116, ../scss/_aux.scss */
+/* line 121, ../scss/_aux.scss */
 .article-img {
   position: relative;
   overflow: hidden;
@@ -6104,28 +6103,28 @@ article.main {
   z-index: 10;
 }
 
-/* line 125, ../scss/_aux.scss */
+/* line 130, ../scss/_aux.scss */
 .article-img img {
   width: 100%;
 }
 
-/* line 134, ../scss/_aux.scss */
+/* line 139, ../scss/_aux.scss */
 .article-text, .article-footer, .article-comment {
   padding: .5em;
 }
 
-/* line 138, ../scss/_aux.scss */
+/* line 143, ../scss/_aux.scss */
 .article-comment {
   background-color: #e0e0e0;
 }
 
-/* line 143, ../scss/_aux.scss */
+/* line 148, ../scss/_aux.scss */
 .full-img {
   height: auto;
   width: 100%;
 }
 
-/* line 149, ../scss/_aux.scss */
+/* line 154, ../scss/_aux.scss */
 .full-profile-work {
   bottom: 0;
   color: #fff;
@@ -6137,4 +6136,77 @@ article.main {
   right: 0;
   vertical-align: middle;
   height: 400px;
+}
+
+/* line 167, ../scss/_aux.scss */
+.work-item {
+  background-color: #fafafa;
+  border-bottom: 2px solid #e6e6e6;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px;
+  margin-bottom: 1em;
+  min-height: 320px;
+  position: relative;
+  z-index: 1;
+}
+
+/* line 175, ../scss/_aux.scss */
+.work-item-description p {
+  color: #737373;
+}
+
+/* line 179, ../scss/_aux.scss */
+.section-container section.active .content {
+  padding: 0;
+  padding-top: 0.9375em;
+}
+
+/* line 184, ../scss/_aux.scss */
+.section-container section .title a {
+  background-color: white;
+  font-weight: 400;
+  color: #b3b3b3;
+}
+
+/* line 190, ../scss/_aux.scss */
+.section-container section.active .title a {
+  font-weight: 600;
+  color: #1a1a1a;
+  border-bottom: 3px solid #1a1a1a;
+}
+
+/* line 196, ../scss/_aux.scss */
+.work-item-description, .work-item-header {
+  padding: 0 0.625em 0 0.625em;
+}
+
+/* line 200, ../scss/_aux.scss */
+.panel {
+  background-color: #fafafa;
+  border-bottom: 2px solid #e6e6e6;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px;
+  margin-bottom: 1em;
+  position: relative;
+  z-index: 1;
+}
+
+/* line 207, ../scss/_aux.scss */
+.profile-resume {
+  background-color: black;
+  padding-top: 1.25em;
+  padding-bottom: 1.25em;
+}
+
+/* line 213, ../scss/_aux.scss */
+.main-avatar {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
 }

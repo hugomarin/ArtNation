@@ -9,23 +9,46 @@
 	</div>
 </section>
 
+<section class="profile-resume">
+	<div class="row">
+		<div class="large-2 columns">
+	 		<div class="avatar">
+	 			<a href="#"><img src="{{ global.user_img }}" class="main-avatar" /></a>
+	 		</div>
+		</div>
+		
+		<div class="large-10 columns">
+ 		 	<h2 class="no-margin"><small>{{ global.user | truncate:15 }}</small></h2>
+ 		 	<small class="subheader"> {{ city }}, {{ country }} | {{ age }} años</small>
+ 		 		
+ 		 			 <p>	
+ 		 			 	{% for item in activities %}
+ 		 			 		<span class="label primary radius">{{ item.activity }}</span>
+ 		 			 	{% endfor %}
+ 		 			 </p>
+ 		 			 
+ 		 			 <a href="#" class="button small primary"><span aria-hidden="true" data-icon="&#xe017;"></span> Seguir</a>
+ 		 			 <a href="#" class="button small primary"><span aria-hidden="true" data-icon="&#xe00f;"></span> Mensaje</a>
+ 		 			 
+ 		 			 <div class="large-12 columns">
+ 		 			 	{% include "artist_resume" %}
+ 		 			 </div>
+		</div>
+			 		 
+	</div>
+</section>
+
 <header>
 <div class="row">
-	<div class="large-6 columns">
+	<div  class="large-6 columns">
 		 
-		 <h2 class="no-margin">{{ global.user | truncate:15 }}<small class="subheader"> {{ city }}, {{ country }} | {{ age }} años</small></h2>
-		 
-			 <p>	
-			 	{% for item in activities %}
-			 		<span class="label primary radius">{{ item.activity }}</span>
-			 	{% endfor %}
-			 </p>
+
 		
 	</div>
 	
 	<div class="large-6 columns">
 		<dl class="sub-nav right stream-filter">
-		  <dd class="active""><a href="#">Tu perfil</a></dd>
+		  <dd class="active"><a href="#">Tu perfil</a></dd>
 		  <dd><a href="#">Tus convocatorias</a></dd>
 		  <dd><a href="#">Tus exposiciones</a></dd>
 		</dl>
@@ -35,28 +58,22 @@
 
 
 	<div class="row">
-	 	<div class="sidebar-avatar">
-	 		<a href="#"><img src="{{ global.user_img }}" class="th" /></a>
-	 	</div>
-	 	
-	 	 <div class="sidebar" itemscope="" itemtype="http://schema.org/Person">
+		<div class="large-3 columns">
+			<ul class="side-nav">
+			  <li><span aria-hidden="true" data-icon="&#xe027;"></span> Portafolio {{ global.user_url }}</li>
+			  <li><span aria-hidden="true" data-icon="&#xe01b;"></span> Vive en {{ global.user_city }}, {{ global.user_country }}</li>
+			  <li><span aria-hidden="true" data-icon="&#xe024;"></span> Estudió en {{ global.user_study | truncate:10 }}</li>
+			  <li><span aria-hidden="true" data-icon="&#xe017;"></span> {{ global.user_follow }} personas lo siguen</li>
+			  <li><span aria-hidden="true" data-icon="&#xe00b;"></span> Registrado desde {{ global.user_registry }} </li>
+			</ul>
+		</div>
+
+		<div class="large-9 columns">
+			<blockquote>{{ global.user_statement | truncate:200  }} </blockquote>
+		</div>	 	 
+
+
 	 	 
-	 	 <h4><a href="#">{{ global.user }}</a></h4>
-	 	 <a href="#" class="button small primary"><span aria-hidden="true" data-icon="&#xe017;"></span> Seguir</a>
-	 	 <a href="#" class="button small primary"><span aria-hidden="true" data-icon="&#xe00f;"></span> Mensaje</a>
-	 	 <div class="details">
-	 			<ul class="side-nav">
-	 			  <li>{{ global.user_statement | truncate:200  }} <a href="#">Ver más</a></li>
-	 				<li class="divider"></li>
-	 			  <li><span aria-hidden="true" data-icon="&#xe027;"></span> Portafolio {{ global.user_url }}</li>
-	 			  <li><span aria-hidden="true" data-icon="&#xe01b;"></span> Vive en {{ global.user_city }}, {{ global.user_country }}</li>
-	 			  <li><span aria-hidden="true" data-icon="&#xe024;"></span> Estudió en {{ global.user_study | truncate:10 }}</li>
-	 			  <li><span aria-hidden="true" data-icon="&#xe017;"></span> {{ global.user_follow }} personas lo siguen</li>
-	 			  <li><span aria-hidden="true" data-icon="&#xe00b;"></span> Registrado desde {{ global.user_registry }} </li>
-	 			</ul>
-	 	 </div>
-	 	 
-	 	 </div>
 	 </div>
 
 <div class="row" itemscope="" itemtype="http://schema.org/Person" role="main">    
@@ -64,33 +81,65 @@
 	
 
 	
-	<div class="large-12 columns">
-		{% include "artist_resume" %}
-	</div>
+
 	
-	<div class="large-12 columns">      
-		<div class="panel">
-			<div class="row">
-				<div class="large-4 columns">
-					<img src="https://dl.dropboxusercontent.com/u/991960/profile.jpg" />
-				</div>
-				<div class="large-4 columns">
-					{% include "profile_sidebar" %}
-				</div>
-				<div class="large-4 columns">
-					{% include "artist_contact" %} 
-				</div>
-			</div>
-		</div>
-	</div>
 	
 
 	<div class="large-12 columns">
-		{% include "ind_exhibitions" %}
-		{% include "colec_exhibitions" %}
+		
+		
+		<div class="row">
+			<div class="large-9 columns">
+				<h4 class="subheader">Exposiciones <strong>Individuales</strong></h4>
+			</div>
+			<div class="large-3 columns">
+				<a href="http://" class="button tiny secondary right radius">Agregar</a>
+			</div>
+			
+		</div>
+		
+		<div class="panel ind_exhibitions">
+			
+			
+			<div class="row">
+				<div class="large-12 columns">
+					<ul class="no-bullet">
+					{% for item in model.exhibitions-ind %}
+						<li><p><strong>{{ item.name }}</strong> / {{ item.institution }} / {{ item.year }} / {{ item.city }} {{ item.country }} <br />{{ item.work }} / {{ item.media }} </p></li>
+					{% endfor %}
+					</ul>
+				</div>
+			</div>
+		
+		</div>
+		
+		<div class="row">
+			<div class="large-9 columns">
+				<h4 class="subheader">Exposiciones <strong>Colectivas</strong></h4>
+			</div>
+			<div class="large-3 columns">
+				<a href="http://" class="button tiny secondary right radius">Agregar</a>
+			</div>
+			
+		</div>
+		
+		<div class="panel colec_exhibitions">
+			
+			<div class="row">
+				<div class="large-12 columns">
+					<ul class="no-bullet">
+					{% for item in model.exhibitions-col %}
+						<li><p><strong>{{ item.name }}</strong> / {{ item.institution }} / {{ item.year }} / {{ item.city }} {{ item.country }} <br />{{ item.work }} / {{ item.media }} </p></li>
+					{% endfor %}
+					</ul>
+				</div>
+			</div>
+		
+		</div>
+		
+		{% include "featured_works" %}
 		{% include "education" %}
 		{% include "awards" %}
-		{% include "featured_works" %}
 	</div>
 
    

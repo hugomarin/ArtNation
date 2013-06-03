@@ -17,6 +17,14 @@ $white : #fff;
 	@return	100% / ($context);
 }
 
+
+@mixin panel {
+	background-color: lighten( $black, 98% );
+	border-bottom: 2px solid lighten( $black, 90% );
+	@include box-shadow(rgba(0,0,0,0.1) 0px 0px 1px);	
+	
+}
+
 .panoramic {
 	@include clearfix;
 	
@@ -82,15 +90,12 @@ p.small {
 
 
 article.main {
-	background-color: lighten( $black, 97% );
-	border-bottom: 2px solid lighten( $black, 90% );
+	@include panel;
 	margin-bottom: 1em;
 	min-height: 550px;
 	position: relative;
 	z-index: 1;
-	@include box-shadow(rgba(0,0,0,0.2) 0px 0px 1px);
 
-	
 }
 
 .share-panel {
@@ -159,5 +164,58 @@ vertical-align: middle;
 height: 400px;
 }
 
+.work-item {
+	@include panel;
+	margin-bottom: 1em;
+	min-height: 320px;
+	position: relative;
+	z-index: 1;
+}
+
+.work-item-description p {
+	color: lighten( $black, 45% );
+}
+
+.section-container section.active .content {
+	padding: 0;
+	padding-top: emCalc(15px);
+}
+
+.section-container section .title a {
+	background-color: white;
+	font-weight: 400;
+	color: lighten( $black, 70% );
+}
+
+.section-container section.active .title a {
+	font-weight: 600;
+	color: lighten( $black, 10% );
+	border-bottom: 3px solid lighten( $black, 10% );
+}
+
+.work-item-description, .work-item-header {
+	padding: 0 emCalc(10px) 0 emCalc(10px);
+}
+
+.panel {
+	@include panel;
+	margin-bottom: 1em;
+	position: relative;
+	z-index: 1;	
+}
+
+.profile-resume {
+	background-color: $black;
+	padding-top: emCalc(20px);
+	padding-bottom: emCalc(20px);
+}
+
+.main-avatar {
+	@include border-radius(50%);
+	height: 100px;	
+	width: 100px;
+
+
+}
 
 
