@@ -15,7 +15,9 @@
 </head>
 <body>
   <div>{% include "header" %}</div>
+  <div class="content">
   {% block content %}{% endblock %}
+  </div>
   {% include "scripts" %}
   {% include "footer" %}
 </body>

@@ -1,10 +1,8 @@
 @import "compass/css3/border-radius";
 @import "compass/css3/box-shadow";
 
-/*Aux*/
-.no-margin {
-	margin: 0;
-}
+
+
 
 /*Variables*/
 
@@ -12,6 +10,64 @@ $primary : #717781;
 $black : #000;
 $white : #fff;
 
+
+/*Aux*/
+.no-margin {
+	margin: 0;
+}
+
+.whitetxt {
+	color: $white;
+}
+
+a.add {
+	border-color: lighten( $black, 90% );
+	border-width: 2px;
+	background-color: rgba(255, 255, 255, 0);
+	color: lighten( $black, 70% ) ;
+	font-weight: 500;
+	margin-top: .5em;
+}
+
+.view-more-wrap {
+	margin-top: 1em;
+}
+
+.view-more {
+	color: lighten( $black, 70% ) ;
+	font-weight: 500;
+	text-align: center;
+	text-transform: uppercase;
+	background-color: rgba(255, 255, 255, 0);
+	color: lighten( $black, 70% ) ;
+	margin-top: 1em;
+	border: 2px solid lighten( $black, 90% );
+	
+}
+
+.content-box {
+	@include clearfix;
+	position:relative;
+	min-height: 100px;
+	height: 400px;
+	width: 100%;
+	z-index: 1;
+	overflow: hidden;
+}
+
+.gradient {
+	position: absolute;
+	background-image: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0%, rgba(255, 255, 255, 0) 100%);
+	background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.08)), to(rgba(255, 255, 255, 0)));
+	
+	z-index: 2;
+	bottom: 0;
+	left: 20%;
+	@include border-radius(100%) ;
+	
+	right: 20%;
+	height: 4px;
+}
 
 @function quantity($context:4) {
 	@return	100% / ($context);
@@ -25,44 +81,31 @@ $white : #fff;
 	
 }
 
-.panoramic {
-	@include clearfix;
-	
-	
-	background-color: lighten($primary,47%);
-	margin-bottom: 2em;
-	
-	li {
-		display: inline-block;
-		padding-top: emCalc(15px);
-		padding-bottom: emCalc(15px);
-		float: left;
-		text-align: center;
-		@include box-sizing(border-box);
-		
-			small { font-size: 12px; font-weight: bold; color: lighten($primary,20%);}
-		
-			h3 {color: lighten($primary,5%);}
-		 
-		}
-		
-	&.three{
-		li {
-			width: quantity(3);
-			margin: 0;
-		}
-	}	
-		
-	&.four{
-		li {
-			width: quantity();
-		}
-	}
-	&.five{
-		li {
-	    	width: quantity(5);
-		}
-	}
+@mixin avatar($height, $width, $border) {
+	height: $height;
+	width: $width;	
+	@include border-radius($border);
+}
+
+@mixin circle($color, $dimensions) {
+	display: block;
+	border: $dimensions/20 solid $color;
+	color: $color;
+	width: $dimensions;
+	height: $dimensions;
+	@include border-radius($dimensions);
+	line-height: $dimensions - $dimensions/10 ;
+	text-align: center;
+	font-weight: 600;
+	font-size: $dimensions/4 ;
+}
+
+.title-1 {
+	text-transform: uppercase;
+	color: lighten(black, 75%);
+	font-size: 80%;
+	margin-top: 1em;
+	margin-bottom: 1em;
 }
 
 .panel {
@@ -132,10 +175,6 @@ width: 100%;
 
 }
 
-
-
-
-
 .article-text, .article-footer, .article-comment  {
 	padding: .5em;
 }
@@ -204,18 +243,114 @@ height: 400px;
 	z-index: 1;	
 }
 
+
+/*Nav Bar*/
+
+.nav-search {
+	padding: 0 emCalc(16px);
+	input {
+	@include border-radius(4px) 
+	}
+}
+
+.small-avatar {
+	@include avatar(30px, 30px, 30px);
+}
+
+/*Profile*/
+
 .profile-resume {
 	background-color: $black;
-	padding-top: emCalc(20px);
-	padding-bottom: emCalc(20px);
+	padding-top: emCalc(35px);
+	padding-bottom: emCalc(30px);
+	position: relative;
+	
+	h2 {
+		font-size: emCalc(23px);
+		line-height: 1em;
+		margin-bottom: .3em ;
+	}
+	h4 {
+		font-size: emCalc(12px);
+		line-height: 1em;
+		margin-bottom: 1em ;
+		opacity: .6;
+	}
+	p {
+		font-size: emCalc(14px);
+		line-height: 1.5em;
+		margin-bottom: .8em ;
+		font-weight: 300;
+		opacity: .9;
+	}
+	hr {
+		border: solid darken($white, 70%);
+		border-width: 1px 0 0;
+		clear: both;
+		margin: 1.3em 0 .4em;
+		height: 0;
+	}
 }
 
 .main-avatar {
+	@include avatar(100%, 100%, 100%);
 	@include border-radius(50%);
-	height: 100px;	
-	width: 100px;
+}
+
+.artist-resume {
+	background-color: lighten($primary,45%);
+	h3 {
+		font-size: emCalc(44px);
+		line-height: 1em;
+		margin-bottom: .3em;
+	}
+	span {
+		font-size: emCalc(11px);
+		color: lighten($primary,10%);
+		font-weight: 500;
+		line-height: 1em;
+		margin-bottom: 1em;
+		text-transform: uppercase;
+		display: block;
+	}	
+}
 
 
+
+/*Exhibitions*/
+
+.exhibitions {
+	background-color: lighten($primary,49%);
+	padding: emCalc(30px) 0 emCalc(30px) 0;
+}
+
+.exhibitions-list li {
+	position: relative;
+	padding-left: 50px;
+	font-size: emCalc(15px);
+	color: lighten($black,40%);
+	margin-bottom: 2em;
+	small {
+		font-size: emCalc(14px);
+		color: lighten($black,50%);
+	}
+	strong{
+		color: $black;
+	}
+}
+
+.year {
+	@include circle(lighten($black,50%), 40px);	
+	position: absolute;
+	top: 5px;
+	left: 0;
+}
+
+/*Exhibitions*/
+
+.works {
+	background-color: $white;
+	padding: emCalc(30px) 0 emCalc(30px) 0;
 }
 
 

@@ -1,21 +1,14 @@
-<div class="panel colec_exhibitions">
-	<div class="row">
-		<div class="large-9 columns">
-			<h4 class="subheader">Exposiciones <strong>Colectivas</strong></h4>
-		</div>
-		<div class="large-3 columns">
-			<a href="http://" class="label right round">Agregar</a>
-		</div>
-		
-	</div>
+<div class="ind_exhibitions">
 	<div class="row">
 		<div class="large-12 columns">
-			<ul class="no-bullet">
+			<h5 class="title-1">Exposiciones Colectivas</h5>
+			<ul class="no-bullet exhibitions-list">
 			{% for item in model.exhibitions-col %}
-				<li><p><strong>{{ item.name }}</strong> / {{ item.institution }} / {{ item.year }} / {{ item.city }} {{ item.country }} <br />{{ item.work }} / {{ item.media }} </p></li>
+				<li><div class="year">{{ item.year }}</div>
+					 <p class="work"><strong>{{ item.name }}</strong> / {{ item.institution }} / {{ item.city }}, {{ item.country }}. <br /><small>{{ item.work }}, <span class="label round">{{ item.media }}</span></small></p>
+				</li>
 			{% endfor %}
 			</ul>
 		</div>
 	</div>
-
 </div>
