@@ -1,4 +1,3 @@
-/* [sass, assets/css, app.css] */
 @charset "UTF-8";
 /* line 4, ../scss/foundation/components/_global.scss */
 *,
@@ -18,7 +17,7 @@ body {
 /* line 12, ../scss/foundation/components/_global.scss */
 body {
   background: white;
-  color: #272c3a;
+  color: black;
   padding: 0;
   margin: 0;
   font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
@@ -126,7 +125,7 @@ select {
   margin-right: auto;
   margin-top: 0;
   margin-bottom: 0;
-  max-width: 62.5em;
+  max-width: 82.5em;
   *zoom: 1;
 }
 /* line 184, ../scss/foundation/_foundation-global.scss */
@@ -1427,7 +1426,7 @@ p.lead {
 /* line 111, ../scss/foundation/components/_type.scss */
 .subheader {
   line-height: 1.4;
-  color: #3c4358;
+  color: #1a1a1a;
   font-weight: 300;
   margin-top: 0.2em;
   margin-bottom: 0.5em;
@@ -1498,7 +1497,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
   font-weight: 500;
   font-style: normal;
-  color: #272c3a;
+  color: black;
   text-rendering: optimizeLegibility;
   margin-top: 0.2em;
   margin-bottom: 0.5em;
@@ -1507,7 +1506,7 @@ h1, h2, h3, h4, h5, h6 {
 /* line 186, ../scss/foundation/components/_type.scss */
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
   font-size: 60%;
-  color: #3c4358;
+  color: #4d4d4d;
   line-height: 0;
 }
 
@@ -1645,7 +1644,7 @@ abbr,
 acronym {
   text-transform: uppercase;
   font-size: 90%;
-  color: #272c3a;
+  color: black;
   border-bottom: 1px dotted #dddddd;
   cursor: help;
 }
@@ -1666,7 +1665,7 @@ blockquote {
 blockquote cite {
   display: block;
   font-size: 0.8125em;
-  color: #505a77;
+  color: #333333;
 }
 /* line 310, ../scss/foundation/components/_type.scss */
 blockquote cite:before {
@@ -1675,14 +1674,14 @@ blockquote cite:before {
 /* line 315, ../scss/foundation/components/_type.scss */
 blockquote cite a,
 blockquote cite a:visited {
-  color: #505a77;
+  color: #333333;
 }
 
 /* line 321, ../scss/foundation/components/_type.scss */
 blockquote,
 blockquote p {
   line-height: 1.6;
-  color: #657195;
+  color: #4d4d4d;
 }
 
 /* Microformats */
@@ -3691,7 +3690,7 @@ form.custom .custom.disabled {
 
   /* line 342, ../scss/foundation/components/_top-bar.scss */
   .contain-to-grid .top-bar {
-    max-width: 62.5em;
+    max-width: 82.5em;
     margin: 0 auto;
   }
 
@@ -5977,19 +5976,17 @@ you can use the generic selector below, but it's slower:
   content: "\e009";
 }
 
-/*Variables*/
-/*Aux*/
-/* line 15, ../scss/_aux.scss */
+/* line 56, ../scss/_aux.scss */
 .no-margin {
   margin: 0;
 }
 
-/* line 19, ../scss/_aux.scss */
+/* line 60, ../scss/_aux.scss */
 .whitetxt {
   color: white;
 }
 
-/* line 23, ../scss/_aux.scss */
+/* line 66, ../scss/_aux.scss */
 a.add {
   border-color: #e6e6e6;
   border-width: 2px;
@@ -5999,61 +5996,85 @@ a.add {
   margin-top: .5em;
 }
 
-/* line 32, ../scss/_aux.scss */
+/* line 75, ../scss/_aux.scss */
 .view-more-wrap {
-  margin-top: 1em;
+  margin-top: 0;
 }
 
-/* line 36, ../scss/_aux.scss */
+/* line 79, ../scss/_aux.scss */
 .view-more {
   color: #b3b3b3;
   font-weight: 500;
   text-align: center;
   text-transform: uppercase;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: rgba(255, 255, 255, 0.8);
   color: #b3b3b3;
   margin-top: 1em;
   border: 2px solid #e6e6e6;
 }
 
-/* line 48, ../scss/_aux.scss */
-.content-box {
-  *zoom: 1;
-  position: relative;
-  min-height: 100px;
-  height: 400px;
-  width: 100%;
-  z-index: 1;
-  overflow: hidden;
-}
-/* line 184, ../scss/foundation/_foundation-global.scss */
-.content-box:before, .content-box:after {
-  content: " ";
-  display: table;
-}
-/* line 185, ../scss/foundation/_foundation-global.scss */
-.content-box:after {
-  clear: both;
-}
-
-/* line 58, ../scss/_aux.scss */
+/* line 90, ../scss/_aux.scss */
 .gradient {
   position: absolute;
-  background-image: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0%, rgba(255, 255, 255, 0) 100%);
-  background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.08)), to(rgba(255, 255, 255, 0)));
+  background-image: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+  background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.05)), to(rgba(255, 255, 255, 0)));
   z-index: 2;
   bottom: 0;
-  left: 20%;
-  -webkit-border-radius: 100%;
-  -moz-border-radius: 100%;
-  -ms-border-radius: 100%;
-  -o-border-radius: 100%;
-  border-radius: 100%;
-  right: 20%;
-  height: 4px;
+  left: 0%;
+  right: 0%;
+  height: 20px;
 }
 
-/* line 103, ../scss/_aux.scss */
+/* line 101, ../scss/_aux.scss */
+.fade-out {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* line 108, ../scss/_aux.scss */
+.fade-out:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 30px;
+  content: "";
+  background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), to(#f9faf9));
+  background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #f9faf9 100%);
+  background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #f9faf9 100%);
+  background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #f9faf9 100%);
+  background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #f9faf9 100%);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #f9faf9 100%);
+}
+
+/* line 121, ../scss/_aux.scss */
+.button {
+  -moz-box-shadow: 0 0 0;
+  -webkit-box-shadow: 0 0 0;
+  box-shadow: 0 0 0;
+}
+
+/* line 127, ../scss/_aux.scss */
+.hollow {
+  background-color: transparent;
+  border: 0.2em solid white;
+  color: #cccccc;
+  font-weight: bold;
+  box-shadow: 1px 2px rgba(255, 255, 254, 0.3);
+  font-size: 70%;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  -ms-border-radius: 2em;
+  -o-border-radius: 2em;
+  border-radius: 2em;
+  padding: .5em 2em;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+/* line 140, ../scss/_aux.scss */
 .title-1 {
   text-transform: uppercase;
   color: #bfbfbf;
@@ -6062,35 +6083,40 @@ a.add {
   margin-bottom: 1em;
 }
 
-/* line 111, ../scss/_aux.scss */
+/* line 148, ../scss/_aux.scss */
 .panel {
   border: none;
 }
 
-/* line 115, ../scss/_aux.scss */
-.button {
-  -moz-box-shadow: 0 0 0;
-  -webkit-box-shadow: 0 0 0;
-  box-shadow: 0 0 0;
+/* line 154, ../scss/_aux.scss */
+i {
+  font-weight: normal;
+  font-style: normal;
 }
 
-/* line 121, ../scss/_aux.scss */
+/* line 158, ../scss/_aux.scss */
 p.small {
   font-size: 0.8125em;
 }
 
-/* line 125, ../scss/_aux.scss */
+/* line 162, ../scss/_aux.scss */
 .x-small {
   font-size: 0.75em;
   color: #c4c4c4;
 }
 
-/* line 130, ../scss/_aux.scss */
+/* line 169, ../scss/_aux.scss */
+.footer {
+  background-color: black;
+  color: white;
+}
+
+/* line 177, ../scss/_aux.scss */
 .stream-filter {
   margin: 0.375em 0 0;
 }
 
-/* line 135, ../scss/_aux.scss */
+/* line 181, ../scss/_aux.scss */
 article.main {
   background-color: #fafafa;
   border-bottom: 2px solid #e6e6e6;
@@ -6103,7 +6129,7 @@ article.main {
   z-index: 1;
 }
 
-/* line 144, ../scss/_aux.scss */
+/* line 189, ../scss/_aux.scss */
 .share-panel {
   background-color: #f7f7f7;
   border-bottom: 2px solid #e6e6e6;
@@ -6116,13 +6142,13 @@ article.main {
   padding: .5em;
 }
 
-/* line 154, ../scss/_aux.scss */
+/* line 199, ../scss/_aux.scss */
 .article-head {
   position: relative;
   z-index: 10;
 }
 
-/* line 164, ../scss/_aux.scss */
+/* line 204, ../scss/_aux.scss */
 .article-img {
   position: relative;
   overflow: hidden;
@@ -6131,85 +6157,22 @@ article.main {
   z-index: 10;
 }
 
-/* line 173, ../scss/_aux.scss */
+/* line 212, ../scss/_aux.scss */
 .article-img img {
   width: 100%;
 }
 
-/* line 178, ../scss/_aux.scss */
+/* line 216, ../scss/_aux.scss */
 .article-text, .article-footer, .article-comment {
   padding: .5em;
 }
 
-/* line 182, ../scss/_aux.scss */
+/* line 220, ../scss/_aux.scss */
 .article-comment {
   background-color: #e0e0e0;
 }
 
-/* line 187, ../scss/_aux.scss */
-.full-img {
-  height: auto;
-  width: 100%;
-}
-
-/* line 193, ../scss/_aux.scss */
-.full-profile-work {
-  bottom: 0;
-  color: #fff;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 0;
-  overflow: hidden;
-  position: relative;
-  right: 0;
-  vertical-align: middle;
-  height: 400px;
-}
-
-/* line 206, ../scss/_aux.scss */
-.work-item {
-  background-color: #fafafa;
-  border-bottom: 2px solid #e6e6e6;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px;
-  margin-bottom: 1em;
-  min-height: 320px;
-  position: relative;
-  z-index: 1;
-}
-
-/* line 214, ../scss/_aux.scss */
-.work-item-description p {
-  color: #737373;
-}
-
-/* line 218, ../scss/_aux.scss */
-.section-container section.active .content {
-  padding: 0;
-  padding-top: 0.9375em;
-}
-
-/* line 223, ../scss/_aux.scss */
-.section-container section .title a {
-  background-color: white;
-  font-weight: 400;
-  color: #b3b3b3;
-}
-
-/* line 229, ../scss/_aux.scss */
-.section-container section.active .title a {
-  font-weight: 600;
-  color: #1a1a1a;
-  border-bottom: 3px solid #1a1a1a;
-}
-
-/* line 235, ../scss/_aux.scss */
-.work-item-description, .work-item-header {
-  padding: 0 0.625em 0 0.625em;
-}
-
-/* line 239, ../scss/_aux.scss */
+/* line 224, ../scss/_aux.scss */
 .panel {
   background-color: #fafafa;
   border-bottom: 2px solid #e6e6e6;
@@ -6222,11 +6185,11 @@ article.main {
 }
 
 /*Nav Bar*/
-/* line 249, ../scss/_aux.scss */
+/* line 233, ../scss/_aux.scss */
 .nav-search {
   padding: 0 1em;
 }
-/* line 251, ../scss/_aux.scss */
+/* line 235, ../scss/_aux.scss */
 .nav-search input {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -6235,7 +6198,7 @@ article.main {
   border-radius: 4px;
 }
 
-/* line 256, ../scss/_aux.scss */
+/* line 240, ../scss/_aux.scss */
 .small-avatar {
   height: 30px;
   width: 30px;
@@ -6246,29 +6209,42 @@ article.main {
   border-radius: 30px;
 }
 
-/*Profile*/
-/* line 262, ../scss/_aux.scss */
-.profile-resume {
-  background-color: black;
+/* line 247, ../scss/_aux.scss */
+.full-banner {
+  width: 100%;
+  bottom: 0;
+  z-index: 2;
+}
+
+/* line 253, ../scss/_aux.scss */
+.full-img {
+  height: auto;
+  width: 100%;
+}
+
+/* line 261, ../scss/_aux.scss */
+.profile-resume-data {
+  width: 100%;
+  background-color: #1a1a1a;
   padding-top: 2.1875em;
   padding-bottom: 1.875em;
-  position: relative;
+  margin-top: -2px;
 }
 /* line 268, ../scss/_aux.scss */
-.profile-resume h2 {
+.profile-resume-data h2 {
   font-size: 1.4375em;
   line-height: 1em;
-  margin-bottom: 0.3em;
+  margin-bottom: .3em;
 }
 /* line 273, ../scss/_aux.scss */
-.profile-resume h4 {
+.profile-resume-data h4 {
   font-size: 0.75em;
   line-height: 1em;
   margin-bottom: 1em;
   opacity: .6;
 }
 /* line 279, ../scss/_aux.scss */
-.profile-resume p {
+.profile-resume-data p {
   font-size: 0.875em;
   line-height: 1.5em;
   margin-bottom: 0.8em;
@@ -6276,15 +6252,21 @@ article.main {
   opacity: .9;
 }
 /* line 286, ../scss/_aux.scss */
-.profile-resume hr {
+.profile-resume-data hr {
   border: solid #4d4d4d;
   border-width: 1px 0 0;
   clear: both;
   margin: 1.3em 0 .4em;
   height: 0;
 }
+/* line 293, ../scss/_aux.scss */
+.profile-resume-data .label {
+  color: #cccccc;
+  font-weight: 500;
+  background-color: gray;
+}
 
-/* line 295, ../scss/_aux.scss */
+/* line 300, ../scss/_aux.scss */
 .main-avatar {
   height: 100%;
   width: 100%;
@@ -6300,20 +6282,32 @@ article.main {
   border-radius: 50%;
 }
 
-/* line 300, ../scss/_aux.scss */
-.artist-resume {
-  background-color: #eaebed;
+/* line 305, ../scss/_aux.scss */
+.others-actions {
+  overflow: hidden;
+  *zoom: 1;
 }
-/* line 302, ../scss/_aux.scss */
+/* line 307, ../scss/_aux.scss */
+.others-actions .hollow {
+  margin-bottom: 0;
+}
+
+/* line 314, ../scss/_aux.scss */
+.artist-resume {
+  background-color: #262626;
+}
+/* line 316, ../scss/_aux.scss */
 .artist-resume h3 {
   font-size: 2.75em;
   line-height: 1em;
   margin-bottom: .3em;
+  color: white;
+  font-weight: 300;
 }
-/* line 307, ../scss/_aux.scss */
+/* line 323, ../scss/_aux.scss */
 .artist-resume span {
   font-size: 0.6875em;
-  color: #8b919a;
+  color: #999999;
   font-weight: 500;
   line-height: 1em;
   margin-bottom: 1em;
@@ -6321,14 +6315,25 @@ article.main {
   display: block;
 }
 
-/*Exhibitions*/
-/* line 322, ../scss/_aux.scss */
+/* line 336, ../scss/_aux.scss */
 .exhibitions {
-  background-color: #f5f6f7;
-  padding: 1.875em 0 1.875em 0;
+  background-color: white;
+  padding: 1.875em 0 0 0;
 }
 
-/* line 327, ../scss/_aux.scss */
+/* line 341, ../scss/_aux.scss */
+.exhibitions .content-box {
+  overflow: hidden;
+  *zoom: 1;
+  height: 420px;
+  min-height: 100px;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* line 346, ../scss/_aux.scss */
 .exhibitions-list li {
   position: relative;
   padding-left: 50px;
@@ -6336,17 +6341,17 @@ article.main {
   color: #666666;
   margin-bottom: 2em;
 }
-/* line 333, ../scss/_aux.scss */
+/* line 353, ../scss/_aux.scss */
 .exhibitions-list li small {
   font-size: 0.875em;
   color: gray;
 }
-/* line 337, ../scss/_aux.scss */
+/* line 357, ../scss/_aux.scss */
 .exhibitions-list li strong {
   color: black;
 }
 
-/* line 342, ../scss/_aux.scss */
+/* line 362, ../scss/_aux.scss */
 .year {
   display: block;
   border: 2px solid gray;
@@ -6367,9 +6372,143 @@ article.main {
   left: 0;
 }
 
-/*Exhibitions*/
-/* line 351, ../scss/_aux.scss */
+/* line 372, ../scss/_aux.scss */
 .works {
-  background-color: white;
+  background-color: #ededed;
   padding: 1.875em 0 1.875em 0;
+}
+
+/* line 377, ../scss/_aux.scss */
+.works .content-box {
+  overflow: hidden;
+  *zoom: 1;
+  height: 800px;
+  min-height: 100px;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* line 382, ../scss/_aux.scss */
+.work-item {
+  background-color: #fafafa;
+  border-bottom: 2px solid #e6e6e6;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px;
+  background-color: white;
+  margin-bottom: 1em;
+  height: 320px;
+  position: relative;
+  z-index: 1;
+  -webkit-border-radius: 0.3em;
+  -moz-border-radius: 0.3em;
+  -ms-border-radius: 0.3em;
+  -o-border-radius: 0.3em;
+  border-radius: 0.3em;
+  border-top: 1px solid white;
+}
+
+/* line 393, ../scss/_aux.scss */
+.work-item-img img {
+  -webkit-border-radius: 0.3em 0.3em 0 0;
+  -moz-border-radius: 0.3em 0.3em 0 0;
+  -ms-border-radius: 0.3em 0.3em 0 0;
+  -o-border-radius: 0.3em 0.3em 0 0;
+  border-radius: 0.3em 0.3em 0 0;
+  width: 100%;
+}
+
+/* line 398, ../scss/_aux.scss */
+.work-item-header h3 {
+  font-size: 1em;
+}
+/* line 400, ../scss/_aux.scss */
+.work-item-header h3 a {
+  color: black;
+}
+
+/* line 405, ../scss/_aux.scss */
+.work-item-description p {
+  color: #737373;
+  height: 4.0625em;
+}
+
+/* line 410, ../scss/_aux.scss */
+.section-container section.active .content {
+  padding: 0;
+  padding-top: 0.9375em;
+  background-color: #ededed;
+}
+
+/* line 416, ../scss/_aux.scss */
+.section-container section .title a {
+  font-weight: 400;
+  color: #b3b3b3;
+}
+
+/* line 421, ../scss/_aux.scss */
+.section-container section.active .title a {
+  font-weight: 600;
+  color: #1a1a1a;
+  border-bottom: 3px solid #1a1a1a;
+}
+
+/* line 427, ../scss/_aux.scss */
+.work-item-description, .work-item-header {
+  padding: 0 0.625em 0 0.625em;
+}
+
+/* line 434, ../scss/_aux.scss */
+.edu-awards {
+  background-color: white;
+  padding: 1.875em 0 0 0;
+}
+
+/* line 439, ../scss/_aux.scss */
+.edu-awards .content-box {
+  overflow: hidden;
+  *zoom: 1;
+  height: 240px;
+  min-height: 100px;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* line 444, ../scss/_aux.scss */
+.award-list li {
+  position: relative;
+  padding-left: 50px;
+  font-size: 0.9375em;
+  color: #666666;
+  margin-bottom: 2em;
+}
+/* line 451, ../scss/_aux.scss */
+.award-list li small {
+  font-size: 0.875em;
+  color: gray;
+}
+/* line 455, ../scss/_aux.scss */
+.award-list li strong {
+  color: black;
+}
+
+/* line 461, ../scss/_aux.scss */
+.edu-list li {
+  position: relative;
+  font-size: 0.9375em;
+  color: #666666;
+  margin-bottom: 2em;
+}
+/* line 467, ../scss/_aux.scss */
+.edu-list li small {
+  font-size: 0.875em;
+  color: gray;
+}
+/* line 471, ../scss/_aux.scss */
+.edu-list li strong {
+  color: black;
 }

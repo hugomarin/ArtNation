@@ -3,7 +3,7 @@
 		<div class="large-12 columns">
 			<h5 class="title-1">Exposiciones individuales</h5>
 			<ul class="no-bullet exhibitions-list">
-			{% for item in model.exhibitions-ind %}
+			{% for item in model.user_exhibitions_ind %}
 				<li><div class="year">{{ item.year }}</div>
 					 <p class="work"><strong>{{ item.name }}</strong> / {{ item.institution }} / {{ item.city }}, {{ item.country }}. <br /><small>{{ item.work }}, <span class="label round">{{ item.media }}</span></small></p>
 			   </li>

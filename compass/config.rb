@@ -1,7 +1,7 @@
 # Compass configuration file.
 
 # We also support plugins and frameworks, please read the docs http://docs.mixture.io/preprocessors#compass
-project_path = "/Users/Hugo/Dropbox/Mixture/ArtNation/"
+project_path = File.expand_path("..",File.dirname(__FILE__))
 
 # Important! change the paths below to match your project setup
 

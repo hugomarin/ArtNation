@@ -1,0 +1,45 @@
+
+
+<div class="section-container tabs" data-section="tabs">
+  <section>
+    <p class="title" data-section-title><a href="#">Obras</a></p>
+    <div class="content" data-section-content>
+		
+		<ul class="large-block-grid-4  small-block-grid-2">
+				{% for item in model.user_works %}
+					<li>
+						<article class="work-item">
+							<div class="work-item-img">
+								<a href="#"><img src="{{ item.image }}" alt="{{ item.name }}" /> </a>
+							</div>
+							<header class="work-item-header">
+								<h3 class="no-margin fade-out"><a href="#">{{ item.name }}</a></h3>
+								<p class="x-small fade-out">{{ item.type }}, {{ item.duration }}, {{ item.year }}, {{ item.dimension }} </p>
+							</header>
+							
+							<section class="work-item-description">
+								<p class="small">{{ item.description | truncate: 120 }}</p>	
+							</section>
+						</article>
+					</li>
+				{% endfor %}
+		</ul> 
+  
+    </div>
+  </section>
+  
+  
+  
+  <section>
+    <p class="title" data-section-title><a href="#">Proyectos</a></p>
+    <div class="content" data-section-content>
+      
+      <div class="note text-center">
+      	<h3>Aún no tienes ningún proyecto</h3>
+      	<p>Los proyectos son obras en proceso, pueden ser públicos o privados</p>
+      	<a href="" class="button hollow">Crea tu primer proyecto</a>
+      </div>
+      
+    </div>
+  </section>
+</div>

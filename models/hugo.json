@@ -1,0 +1,214 @@
+{
+  "user": "Hugo Marín",
+  "user_img": "https://dl.dropboxusercontent.com/u/991960/hugo/profile.jpg",
+  "user_banner": "https://dl.dropboxusercontent.com/u/991960/hugo/banner.png",
+  "user_city": "Bogotá",
+  "user_country": "Colombia",
+  "user_study": "Universidad Nacional de Colombia",
+  "user_follow": "225",
+  "user_registry": "25 jun 2013",
+  "user_url": "metaphysic.co",
+  "user_age": "31",
+  "user_website": "hugomarin.com",
+  "user_mail": "hm@hugomarin.com",
+  "user_phone": "3166212753",
+  "user_address": "Kra 13 #51 39",
+  "no_works":9,
+  "no_ind_exhibitions": 1,
+  "no_col_exhibitions": 5,
+  "no_projects":2,
+  "user_statement": "Artista plástico colombiano, actualmente trabaja en Bogotá como realizador audiovisual. Desde el inicio de su carrera su obra se ha perfilado en una intensa investigación sobre las posibles relaciones entre imagen, concepto y palabra. Su acercamiento se ha dado desde las artes del tiempo, especialmente el video digital, permitiéndole abordar el problema de la imagen y su inteligibilidad connotativa desde el tiempo, al considerar el pensamiento como una construcción discursiva. Su investigación se ha motivado desde sus estudios de filosofía, enfocándose en filosofía del lenguaje y semántica, con lo que ha logrado un original acercamiento a la imagen plástica desde discursos semánticos sobre lenguajes naturales. Su acercamiento al arte contemporáneo se ha dado con un marcado acento en el conceptualismo e inteligibilidad del discurso plástico, tratando de comprender la relación mimética entre imagen y palabra, centrándose en la imagen-movimiento y la imagen digital como fuente de investigación teórica y plástica. En su obra si bien se destaca un tono conceptual lo considera como un “pensamiento blando” que termina destacándose más por su tonalidad poética, y en su tratamiento material de la imagen digital. En el video ha tenido una fuerte influencia del cine experimental, considerando su obra como un territorio difuso de pantallas rotas que se mueven entre el cine, la literatura y la filosofía. Su últimos trabajos se han enfocado particularmente en la imagen como metáfora, en producciones audiovisuales guiadas por un ensayo, lo que le ha permitido sintetizar adecuadamente su doble naturaleza entre arte y filosofía.",
+
+	"user_activities": [
+		{
+			"activity": "vídeo"
+		},
+		{
+			"activity": "instalacíon"
+		},
+		{
+			"activity": "digital"
+		}
+	],
+
+
+	"user_education": [
+		{
+			"school": "Universidad Nacional de Colombia",
+			"degree": "Maestro Artes Plásticas",
+			"field": "Historia y Teoría del Arte",
+			"year-start": "2003",
+			"year-finish": "2009",
+			"city": "Bogotá",
+			"country": "Colombia"
+		},
+		{
+			"school": "Pontificia Universidad Javeriana",
+			"degree": "Filósofo",
+			"field": "Estética",
+			"year-start": "2000",
+			"year-finish": "Actualmente",
+			"city": "Bogotá",
+			"country": "Colombia"
+		}
+	],
+	
+	"user_awards": [
+		{
+			"work": "Universidad Nacional de Colombia",
+			"institution": "II Concurso Nacional de Video Danza",
+			"award": "Mención de Honor",
+			"year": "2003",
+			"city": "Bogotá",
+			"country": "Colombia"
+		}
+	],
+	
+	"user_exhibitions_ind": [
+		{
+			"name": "Premio Luis Caballero",
+			"institution": "Fundación Gilberto Alzate Avendaño",
+			"work": "Documentales Premio Luis Caballero",
+			"year": "2010",
+			"city": "Bogotá",
+			"country": "Colombia",
+			"media": "Video"
+		}
+		
+	],
+	
+	"user_exhibitions_col": [
+		{
+			"name": "II Concurso Nacional de Video Danza",
+			"institution": "Festival de Vídeo Danza",
+			"work": "SOUTENE",
+			"year": "2008",
+			"city": "Bogotá",
+			"country": "Colombia",
+			"media": "Video"
+		},
+		{
+			"name": "XXXVIII Salón Cano",
+			"institution": "Universidad Nacional de Colombia",
+			"work": "BUCOLIA",
+			"year": "2007",
+			"city": "Bogotá",
+			"country": "Colombia",
+			"media": "Video"
+		},
+		{
+			"name": "Loop 08",
+			"institution": "Festival Loop",
+			"work": "BUCOLIA",
+			"year": "2008",
+			"city": "Barcelona",
+			"country": "España",
+			"media": "Video"
+		},
+		{
+			"name": "Tesis de Grado",
+			"institution": "Universidad Nacional de Colombia",
+			"work": "ANÁLISIS Y COMPOSICIÓN DE UN SISTEMA DIFUSO",
+			"year": "2008",
+			"city": "Bogotá",
+			"country": "Colombia",
+			"media": "Video"
+		}
+
+		
+	],
+	
+	"user_works": [
+		{
+			"type": "Vídeo",
+			"name": "Las sirenas ya no cantan",
+			"image": "https://dl.dropboxusercontent.com/u/991960/hugo/lassirenas.jpg",
+			"year": "2010",
+			"dimension": "720 x 480",
+			"description": "El proyecto surge de un fracaso amoroso. De éste, tan sólo quedo una pequeña grabación en video de ella cantando. La captura la realizo a partir de una edición análoga, capturo nuevamente la imagen desde el televisor, mediante una cámara de video averiada, y con un lente de fotografía invertido, también averiado. Del relato personal y alimentado por el relato mítico, el cual empleo como un motivo alegórico, en un intento por dignificar el fracaso amoroso como hecho mítico, se configurado una reflexión poética sobre lo análogo. Se produce vuelta a lo análogo desde su fracaso en la captura, asimismo fracaso de la mirada, del amor, del deseo y de la memoria (La sirena etimológicamente es una encadenada). La captura se presenta como un recuerdo avereiado, pues ha perdi­do su poder sonoro. La captura es el intento de un falso encadenamiento.",
+			"duration": "5:32min"
+		},
+		
+		{
+			"type": "Vídeo",
+			"name": "Nocturnos",
+			"image": "https://dl.dropboxusercontent.com/u/991960/hugo/nocturnos.jpg",
+			"year": "2008",
+			"dimension": "720 x 480",
+			"description": "La serie Nocturnos se compone de cuatro videos instalados, presentados como capítulos de una misma obra, e inspirados en la Ética de Spinoza. Nocturnos, explora la relación entre la imagen y la luz en conjunción con distintos ritmos de respiración.",
+			"duration": "4:04min"
+		},
+		
+		{
+			"type": "Vídeo",
+			"name": "Bucolia",
+			"image": "https://dl.dropboxusercontent.com/u/991960/hugo/nocturnos.jpg",
+			"year": "2007",
+			"dimension": "720 x 480",
+			"description": "La realización de un afecto iconoclasta.",
+			"duration": "2:33min"
+		},
+		
+		{
+			"type": "Vídeo",
+			"name": "Análisis y composición de un sistema difuso",
+			"image": "https://dl.dropboxusercontent.com/u/991960/hugo/acsd.jpg",
+			"year": "2009",
+			"dimension": "1920 x 1080",
+			"description": "Nace de mi profundo interés por la imagen y el lenguaje, en especial, en su modo de conjugarse. En éste, el lenguaje más que producir un corte transversal con la imagen, en un acto explicativo, debe mantenerse paralelo y conservar los límites compositivos. Esto lo he pensado de modo similar al de Spinoza para explicar la relación entre alma y cuerpo. Así considero que debe de ser la equidistancia con la imagen. La referencia del lenguaje en su imposibilidad de callar y decir, es vacía, como el juego de vaciar y llenar, en el que la identidad del ser no está dada en el llenar, donde el ser no es sólo lo lleno o lo vacío, es ambas cosas a la vez.",
+			"duration": "15:00min"
+		},
+		
+		{
+			"type": "Vídeo",
+			"name": "Antropofagía",
+			"image": "https://dl.dropboxusercontent.com/u/991960/hugo/antropofagia.jpg",
+			"year": "2009",
+			"dimension": "720 x 480",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vulputate lorem nec magna scelerisque, et sollicitudin nisi pretium. Integer ultrices ac sapien quis consectetur. Duis elementum tristique ipsum euismod mattis. Aenean rutrum consequat varius.",
+			"duration": "15:00min"
+		},
+		
+		{
+			"type": "Vídeo",
+			"name": "Hace un buen día, amor mío",
+			"image": "https://dl.dropboxusercontent.com/u/991960/hugo/buen-dia.jpg",
+			"year": "2010",
+			"dimension": "1920 x 1080",
+			"description": "Pequeños Poemas Indagan la relación entre la imagen y la palabra en su conjunción poética. Hace buen tiempo amor mío es un video realizado con un fragmento de Pierrot le Fou (1965) de Jean-Luc Godard. Es una experimentación de la luz (Gamma) sobre la imagen, en este caso la imagen digitalizada del cine, para descubrir los Digital Artifacts (alteración y corrupción de los datos) de la imagen comprimida. La palabra es el gatillo poético el cual revela la auténtica naturaleza de la imagen digital.",
+			"duration": "15:00min"
+		},
+		
+		{
+			"type": "Vídeo",
+			"name": "Desdicha",
+			"image": "https://dl.dropboxusercontent.com/u/991960/hugo/desdicha.jpg",
+			"year": "2013",
+			"dimension": "1920 x 1080",
+			"description": "Praesent commodo augue sit amet lectus scelerisque dignissim. Sed odio nulla, luctus id elit vel, euismod lobortis lorem. Morbi eu tellus pharetra, adipiscing diam ac, iaculis lacus. S",
+			"duration": "6:46min"
+		},
+		
+		{
+			"type": "Vídeo",
+			"name": "La vida de Empédocles",
+			"image": "https://dl.dropboxusercontent.com/u/991960/hugo/empedocles.jpg",
+			"year": "2013",
+			"dimension": "1920 x 1080",
+			"description": "Praesent commodo augue sit amet lectus scelerisque dignissim. Sed odio nulla, luctus id elit vel, euismod lobortis lorem. Morbi eu tellus pharetra, adipiscing diam ac, iaculis lacus. S",
+			"duration": "6:46min"
+		},
+		
+		{
+			"type": "Vídeo",
+			"name": "Teoría del Color",
+			"image": "https://dl.dropboxusercontent.com/u/991960/hugo/teoria.jpg",
+			"year": "2011",
+			"dimension": "1280 x 1920",
+			"description": "Teoría del Color, es tan sólo un teoría del fracaso. Quizás una entropía interrumpida, o una dialéctica inconciliable. Un suceso de principio a fin idénticos, donde la historia no puede distinguir un alfa o un omega. No obstante, el relato se construye en una dinámica de repetición incesante donde el construir y el destruir, de la dialéctica irresuelta, no concluye en un momento de síntesis. El fracaso se da en la posibilidad de un horizonte para la creación y la construcción. El audio se realizó a través del registro de la demolición del complejo Pruit-Igoe en St. Louis, Missouri. Este es el momento exacto que Charles Jencks considera como el fin de la arquitectura moderna.",
+			"duration": "2:44min"
+		}
+
+		
+	]
+	}

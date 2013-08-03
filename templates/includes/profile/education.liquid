@@ -1,0 +1,14 @@
+<div class="education">
+	<div class="row">
+		<div class="large-12 columns">
+		<h5 class="title-1"><strong>Educación</strong></h5>
+			<ul class="no-bullet edu-list">
+			{% for item in model.user_education %}
+				<li>
+					 <p class="work"><strong>{{ item.school }}</strong> / {{ item.degree }} / {{ item.field }} / {{ item.country }}, {{ item.city }},  {{ item.year-start }} - {{ item.year-finish }}</p>
+			   </li>
+			{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>

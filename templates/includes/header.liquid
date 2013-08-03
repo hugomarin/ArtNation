@@ -1,42 +1,44 @@
-<nav class="top-bar">
-	<ul class="title-area">
-		<li class="name">
-		  <h1 class="subheader"><a href="home">{{ mixture.project_name }} </a></h1>
-		</li>
-		<li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
-	</ul>
 
-	<section class="top-bar-section">
-		<ul class="left">
-			<li class="show-for-small nav-search"><input type="search" placeholder="buscar"></li>
-			<li class="divider"></li>
-			<li {% if mixture.url == "home" %}class="active"{% endif %}><a href="home">Inicio</a></li>
-			<li class="divider"></li>
-			<li {% if mixture.url == "calls" %}class="active"{% endif %}><a href="calls">Convocatorias</a></li>
-			<li class="divider"></li>
-			<li {% if mixture.url == "exhibitions" %}class="active"{% endif %}><a href="exhibitions">Exposiciones</a></li>
-			<li class="divider"></li>
+	<nav class="top-bar">
+		<ul class="title-area">
+			<li class="name">
+			  <h1 class="subheader"><a href="home">{{ mixture.project_name }} </a></h1>
+			</li>
+			<li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
 		</ul>
 	
-		<ul class="right">
-			<li class="hide-for-small nav-search"><input type="text" placeholder="buscar"></li>
-			<li class="divider"></li>
-			<li {% if mixture.url == "profile" %}class="active has-dropdown"{% endif %} class="has-dropdown" ><a href="profile">{{ global.user }}</a>
-				<ul class="dropdown">
-				    <li><a href="#">Tus exposiciones</a></li>
-				    <li class="divider"></li>
-				    <li><a href="#">Tus convocatorias</a></li>
-				    <li class="divider"></li>
-				    <li><a href="#">Tus obras</a></li>
-				</ul>
-			</li>
-			<li class="divider"></li>
-			<li><a href="#"><span class="hide-for-small" aria-hidden="true" data-icon="&#xe00f;"></span><span class="show-for-small">Mensajes</span></a></li>
-			<li class="divider"></li>
-			<li {% if mixture.url == "settings-profile" %}class="active"{% endif %}><a href="settings-profile"><span class="hide-for-small" aria-hidden="true" data-icon="&#xe001;"></span><span class="show-for-small">Ajustes</span></a></li>
-			<li class="divider"></li>
-			<li><a href="#"><span class="hide-for-small" aria-hidden="true" data-icon="&#xe026;"></span><span class="show-for-small">Notificaciones</span></a></li>
-			<li class="divider"></li>
-		</ul>
-	</section>
-</nav>
+		<section class="top-bar-section">
+			<ul class="left">
+				<!--<li class="show-for-small nav-search"><input type="search" placeholder="buscar"></li>
+				<li class="divider"></li>-->
+				<li {% if mixture.url == "home" %}class="active"{% endif %}><a href="home">Inicio</a></li>
+				<li class="divider"></li>
+				<li {% if mixture.url == "calls" %}class="active"{% endif %}><a href="calls">Convocatorias</a></li>
+				<li class="divider"></li>
+				<li {% if mixture.url == "exhibitions" %}class="active"{% endif %}><a href="exhibitions">Exposiciones</a></li>
+				<li class="divider"></li>
+			</ul>
+		
+			<ul class="right">
+				<!--<li class="hide-for-small nav-search"><input type="text" placeholder="buscar"></li>
+				<li class="divider"></li>-->
+				<li {% if mixture.url == "profile" %}class="active has-dropdown"{% endif %} class="has-dropdown" ><a href="profile">{{ global.user }}</a>
+					<ul class="dropdown">
+						 <li><a href="#">Tus exposiciones</a></li>
+						 <li class="divider"></li>
+						 <li><a href="#">Tus convocatorias</a></li>
+						 <li class="divider"></li>
+						 <li><a href="#">Tus obras</a></li>
+					</ul>
+				</li>
+				<!--<li class="divider"></li>
+				<li><a href="#"><span class="hide-for-small" aria-hidden="true" data-icon="&#xe00f;"></span><span class="show-for-small">Mensajes</span></a></li>
+				<li class="divider"></li>
+				<li {% if mixture.url == "settings-profile" %}class="active"{% endif %}><a href="settings-profile"><span class="hide-for-small" aria-hidden="true" data-icon="&#xe001;"></span><span class="show-for-small">Ajustes</span></a></li>
+				<li class="divider"></li>
+				<li><a href="#"><span class="hide-for-small" aria-hidden="true" data-icon="&#xe026;"></span><span class="show-for-small">Notificaciones</span></a></li>
+				<li class="divider"></li>-->
+			</ul>
+		</section>
+	</nav>
+

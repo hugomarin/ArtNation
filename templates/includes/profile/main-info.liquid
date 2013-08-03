@@ -1,0 +1,44 @@
+<div class="profile-resume-data">
+			
+
+	
+		<div class="main-artist-info">
+			<div class="row">
+				<div class="large-3 columns">
+			 		<div class="avatar">
+			 			<a href="#"><img src="{{ model.user_img }}" class="main-avatar" /></a>
+			 		</div>
+				</div>
+				
+				<div class="large-9 columns">
+					
+				
+				 	<div class="row">
+				 		<div class="artist-name">
+				 			<div class="large-6 small-6 columns">
+				 			<h2 class="no-margin whitetxt">{{ model.user | truncate:35 }} </h2>
+				 			</div>
+				 			<div class="large-6 small-6 columns">
+				 					<div class="others-actions">
+										<span class="right">
+										<a href="#" class="button hollow"><span aria-hidden="true" data-icon="&#xe017;"></span> <i class="hide-for-small">Seguir</i></a>
+										<a href="#" class="button hollow"><span aria-hidden="true" data-icon="&#xe00f;"></span> <i class="hide-for-small">Mensaje</i></a>
+										</span>
+									</div>	
+				 			</div>
+				 		</div>
+				 	</div>
+				 	
+				 	<h4 class="subheader  whitetxt"> {{ model.user_city }}, {{ model.user_country }} | {{ model.user_age }} años | {{ model.user_url }}</h4>
+				 		
+					<p class="whitetxt">{{ model.user_statement | truncatewords:100  }}</p>
+					<hr />
+					<p>	
+						{% for item in model.user_activities %}
+							<span class="label">{{ item.activity }}</span>
+						{% endfor %}
+					</p>		 
+				</div>	 		 
+			</div>
+		</div>
+	</div>

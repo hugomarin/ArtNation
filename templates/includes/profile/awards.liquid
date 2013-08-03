@@ -1,0 +1,16 @@
+<div class="awards">
+	<div class="row">
+		<div class="large-12 columns">
+		<h5 class="title-1"><strong>Premios</strong> y reconocimientos</h5>
+
+			<ul class="no-bullet award-list">
+			{% for item in model.user_awards %}
+			   
+			   <li><div class="year">{{ item.year }}</div>
+					 <p class="work"><strong>{{ item.award }}</strong> / {{ item.institution }} / {{ item.work }} / {{ item.city }} {{ item.country }} / </p>
+				</li>
+			{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>

@@ -1,111 +1,72 @@
-{% block title %}Perfil de {{ global.user }} {% endblock %}
+{% model "hugo.json" %}
+{% block title %}Perfil de {{ model.user }} {% endblock %}
 
 
 {% block content %} 
 
-<!--<section class="full-profile-work">
-	<div class="full-portrait" >
-		<img src="https://dl.dropboxusercontent.com/u/991960/teoria.jpg" alt="" class="full-img" />
-	</div>
-</section>-->
-
-
-
-<section class="profile-resume">
-	<div class="resume-text">
-		<div class="row">
-			<div class="large-3 columns">
-		 		<div class="avatar">
-		 			<a href="#"><img src="{{ global.user_img }}" class="main-avatar" /></a>
-		 		</div>
-			</div>
-			
-			<div class="large-9 columns">
-			 	<h2 class="no-margin whitetxt subheader">{{ global.user | truncate:35 }}</h2>
-			 	<h4 class="subheader  whitetxt"> {{ model.city }}, {{ model.country }} | {{ model.age }} años | {{ global.user_url }}</h4>
-			 		
-				<p class="whitetxt">{{ global.user_statement | truncatewords:100  }}</p>
-				<hr />
-				<p>	
-					{% for item in model.activities %}
-						<span class="label primary radius">{{ item.activity }}</span>
-					{% endfor %}
-				</p>		 
-			</div>	 		 
-		</div>
-	</div><!--/row-->
-</section><!--/profile-resume-->
-
-
-<div class="artist-resume">
-	<div class="row">
-		<div class="large-12 columns">
-			  <ul class="large-block-grid-4 small-block-grid-4  text-center">
-				 <li><h3>{{ model.no_works }}</h3><span class="">Trabajos</span></li>
-				 <li><h3>{{ model.no_ind_exhibitions }}</h3><span class="">Exposiciones individuales</span></li>
-				 <li><h3>{{ model.no_col_exhibitions }}</h3><span class="">Exposiciones colectivas</span></li>
-				 <li><h3>{{ model.no_contacts }}</h3><span class="">Contactos</span></li>
-			  </ul>
-		</div>
-	</div>
-</div><!--/artist-resume-->
-
-
-
-<!--<span class="right">
-	<a href="#" class="button tiny primary"><span aria-hidden="true" data-icon="&#xe017;"></span> Seguir</a>
-	<a href="#" class="button tiny primary"><span aria-hidden="true" data-icon="&#xe00f;"></span> Mensaje</a>
-</span>-->
-
-
-
-
-
-<div class="exhibitions">
-	<div class="row">
-		<div class="content-box">
-				<div class="large-9 small-8 columns">
-					<h3>Últimas exposiciones</h3>
-				</div>
-				<div class="large-3 small-4 columns">
-					<a href="http://" class="button add tiny right round">Agregar</a>
-				</div>
-					
-				
-				<div class="large-6 columns">	
-					{% include "ind_exhibitions" %}
-				</div>
-				
-				<div class="large-6 columns">	
-					{% include "colec_exhibitions" %}
-				</div>
-			<div class="gradient"></div>
-		</div>
-		<div class="large-12 columns text-center view-more-wrap"><a href="http://" class="view-more button round tiny">ver más</a></div>
-	</div>
-</div>
+	{% include "profile/banner" %}
+	{% include "profile/main-info" %}
+	{% include "profile/resume" %}
 	
-<div class="works">
-	<div class="row">
+	<div class="exhibitions">
+			<div class="content-box">
+				<div class="row">
+					<div class="large-9 small-8 columns">
+						<h3>Últimas exposiciones</h3>
+					</div>
+					<div class="large-3 small-4 columns">
+						<a href="http://" class="button add tiny right round">Agregar</a>
+					</div>
+						
+					<div class="large-6 columns">	
+						{% include "profile/ind_exhibitions" %}
+					</div>
+					
+					<div class="large-6 columns">	
+						{% include "profile/colec_exhibitions" %}
+					</div>
+					<div class="gradient"></div>
+				</div>
+			</div>
+			<div class="large-12 columns text-center view-more-wrap"><a href="http://" class="view-more button round tiny">ver más</a></div>
+	</div><!--/exhibitions-->
+		
+	<div class="works">
 		<div class="content-box">
-				<div class="large-9 small-8 columns">
-					<h3>Obras destacadas</h3>
-				</div>
-				<div class="large-3 small-4 columns">
-					<a href="http://" class="button add tiny right round">Agregar</a>
-				</div>
-				<div class="large-12 columns">	
-					{% include "featured_works" %}
-				</div>				
+			<div class="row">
+					<div class="large-9 small-8 columns">
+						<h3>Obras destacadas</h3>
+					</div>
+					<div class="large-3 small-4 columns">
+						<a href="http://" class="button add tiny right round">Agregar</a>
+					</div>
+					<div class="large-12 columns">	
+						{% include "profile/featured_works" %}
+					</div>				
+			</div>
 		</div>
-	</div>
-</div>	
-		
-	<div class="large-12 columns">
-		
-		{% include "education" %}
-		{% include "awards" %}
-	</div>
+	</div><!--/works-->
+	
+	
+	<div class="edu-awards">
+		<div class="content-box">
+				<div class="row">
+					<div class="large-9 small-8 columns">
+						<h3>Educación &amp; Premios</h3>
+					</div>
+					<div class="large-3 small-4 columns">
+						<a href="http://" class="button add tiny right round">Agregar</a>
+					</div>
+					<div class="large-6 columns">	
+						{% include "profile/education" %}
+					</div>
+					<div class="large-6 columns">	
+						{% include "profile/awards" %}
+					</div>
+				</div>
+		</div>
+	</div><!--/edu-awards-->
 
-   
+	
+		
 {% endblock %}

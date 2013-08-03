@@ -1,84 +1,35 @@
 @import "compass/css3/border-radius";
 @import "compass/css3/box-shadow";
+@import "compass/utilities/general/clearfix";
 
 
-
-
-/*Variables*/
+//VARIABLES
 
 $primary : #717781;
 $black : #000;
 $white : #fff;
 
-
-/*Aux*/
-.no-margin {
-	margin: 0;
-}
-
-.whitetxt {
-	color: $white;
-}
-
-a.add {
-	border-color: lighten( $black, 90% );
-	border-width: 2px;
-	background-color: rgba(255, 255, 255, 0);
-	color: lighten( $black, 70% ) ;
-	font-weight: 500;
-	margin-top: .5em;
-}
-
-.view-more-wrap {
-	margin-top: 1em;
-}
-
-.view-more {
-	color: lighten( $black, 70% ) ;
-	font-weight: 500;
-	text-align: center;
-	text-transform: uppercase;
-	background-color: rgba(255, 255, 255, 0);
-	color: lighten( $black, 70% ) ;
-	margin-top: 1em;
-	border: 2px solid lighten( $black, 90% );
-	
-}
-
-.content-box {
-	@include clearfix;
-	position:relative;
-	min-height: 100px;
-	height: 400px;
-	width: 100%;
-	z-index: 1;
-	overflow: hidden;
-}
-
-.gradient {
-	position: absolute;
-	background-image: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0%, rgba(255, 255, 255, 0) 100%);
-	background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.08)), to(rgba(255, 255, 255, 0)));
-	
-	z-index: 2;
-	bottom: 0;
-	left: 20%;
-	@include border-radius(100%) ;
-	
-	right: 20%;
-	height: 4px;
-}
+//FUNCTION
 
 @function quantity($context:4) {
 	@return	100% / ($context);
 }
 
+//MIXIN
 
 @mixin panel {
 	background-color: lighten( $black, 98% );
 	border-bottom: 2px solid lighten( $black, 90% );
 	@include box-shadow(rgba(0,0,0,0.1) 0px 0px 1px);	
-	
+}
+
+@mixin content-box($height, $min-height) {
+	height: $height;
+	min-height: $min-height;	
+	position:relative;
+	width: 100%;
+	z-index: 1;
+	overflow: hidden;
 }
 
 @mixin avatar($height, $width, $border) {
@@ -100,6 +51,92 @@ a.add {
 	font-size: $dimensions/4 ;
 }
 
+//AUX
+
+.no-margin {
+	margin: 0;
+}
+
+.whitetxt {
+	color: $white;
+}
+
+//UI 
+
+a.add {
+	border-color: lighten( $black, 90% );
+	border-width: 2px;
+	background-color: rgba(255, 255, 255, 0);
+	color: lighten( $black, 70% ) ;
+	font-weight: 500;
+	margin-top: .5em;
+}
+
+.view-more-wrap {
+	margin-top: 0;
+}
+
+.view-more {
+	color: lighten( $black, 70% ) ;
+	font-weight: 500;
+	text-align: center;
+	text-transform: uppercase;
+	background-color:rgba(255, 255, 255, 0.80);
+	color: lighten( $black, 70% ) ;
+	margin-top: 1em;
+	border: 2px solid lighten( $black, 90% );
+}
+
+.gradient {
+	position: absolute;
+	background-image: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+	background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.05)), to(rgba(255, 255, 255, 0)));
+	z-index: 2;
+	bottom: 0;
+	left: 0%;
+	right: 0%;
+	height:20px;
+}
+
+.fade-out {
+	position: relative;
+	white-space: nowrap;
+	overflow: hidden;
+
+}
+
+.fade-out:after {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 30px;
+	content: "";
+	background:-webkit-gradient(linear, left top, right top, from(rgba(255,255,255,0)), to(rgb(249, 250, 249)));background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgb(249, 250, 249) 100%);background: -moz-linear-gradient(left, rgba(255,255,255,0) 0%, rgb(249, 250, 249) 100%);background: -ms-linear-gradient(left, rgba(255,255,255,0) 0%, rgb(249, 250, 249) 100%);background: -o-linear-gradient(left, rgba(255,255,255,0) 0%, rgb(249, 250, 249) 100%);background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgb(249, 250, 249) 100%);
+
+}
+
+
+.button {
+	-moz-box-shadow: 0 0 0;
+	-webkit-box-shadow: 0 0 0;
+	box-shadow: 0 0 0;
+}
+
+.hollow {
+	background-color:transparent;
+   border: .2em solid $white;
+   color: darken($white, 20%);
+   font-weight:bold;
+   box-shadow:1px 2px rgba(255, 255, 254, 0.3);
+   font-size:70%;
+   @include border-radius(2em);	   
+	padding:.5em 2em;
+	text-transform: uppercase;
+	display: inline-block;
+}
+
 .title-1 {
 	text-transform: uppercase;
 	color: lighten(black, 75%);
@@ -112,10 +149,10 @@ a.add {
 	border: none;
 }
 
-.button {
-	-moz-box-shadow: 0 0 0;
-	-webkit-box-shadow: 0 0 0;
-	box-shadow: 0 0 0;
+//TYPO
+
+i {
+	font-weight: normal;font-style: normal;
 }
 
 p.small {
@@ -127,10 +164,19 @@ p.small {
 	color: lighten( $black, 77% );
 }
 
+// FOOTER
+
+.footer {
+	background-color: $black;
+	color: white;
+}
+
+
+//STREAM
+
 .stream-filter {
 	margin: emCalc(6px) 0 0;
 }
-
 
 article.main {
 	@include panel;
@@ -138,7 +184,6 @@ article.main {
 	min-height: 550px;
 	position: relative;
 	z-index: 1;
-
 }
 
 .share-panel {
@@ -154,25 +199,18 @@ article.main {
 .article-head {
 	position: relative;
 	z-index: 10;
-
 }
 
-
-
-
-
 .article-img {
-position: relative;
-overflow: hidden;
-height: auto;
-width: 100%;
-z-index: 10;
-
+	position: relative;
+	overflow: hidden;
+	height: auto;
+	width: 100%;
+	z-index: 10;
 }
 
 .article-img img {
-width: 100%;
-
+	width: 100%;
 }
 
 .article-text, .article-footer, .article-comment  {
@@ -183,66 +221,12 @@ width: 100%;
 	background-color: lighten( $black, 88% );
 }
 
-
-.full-img {
-height: auto;
-width: 100%;
-}
-
-
-.full-profile-work {
-bottom: 0;
-color: #fff;
-font-size: 20px;
-font-weight: bold;
-line-height: 0;
-overflow: hidden;
-position: relative;
-right: 0;
-vertical-align: middle;
-height: 400px;
-}
-
-.work-item {
-	@include panel;
-	margin-bottom: 1em;
-	min-height: 320px;
-	position: relative;
-	z-index: 1;
-}
-
-.work-item-description p {
-	color: lighten( $black, 45% );
-}
-
-.section-container section.active .content {
-	padding: 0;
-	padding-top: emCalc(15px);
-}
-
-.section-container section .title a {
-	background-color: white;
-	font-weight: 400;
-	color: lighten( $black, 70% );
-}
-
-.section-container section.active .title a {
-	font-weight: 600;
-	color: lighten( $black, 10% );
-	border-bottom: 3px solid lighten( $black, 10% );
-}
-
-.work-item-description, .work-item-header {
-	padding: 0 emCalc(10px) 0 emCalc(10px);
-}
-
 .panel {
 	@include panel;
 	margin-bottom: 1em;
 	position: relative;
 	z-index: 1;	
 }
-
 
 /*Nav Bar*/
 
@@ -256,19 +240,35 @@ height: 400px;
 .small-avatar {
 	@include avatar(30px, 30px, 30px);
 }
+//PROFILE 
 
-/*Profile*/
+// banner
 
-.profile-resume {
-	background-color: $black;
+.full-banner {
+	width: 100%;
+	bottom: 0;
+	z-index: 2;
+}
+
+.full-img {
+	height: auto;
+	width: 100%;
+}
+
+// main-info
+
+
+.profile-resume-data {
+	width: 100%;
+	background-color: lighten( $black, 10% );
 	padding-top: emCalc(35px);
 	padding-bottom: emCalc(30px);
-	position: relative;
+	margin-top:-2px;
 	
 	h2 {
 		font-size: emCalc(23px);
 		line-height: 1em;
-		margin-bottom: .3em ;
+		margin-bottom:.3em;
 	}
 	h4 {
 		font-size: emCalc(12px);
@@ -290,6 +290,11 @@ height: 400px;
 		margin: 1.3em 0 .4em;
 		height: 0;
 	}
+	.label {
+	   color: darken($white, 20%);
+	   font-weight: 500;
+	   background-color: lighten($black, 50%);
+	} 
 }
 
 .main-avatar {
@@ -297,16 +302,27 @@ height: 400px;
 	@include border-radius(50%);
 }
 
+.others-actions {
+	@include clearfix;
+	.hollow {
+	margin-bottom: 0;
+	}
+}
+
+// resume
+
 .artist-resume {
-	background-color: lighten($primary,45%);
+	background-color: lighten($black,15%);
 	h3 {
 		font-size: emCalc(44px);
 		line-height: 1em;
 		margin-bottom: .3em;
+		color: $white;
+		font-weight: 300;
 	}
 	span {
 		font-size: emCalc(11px);
-		color: lighten($primary,10%);
+		color: lighten($black,60%);
 		font-weight: 500;
 		line-height: 1em;
 		margin-bottom: 1em;
@@ -315,13 +331,16 @@ height: 400px;
 	}	
 }
 
-
-
-/*Exhibitions*/
+// exhibitions
 
 .exhibitions {
-	background-color: lighten($primary,49%);
-	padding: emCalc(30px) 0 emCalc(30px) 0;
+	background-color: lighten($primary,100%);
+	padding: emCalc(30px) 0 0 0;
+}
+
+.exhibitions .content-box {
+	@include clearfix;
+	@include content-box (420px, 100px);
 }
 
 .exhibitions-list li {
@@ -330,6 +349,7 @@ height: 400px;
 	font-size: emCalc(15px);
 	color: lighten($black,40%);
 	margin-bottom: 2em;
+	
 	small {
 		font-size: emCalc(14px);
 		color: lighten($black,50%);
@@ -346,11 +366,109 @@ height: 400px;
 	left: 0;
 }
 
-/*Exhibitions*/
+
+// works
 
 .works {
-	background-color: $white;
+	background-color: lighten($black,93%);
 	padding: emCalc(30px) 0 emCalc(30px) 0;
 }
 
+.works .content-box {
+	@include clearfix;
+	@include content-box (800px, 100px);
+}
 
+.work-item {
+	@include panel;
+	background-color: white;
+	margin-bottom: 1em;
+	height: 320px;
+	position: relative;
+	z-index: 1;
+	@include border-radius(.3em);	
+	border-top: 1px solid white;
+}
+
+.work-item-img img {
+	  @include border-radius(.3em .3em 0 0);
+	  width: 100%;	
+}
+
+.work-item-header h3 {
+	font-size: emCalc(16px);
+	a {
+		color: $black;
+	}
+}
+
+.work-item-description p {
+	color: lighten( $black, 45% );
+	height: emCalc(65px);
+}
+
+.section-container section.active .content {
+	padding: 0;
+	padding-top: emCalc(15px);
+	background-color: lighten($black,93%);
+}
+
+.section-container section .title a {
+	font-weight: 400;
+	color: lighten( $black, 70% );
+}
+
+.section-container section.active .title a {
+	font-weight: 600;
+	color: lighten( $black, 10% );
+	border-bottom: 3px solid lighten( $black, 10% );
+}
+
+.work-item-description, .work-item-header {
+	padding: 0 emCalc(10px) 0 emCalc(10px);
+}
+
+// awards & education
+
+
+.edu-awards {
+	background-color: lighten($primary,100%);
+	padding: emCalc(30px) 0 0 0;
+}
+
+.edu-awards .content-box {
+	@include clearfix;
+	@include content-box (240px, 100px);
+}
+
+.award-list li {
+	position: relative;
+	padding-left: 50px;
+	font-size: emCalc(15px);
+	color: lighten($black,40%);
+	margin-bottom: 2em;
+	
+	small {
+		font-size: emCalc(14px);
+		color: lighten($black,50%);
+	}
+	strong{
+		color: $black;
+	}
+}
+
+
+.edu-list li {
+	position: relative;
+	font-size: emCalc(15px);
+	color: lighten($black,40%);
+	margin-bottom: 2em;
+	
+	small {
+		font-size: emCalc(14px);
+		color: lighten($black,50%);
+	}
+	strong{
+		color: $black;
+	}
+}

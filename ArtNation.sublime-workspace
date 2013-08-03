@@ -1,0 +1,159 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/Hugo/Dropbox/Mixture/ArtNation/ArtNation.sublime-project",
+		"/Applications/Espresso.app/Contents/SharedSupport/Plug-Ins/SASS.sugar/Support/Scripts/create_css.rb",
+		"/Users/Hugo/Dropbox/Desarrollo/InModa/application/views/default/front/template.php",
+		"/Users/Hugo/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/Hugo/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 331.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"li>\n                            <a href=\"<?php echo site_url();?>\" class=\"main<?php if ($seccion == 'welcome'){?> active<?php }?>\">Inicio</a>\n                        </li>\n                        <li>\n                            <a href=\"<?php echo site_url('como_funciona');?>\" class=\"main<?php if ($seccion == 'como_funciona'){?> active<?php }?>\">Cómo Funciona</a>\n                        </li>\n                        <li>\n                            <a href=\"<?php echo site_url('catalogo');?>\" class=\"main<?php if ($seccion == 'catalogo'){?> active<?php }?>\">Catálogo</a>\n                        </li>\n                        <li>\n                            <a href=\"<?php echo site_url('tu_mundo');?>\" class=\"main<?php if ($seccion == 'tu_mundo'){?> active<?php }?>\">Tu mundo</a>\n                        </li>\n                        <li>\n                            <a href=\"<?php echo site_url('soporte');?>\" class=\"main<?php if ($seccion == 'soporte'){?> active<?php }?>\">Soporte</a>\n                        </li>\n                        <li class=\"right\">\n                            <a href=\"\" class=\"main\">Ingresar</a>\n                        </li>\n                        <li class=\"right\">\n                            <a href=\"<?php echo site_url('unete_a_inmoda');?>\" class=\"main secondary small radius button\">Únete a InModa</a>\n                        </li",
+			"li",
+			"navigation",
+			"href"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"project": "ArtNation.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
