@@ -129,12 +129,19 @@ a.add {
    border: .2em solid $white;
    color: darken($white, 20%);
    font-weight:bold;
-   box-shadow:1px 2px rgba(255, 255, 254, 0.3);
    font-size:70%;
    @include border-radius(2em);	   
-	padding:.5em 2em;
+	padding:.6em 2em;
 	text-transform: uppercase;
 	display: inline-block;
+	&.big {
+	font-size: emCalc(14px);
+	}
+	&.black {
+		box-shadow:2px 2px lighten($black, 70%);
+		color: lighten($black, 20%);
+		border: .2em solid $black;
+	}
 }
 
 .title-1 {
@@ -147,6 +154,41 @@ a.add {
 
 .panel {
 	border: none;
+	@include clearfix;
+}
+
+// FORMS 
+
+input[type=text], input[type=password]  {
+	border-style: none;
+	@include border-radius(.4em);
+	font-weight: 300;
+	color: $black;
+	margin-top: .4em;
+	margin-bottom: 1em;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+	border-bottom: 1px solid lighten($black, 50%);
+	box-shadow: 0 0 0;
+	@include border-radius(0);
+
+}
+
+label {
+	text-transform: capitalize;
+}
+
+// AUTH
+
+.auth-content {
+	position: relative;
+}
+
+
+
+.auth-box{
+	margin-top: 3em;
 }
 
 //TYPO
