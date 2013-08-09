@@ -620,6 +620,7 @@ select {
   .small-pull-2 {
     right: inherit;
   }
+<<<<<<< HEAD
 
   /* line 159, ../scss/foundation/components/_grid.scss */
   .small-push-3 {
@@ -718,6 +719,11 @@ select {
 /* Foundation Visibility HTML Classes */
 /* line 11, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
+=======
+}
+/* Foundation Visibility HTML Classes */
+/* line 11, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 .show-for-small,
 .show-for-medium-down,
 .show-for-large-down {
@@ -725,7 +731,11 @@ select {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* line 15, ../scss/foundation/components/_visibility.scss */
+=======
+/* line 17, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 /* line 17, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -738,7 +748,11 @@ select {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* line 21, ../scss/foundation/components/_visibility.scss */
+=======
+/* line 23, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 /* line 23, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -751,7 +765,11 @@ select {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* line 25, ../scss/foundation/components/_visibility.scss */
+=======
+/* line 27, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 /* line 27, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -763,7 +781,11 @@ select {
 
 /* Specific visilbity for tables */
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* line 36, ../scss/foundation/components/_visibility.scss */
+=======
+/* line 38, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 /* line 38, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -772,7 +794,11 @@ table.show-for-small, table.show-for-medium-down, table.show-for-large-down, tab
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* line 46, ../scss/foundation/components/_visibility.scss */
+=======
+/* line 48, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 /* line 48, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -781,7 +807,11 @@ thead.show-for-small, thead.show-for-medium-down, thead.show-for-large-down, the
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* line 56, ../scss/foundation/components/_visibility.scss */
+=======
+/* line 58, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 /* line 58, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -790,7 +820,11 @@ tbody.show-for-small, tbody.show-for-medium-down, tbody.show-for-large-down, tbo
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* line 66, ../scss/foundation/components/_visibility.scss */
+=======
+/* line 68, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 /* line 68, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -799,7 +833,11 @@ tr.show-for-small, tr.show-for-medium-down, tr.show-for-large-down, tr.hide-for-
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* line 77, ../scss/foundation/components/_visibility.scss */
+=======
+/* line 79, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 /* line 79, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -817,8 +855,13 @@ th.hide-for-xlarge {
 
 /* Medium Displays: 768px - 1279px */
 <<<<<<< HEAD
+<<<<<<< HEAD
 @media only screen and (min-width: 48em) {
   /* line 83, ../scss/foundation/components/_visibility.scss */
+=======
+@media only screen and (min-width: 768px) {
+  /* line 85, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 @media only screen and (min-width: 768px) {
   /* line 85, ../scss/foundation/components/_visibility.scss */
@@ -829,7 +872,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 85, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 87, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 87, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -838,7 +885,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 87, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 89, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 89, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -847,7 +898,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 90, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 92, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 92, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -858,7 +913,11 @@ th.hide-for-xlarge {
 
   /* Specific visilbity for tables */
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 96, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 98, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 98, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -867,7 +926,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 101, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 103, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 103, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -876,7 +939,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 106, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 108, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 108, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -885,7 +952,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 111, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 113, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 113, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -894,7 +965,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 117, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 119, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 119, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -907,8 +982,13 @@ th.hide-for-xlarge {
 }
 /* Large Displays: 1280px - 1440px */
 <<<<<<< HEAD
+<<<<<<< HEAD
 @media only screen and (min-width: 80em) {
   /* line 124, ../scss/foundation/components/_visibility.scss */
+=======
+@media only screen and (min-width: 1280px) {
+  /* line 126, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 @media only screen and (min-width: 1280px) {
   /* line 126, ../scss/foundation/components/_visibility.scss */
@@ -919,7 +999,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 127, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 129, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 129, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -929,7 +1013,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 130, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 132, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 132, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -939,7 +1027,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 133, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 135, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 135, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -950,7 +1042,11 @@ th.hide-for-xlarge {
 
   /* Specific visilbity for tables */
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 140, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 142, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 142, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -959,7 +1055,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 146, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 148, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 148, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -968,7 +1068,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 152, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 154, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 154, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -977,7 +1081,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 158, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 160, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 160, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -986,7 +1094,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 165, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 167, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 167, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1000,8 +1112,13 @@ th.hide-for-xlarge {
 }
 /* X-Large Displays: 1400px and up */
 <<<<<<< HEAD
+<<<<<<< HEAD
 @media only screen and (min-width: 90em) {
   /* line 171, ../scss/foundation/components/_visibility.scss */
+=======
+@media only screen and (min-width: 1440px) {
+  /* line 173, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 @media only screen and (min-width: 1440px) {
   /* line 173, ../scss/foundation/components/_visibility.scss */
@@ -1011,7 +1128,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 174, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 176, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 176, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1021,7 +1142,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 177, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 179, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 179, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1031,7 +1156,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 179, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 181, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 181, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1041,7 +1170,11 @@ th.hide-for-xlarge {
 
   /* Specific visilbity for tables */
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 185, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 187, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 187, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1050,7 +1183,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 190, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 192, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 192, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1059,7 +1196,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 195, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 197, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 197, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1068,7 +1209,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 200, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 202, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 202, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1077,7 +1222,11 @@ th.hide-for-xlarge {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 206, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 208, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 208, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1090,7 +1239,11 @@ th.hide-for-xlarge {
 }
 /* Orientation targeting */
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* line 213, ../scss/foundation/components/_visibility.scss */
+=======
+/* line 215, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 /* line 215, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1100,7 +1253,11 @@ th.hide-for-xlarge {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* line 215, ../scss/foundation/components/_visibility.scss */
+=======
+/* line 217, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 /* line 217, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1111,7 +1268,11 @@ th.hide-for-xlarge {
 
 /* Specific visilbity for tables */
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* line 220, ../scss/foundation/components/_visibility.scss */
+=======
+/* line 222, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 /* line 222, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1120,7 +1281,11 @@ table.hide-for-landscape, table.show-for-portrait {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* line 224, ../scss/foundation/components/_visibility.scss */
+=======
+/* line 226, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 /* line 226, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1129,7 +1294,11 @@ thead.hide-for-landscape, thead.show-for-portrait {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* line 228, ../scss/foundation/components/_visibility.scss */
+=======
+/* line 230, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 /* line 230, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1138,7 +1307,11 @@ tbody.hide-for-landscape, tbody.show-for-portrait {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* line 232, ../scss/foundation/components/_visibility.scss */
+=======
+/* line 234, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 /* line 234, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1147,7 +1320,11 @@ tr.hide-for-landscape, tr.show-for-portrait {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* line 237, ../scss/foundation/components/_visibility.scss */
+=======
+/* line 239, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
 /* line 239, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1159,7 +1336,11 @@ th.show-for-portrait {
 
 @media only screen and (orientation: landscape) {
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 242, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 244, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 244, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1169,7 +1350,11 @@ th.show-for-portrait {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 244, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 246, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 246, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1180,7 +1365,11 @@ th.show-for-portrait {
 
   /* Specific visilbity for tables */
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 249, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 251, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 251, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1189,7 +1378,11 @@ th.show-for-portrait {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 253, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 255, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 255, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1198,7 +1391,11 @@ th.show-for-portrait {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 257, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 259, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 259, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
@@ -1207,7 +1404,11 @@ th.show-for-portrait {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* line 261, ../scss/foundation/components/_visibility.scss */
+=======
+  /* line 263, ../scss/foundation/components/_visibility.scss */
+>>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
 =======
   /* line 263, ../scss/foundation/components/_visibility.scss */
 >>>>>>> f37c7e43b9702a1ac50cbe725a761565baac8f5a
