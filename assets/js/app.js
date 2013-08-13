@@ -13,21 +13,64 @@
 // See http://docs.jquery.com/Using_jQuery_with_Other_Libraries
 // and http://zeptojs.com/
 var libFuncName = null;
+
 if (typeof jQuery === "undefined" &&
     typeof Zepto === "undefined" &&
     typeof $ === "function") {
-    libFuncName = $;
+  libFuncName = $;
 } else if (typeof jQuery === "function") {
-    libFuncName = jQuery;
+  libFuncName = jQuery;
 } else if (typeof Zepto === "function") {
-    libFuncName = Zepto;
+  libFuncName = Zepto;
 } else {
-    throw new TypeError();
+  throw new TypeError();
 }
 
-(function ($) {
+(function ($, window, document, undefined) {
+  'use strict';
 
-(function () {
+  /*
+    matchMedia() polyfill - Test a CSS media 
+    type/query in JS. Authors & copyright (c) 2012: 
+    Scott Jehl, Paul Irish, Nicholas Zakas. 
+    Dual MIT/BSD license
+
+    https://github.com/paulirish/matchMedia.js
+  */
+
+  window.matchMedia = window.matchMedia || (function( doc, undefined ) {
+
+    "use strict";
+
+    var bool,
+        docElem = doc.documentElement,
+        refNode = docElem.firstElementChild || docElem.firstChild,
+        // fakeBody required for <FF4 when executed in <head>
+        fakeBody = doc.createElement( "body" ),
+        div = doc.createElement( "div" );
+
+    div.id = "mq-test-1";
+    div.style.cssText = "position:absolute;top:-100em";
+    fakeBody.style.background = "none";
+    fakeBody.appendChild(div);
+
+    return function(q){
+
+      div.innerHTML = "&shy;<style media=\"" + q + "\"> #mq-test-1 { width: 42px; }</style>";
+
+      docElem.insertBefore( fakeBody, refNode );
+      bool = div.offsetWidth === 42;
+      docElem.removeChild( fakeBody );
+
+      return {
+        matches: bool,
+        media: q
+      };
+
+    };
+
+  }( document ));
+
   // add dusty browser stuff
   if (!Array.prototype.filter) {
     Array.prototype.filter = function(fun /*, thisp */) {
@@ -36,17 +79,13 @@ if (typeof jQuery === "undefined" &&
       if (this == null) {
         throw new TypeError();
       }
-   
+
       var t = Object(this),
           len = t.length >>> 0;
-      if (typeof fun != "function") {
-        try {
-          throw new TypeError();
-        } catch (e) {
+      if (typeof fun !== "function") {
           return;
-        }
       }
-   
+
       var res = [],
           thisp = arguments[1];
       for (var i = 0; i < len; i++) {
@@ -57,32 +96,65 @@ if (typeof jQuery === "undefined" &&
           }
         }
       }
-   
-      return res;
-    };
 
-    if (!Function.prototype.bind) {
-      Function.prototype.bind = function (oThis) {
-        if (typeof this !== "function") {
-          // closest thing possible to the ECMAScript 5 internal IsCallable function
-          throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+      return res;
+    }
+  }
+
+  if (!Function.prototype.bind) {
+    Function.prototype.bind = function (oThis) {
+      if (typeof this !== "function") {
+        // closest thing possible to the ECMAScript 5 internal IsCallable function
+        throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+      }
+   
+      var aArgs = Array.prototype.slice.call(arguments, 1), 
+          fToBind = this, 
+          fNOP = function () {},
+          fBound = function () {
+            return fToBind.apply(this instanceof fNOP && oThis
+               ? this
+               : oThis,
+             aArgs.concat(Array.prototype.slice.call(arguments)));
+          };
+   
+      fNOP.prototype = this.prototype;
+      fBound.prototype = new fNOP();
+   
+      return fBound;
+    };
+  }
+
+  if (!Array.prototype.indexOf) {
+    Array.prototype.indexOf = function (searchElement /*, fromIndex */ ) {
+      "use strict";
+      if (this == null) {
+        throw new TypeError();
+      }
+      var t = Object(this);
+      var len = t.length >>> 0;
+      if (len === 0) {
+        return -1;
+      }
+      var n = 0;
+      if (arguments.length > 1) {
+        n = Number(arguments[1]);
+        if (n != n) { // shortcut for verifying if it's NaN
+          n = 0;
+        } else if (n != 0 && n != Infinity && n != -Infinity) {
+          n = (n > 0 || -1) * Math.floor(Math.abs(n));
         }
-     
-        var aArgs = Array.prototype.slice.call(arguments, 1), 
-            fToBind = this, 
-            fNOP = function () {},
-            fBound = function () {
-              return fToBind.apply(this instanceof fNOP && oThis
-                 ? this
-                 : oThis,
-               aArgs.concat(Array.prototype.slice.call(arguments)));
-            };
-     
-        fNOP.prototype = this.prototype;
-        fBound.prototype = new fNOP();
-     
-        return fBound;
-      };
+      }
+      if (n >= len) {
+          return -1;
+      }
+      var k = n >= 0 ? n : Math.max(len - Math.abs(n), 0);
+      for (; k < len; k++) {
+        if (k in t && t[k] === searchElement) {
+          return k;
+        }
+      }
+      return -1;
     }
   }
 
@@ -90,17 +162,12 @@ if (typeof jQuery === "undefined" &&
   $.fn.stop = $.fn.stop || function() {
     return this;
   };
-}());
-
-;(function (window, document, undefined) {
-  'use strict';
 
   window.Foundation = {
     name : 'Foundation',
 
-    version : '4.0.8',
+    version : '4.3.0',
 
-    // global Foundation cache object
     cache : {},
 
     init : function (scope, libraries, method, options, response, /* internal */ nc) {
@@ -108,15 +175,18 @@ if (typeof jQuery === "undefined" &&
           args = [scope, method, options, response],
           responses = [],
           nc = nc || false;
-          
+
       // disable library error catching,
       // used for development only
       if (nc) this.nc = nc;
 
+      // check RTL
+      this.rtl = /rtl/i.test($('html').attr('dir'));
+
       // set foundation global scope
       this.scope = scope || this.scope;
 
-      if (libraries && typeof libraries === 'string') {
+      if (libraries && typeof libraries === 'string' && !/reflow/i.test(libraries)) {
         if (/off/i.test(libraries)) return this.off();
 
         library_arr = libraries.split(' ');
@@ -127,6 +197,8 @@ if (typeof jQuery === "undefined" &&
           }
         }
       } else {
+        if (/reflow/i.test(libraries)) args[1] = 'reflow';
+
         for (var lib in this.libs) {
           responses.push(this.init_lib(lib, args));
         }
@@ -141,9 +213,9 @@ if (typeof jQuery === "undefined" &&
     },
 
     response_obj : function (response_arr, args) {
-      for (var callback in args) {
-        if (typeof args[callback] === 'function') {
-          return args[callback]({
+      for (var i = 0, len = args.length; i < len; i++) {
+        if (typeof args[i] === 'function') {
+          return args[i]({
             errors: response_arr.filter(function (s) {
               if (typeof s === 'string') return s;
             })
@@ -159,6 +231,8 @@ if (typeof jQuery === "undefined" &&
         if (this.libs.hasOwnProperty(lib)) {
           this.patch(this.libs[lib]);
           return this.libs[lib].init.apply(this.libs[lib], args);
+        } else {
+          return function () {};
         }
       }.bind(this), lib);
     },
@@ -177,6 +251,8 @@ if (typeof jQuery === "undefined" &&
 
     patch : function (lib) {
       this.fix_outer(lib);
+      lib.scope = this.scope;
+      lib.rtl = this.rtl;
     },
 
     inherit : function (scope, methods) {
@@ -190,15 +266,15 @@ if (typeof jQuery === "undefined" &&
     },
 
     random_str : function (length) {
-      var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split('');
-      
+      var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+
       if (!length) {
-          length = Math.floor(Math.random() * chars.length);
+        length = Math.floor(Math.random() * chars.length);
       }
-      
+
       var str = '';
       for (var i = 0; i < length; i++) {
-          str += chars[Math.floor(Math.random() * chars.length)];
+        str += chars[Math.floor(Math.random() * chars.length)];
       }
       return str;
     },
@@ -350,13 +426,13 @@ if (typeof jQuery === "undefined" &&
     },
 
     zj : function () {
-      try {
+      if (typeof Zepto !== 'undefined') {
         return Zepto;
-      } catch (e) {
+      } else {
         return jQuery;
       }
     }()
-  },
+  };
 
   $.fn.foundation = function () {
     var args = Array.prototype.slice.call(arguments, 0);
@@ -367,10 +443,202 @@ if (typeof jQuery === "undefined" &&
     });
   };
 
-}(this, this.document));
+}(libFuncName, this, this.document));
 
-})(libFuncName);
+/*jslint unparam: true, browser: true, indent: 2 */
 
+;(function ($, window, document, undefined) {
+  'use strict';
+
+  Foundation.libs.abide = {
+    name : 'abide',
+
+    version : '4.3.0',
+
+    settings : {
+      live_validate : true,
+      focus_on_invalid : true,
+      timeout : 1000,
+      patterns : {
+        alpha: /[a-zA-Z]+/,
+        alpha_numeric : /[a-zA-Z0-9]+/,
+        integer: /-?\d+/,
+        number: /-?(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?/,
+
+        // generic password: upper-case, lower-case, number/special character, and min 8 characters
+        password : /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+
+        // amex, visa, diners
+        card : /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/,
+        cvv : /^([0-9]){3,4}$/,
+
+        // http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#valid-e-mail-address
+        email : /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+
+        url: /(https?|ftp|file|ssh):\/\/(((([a-zA-Z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-zA-Z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-zA-Z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-zA-Z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-zA-Z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-zA-Z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-zA-Z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-zA-Z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-zA-Z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-zA-Z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-zA-Z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-zA-Z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-zA-Z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?/,
+        // abc.de
+        domain: /^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/,
+
+        datetime: /([0-2][0-9]{3})\-([0-1][0-9])\-([0-3][0-9])T([0-5][0-9])\:([0-5][0-9])\:([0-5][0-9])(Z|([\-\+]([0-1][0-9])\:00))/,
+        // YYYY-MM-DD
+        date: /(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))/,
+        // HH:MM:SS
+        time : /(0[0-9]|1[0-9]|2[0-3])(:[0-5][0-9]){2}/,
+        dateISO: /\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}/,
+        // MM/DD/YYYY
+        month_day_year : /(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d/,
+
+        // #FFF or #FFFFFF
+        color: /^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/
+      }
+    },
+
+    timer : null,
+
+    init : function (scope, method, options) {
+      if (typeof method === 'object') {
+        $.extend(true, this.settings, method);
+      }
+
+      if (typeof method !== 'string') {
+        if (!this.settings.init) { this.events(); }
+
+      } else {
+        return this[method].call(this, options);
+      }
+    },
+
+    events : function () {
+      var self = this,
+          forms = $('form[data-abide]', this.scope).attr('novalidate', 'novalidate');
+
+      forms
+        .on('submit validate', function (e) {
+          return self.validate($(this).find('input, textarea, select').get(), e);
+        });
+
+      this.settings.init = true;
+
+      if (!this.settings.live_validate) return;
+
+      forms
+        .find('input, textarea, select')
+        .on('blur change', function (e) {
+          self.validate([this], e);
+        })
+        .on('keydown', function (e) {
+          clearTimeout(self.timer);
+          self.timer = setTimeout(function () {
+            self.validate([this], e);
+          }.bind(this), self.settings.timeout);
+        });
+    },
+
+    validate : function (els, e) {
+      var validations = this.parse_patterns(els),
+          validation_count = validations.length,
+          form = $(els[0]).closest('form');
+
+      while (validation_count--) {
+        if (!validations[validation_count] && /submit/.test(e.type)) {
+          if (this.settings.focus_on_invalid) els[validation_count].focus();
+          form.trigger('invalid');
+          $(els[validation_count]).closest('form').attr('data-invalid', '');
+          return false;
+        }
+      }
+
+      if (/submit/.test(e.type)) {
+        form.trigger('valid');
+      }
+
+      form.removeAttr('data-invalid');
+
+      return true;
+    },
+
+    parse_patterns : function (els) {
+      var count = els.length,
+          el_patterns = [];
+
+      for (var i = count - 1; i >= 0; i--) {
+        el_patterns.push(this.pattern(els[i]));
+      }
+
+      return this.check_validation_and_apply_styles(el_patterns);
+    },
+
+    pattern : function (el) {
+      var type = el.getAttribute('type'),
+          required = typeof el.getAttribute('required') === 'string';
+
+      if (this.settings.patterns.hasOwnProperty(type)) {
+        return [el, this.settings.patterns[type], required];
+      }
+
+      var pattern = el.getAttribute('pattern') || '';
+
+      if (this.settings.patterns.hasOwnProperty(pattern) && pattern.length > 0) {
+        return [el, this.settings.patterns[pattern], required];
+      } else if (pattern.length > 0) {
+        return [el, new RegExp(pattern), required];
+      }
+
+      pattern = /.*/;
+
+      return [el, pattern, required];
+    },
+
+    check_validation_and_apply_styles : function (el_patterns) {
+      var count = el_patterns.length,
+          validations = [];
+
+      for (var i = count - 1; i >= 0; i--) {
+        var el = el_patterns[i][0],
+            required = el_patterns[i][2],
+            value = el.value,
+            is_radio = el.type === "radio",
+            valid_length = (required) ? (el.value.length > 0) : true;
+
+        if (is_radio && required) {
+          validations.push(this.valid_radio(el, required));
+        } else {
+          if (el_patterns[i][1].test(value) && valid_length ||
+            !required && el.value.length < 1) {
+            $(el).removeAttr('data-invalid').parent().removeClass('error');
+            validations.push(true);
+          } else {
+            $(el).attr('data-invalid', '').parent().addClass('error');
+            validations.push(false);
+          }
+        }
+      }
+
+      return validations;
+    },
+
+    valid_radio : function (el, required) {
+      var name = el.getAttribute('name'),
+          group = document.getElementsByName(name),
+          count = group.length,
+          valid = false;
+
+      for (var i=0; i < count; i++) {
+        if (group[i].checked) valid = true;
+      }
+
+      for (var i=0; i < count; i++) {
+        if (valid) {
+          $(group[i]).removeAttr('data-invalid').parent().removeClass('error');
+        } else {
+          $(group[i]).attr('data-invalid', '').parent().addClass('error');
+        }
+      }
+
+      return valid;
+    }
+  };
+}(Foundation.zj, this, this.document));
 /*jslint unparam: true, browser: true, indent: 2 */
 
 ;(function ($, window, document, undefined) {
@@ -379,7 +647,7 @@ if (typeof jQuery === "undefined" &&
   Foundation.libs.alerts = {
     name : 'alerts',
 
-    version : '4.0.0',
+    version : '4.2.2',
 
     settings : {
       speed: 300, // fade out speed
@@ -393,8 +661,8 @@ if (typeof jQuery === "undefined" &&
         $.extend(true, this.settings, method);
       }
 
-      if (typeof method != 'string') {
-        if (!this.settings.init) this.events();
+      if (typeof method !== 'string') {
+        if (!this.settings.init) { this.events(); }
 
         return this.settings.init;
       } else {
@@ -418,7 +686,9 @@ if (typeof jQuery === "undefined" &&
 
     off : function () {
       $(this.scope).off('.fndtn.alerts');
-    }
+    },
+
+    reflow : function () {}
   };
 }(Foundation.zj, this, this.document));
 /*jslint unparam: true, browser: true, indent: 2 */
@@ -429,14 +699,14 @@ if (typeof jQuery === "undefined" &&
   Foundation.libs.clearing = {
     name : 'clearing',
 
-    version : '4.0.0',
+    version : '4.2.2',
 
     settings : {
       templates : {
         viewing : '<a href="#" class="clearing-close">&times;</a>' +
           '<div class="visible-img" style="display: none"><img src="//:0">' +
-          '<p class="clearing-caption"></p><a href="#" class="clearing-main-left"><span></span></a>' +
-          '<a href="#" class="clearing-main-right"><span></span></a></div>'
+          '<p class="clearing-caption"></p><a href="#" class="clearing-main-prev"><span></span></a>' +
+          '<a href="#" class="clearing-main-next"><span></span></a></div>'
       },
 
       // comma delimited list of selectors that, on click, will close clearing,
@@ -449,24 +719,24 @@ if (typeof jQuery === "undefined" &&
     },
 
     init : function (scope, method, options) {
-      this.scope = this.scope || scope;
-      Foundation.inherit(this, 'set_data get_data remove_data throttle');
+      var self = this;
+      Foundation.inherit(this, 'set_data get_data remove_data throttle data_options');
 
       if (typeof method === 'object') {
         options = $.extend(true, this.settings, method);
       }
 
-      if (typeof method != 'string') {
+      if (typeof method !== 'string') {
         $(this.scope).find('ul[data-clearing]').each(function () {
-          var self = Foundation.libs.clearing,
-              $el = $(this),
+          var $el = $(this),
               options = options || {},
+              lis = $el.find('li'),
               settings = self.get_data($el);
 
-          if (!settings) {
+          if (!settings && lis.length > 0) {
             options.$parent = $el.parent();
 
-            self.set_data($el, $.extend(true, self.settings, options));
+            self.set_data($el, $.extend({}, self.settings, options, self.data_options($el)));
 
             self.assemble($el.find('li'));
 
@@ -493,19 +763,30 @@ if (typeof jQuery === "undefined" &&
           function (e, current, target) {
             var current = current || $(this),
                 target = target || current,
-                settings = self.get_data(current.parent());
+                next = current.next('li'),
+                settings = self.get_data(current.parent()),
+                image = $(e.target);
 
             e.preventDefault();
             if (!settings) self.init();
 
+            // if clearing is open and the current image is
+            // clicked, go to the next image in sequence
+            if (target.hasClass('visible') && 
+              current[0] === target[0] && 
+              next.length > 0 && self.is_open(current)) {
+              target = next;
+              image = target.find('img');
+            }
+
             // set current and target to the clicked li if not otherwise defined.
-            self.open($(e.target), current, target);
+            self.open(image, current, target);
             self.update_paddles(target);
           })
 
-        .on('click.fndtn.clearing', '.clearing-main-right',
+        .on('click.fndtn.clearing', '.clearing-main-next',
           function (e) { this.nav(e, 'next') }.bind(this))
-        .on('click.fndtn.clearing', '.clearing-main-left',
+        .on('click.fndtn.clearing', '.clearing-main-prev',
           function (e) { this.nav(e, 'prev') }.bind(this))
         .on('click.fndtn.clearing', this.settings.close_selectors,
           function (e) { Foundation.libs.clearing.close(e, this) })
@@ -513,7 +794,7 @@ if (typeof jQuery === "undefined" &&
           function (e) { this.keydown(e) }.bind(this));
 
       $(window).on('resize.fndtn.clearing',
-        function (e) { this.resize() }.bind(this));
+        function () { this.resize() }.bind(this));
 
       this.settings.init = true;
       return this;
@@ -567,7 +848,10 @@ if (typeof jQuery === "undefined" &&
     },
 
     assemble : function ($li) {
-      var $el = $li.parent(),
+      var $el = $li.parent();
+      $el.after('<div id="foundationClearingHolder"></div>');
+
+      var holder = $('#foundationClearingHolder'),
           settings = this.get_data($el),
           grid = $el.detach(),
           data = {
@@ -577,7 +861,7 @@ if (typeof jQuery === "undefined" &&
           wrapper = '<div class="clearing-assembled"><div>' + data.viewing +
             data.grid + '</div></div>';
 
-      return settings.$parent.append(wrapper);
+      return holder.after(wrapper).remove();
     },
 
     // event callbacks
@@ -590,9 +874,12 @@ if (typeof jQuery === "undefined" &&
 
       if (!this.locked()) {
         // set the image to the selected thumbnail
-        image.attr('src', this.load($image));
+        image
+          .attr('src', this.load($image))
+          .css('visibility', 'hidden');
 
         this.loaded(image, function () {
+          image.css('visibility', 'visible');
           // toggle the gallery
           root.addClass('clearing-blackout');
           container.addClass('clearing-container');
@@ -620,7 +907,7 @@ if (typeof jQuery === "undefined" &&
           }($(el))), container, visible_image;
 
       if (el === e.target && root) {
-        container = root.find('div').first(),
+        container = root.find('div').first();
         visible_image = container.find('.visible-img');
         this.settings.prev_index = 0;
         root.find('ul[data-clearing]')
@@ -631,6 +918,10 @@ if (typeof jQuery === "undefined" &&
       }
 
       return false;
+    },
+
+    is_open : function (current) {
+      return current.parent().attr('style').length > 0;
     },
 
     keydown : function (e) {
@@ -680,39 +971,50 @@ if (typeof jQuery === "undefined" &&
         .closest('.carousel')
         .siblings('.visible-img');
 
-      if (target.next().length) {
+      if (target.next().length > 0) {
         visible_image
-          .find('.clearing-main-right')
+          .find('.clearing-main-next')
           .removeClass('disabled');
       } else {
         visible_image
-          .find('.clearing-main-right')
+          .find('.clearing-main-next')
           .addClass('disabled');
       }
 
-      if (target.prev().length) {
+      if (target.prev().length > 0) {
         visible_image
-          .find('.clearing-main-left')
+          .find('.clearing-main-prev')
           .removeClass('disabled');
       } else {
         visible_image
-          .find('.clearing-main-left')
+          .find('.clearing-main-prev')
           .addClass('disabled');
       }
     },
 
     center : function (target) {
-      target.css({
-        marginLeft : -(this.outerWidth(target) / 2),
-        marginTop : -(this.outerHeight(target) / 2)
-      });
+      if (!this.rtl) {
+        target.css({
+          marginLeft : -(this.outerWidth(target) / 2),
+          marginTop : -(this.outerHeight(target) / 2)
+        });
+      } else {
+        target.css({
+          marginRight : -(this.outerWidth(target) / 2),
+          marginTop : -(this.outerHeight(target) / 2)
+        });
+      }
       return this;
     },
 
     // image loading and preloading
 
     load : function ($image) {
-      var href = $image.parent().attr('href');
+      if ($image[0].nodeName === "A") {
+        var href = $image.attr('href');
+      } else {
+        var href = $image.parent().attr('href');
+      }
 
       this.preload($image);
 
@@ -751,7 +1053,7 @@ if (typeof jQuery === "undefined" &&
         return;
       }
 
-      if (this.complete || this.readyState === 4) {
+      if (image[0].complete || image[0].readyState === 4) {
         loaded();
       } else {
         bindLoad.call(image);
@@ -779,7 +1081,7 @@ if (typeof jQuery === "undefined" &&
 
       if (caption) {
         container
-          .text(caption)
+          .html(caption)
           .show();
       } else {
         container
@@ -897,6 +1199,10 @@ if (typeof jQuery === "undefined" &&
       $(window).off('.fndtn.clearing');
       this.remove_data(); // empty settings cache
       this.settings.init = false;
+    },
+
+    reflow : function () {
+      this.init();
     }
   };
 
@@ -984,21 +1290,24 @@ if (typeof jQuery === "undefined" &&
   Foundation.libs.dropdown = {
     name : 'dropdown',
 
-    version : '4.0.9',
+    version : '4.3.0',
 
     settings : {
-      activeClass: 'open'
+      activeClass: 'open',
+      is_hover: false,
+      opened: function(){},
+      closed: function(){}
     },
 
     init : function (scope, method, options) {
       this.scope = scope || this.scope;
-      Foundation.inherit(this, 'throttle');
+      Foundation.inherit(this, 'throttle scrollLeft data_options');
 
       if (typeof method === 'object') {
         $.extend(true, this.settings, method);
       }
 
-      if (typeof method != 'string') {
+      if (typeof method !== 'string') {
 
         if (!this.settings.init) {
           this.events();
@@ -1013,18 +1322,37 @@ if (typeof jQuery === "undefined" &&
     events : function () {
       var self = this;
 
-      $(this.scope).on('click.fndtn.dropdown', '[data-dropdown]', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        self.toggle($(this));
-      });
+      $(this.scope)
+        .on('click.fndtn.dropdown', '[data-dropdown]', function (e) {
+          var settings = $.extend({}, self.settings, self.data_options($(this)));
+          e.preventDefault();
 
-      $('*, html, body').on('click.fndtn.dropdown', function (e) {
-        if (!$(e.target).data('dropdown')) {
-          $('[data-dropdown-content]')
-            .css('left', '-99999px')
-            .removeClass(self.settings.activeClass);
+          if (!settings.is_hover) self.toggle($(this));
+        })
+        .on('mouseenter', '[data-dropdown]', function (e) {
+          var settings = $.extend({}, self.settings, self.data_options($(this)));
+          if (settings.is_hover) self.toggle($(this));
+        })
+        .on('mouseleave', '[data-dropdown-content]', function (e) {
+          var target = $('[data-dropdown="' + $(this).attr('id') + '"]'),
+              settings = $.extend({}, self.settings, self.data_options(target));
+          if (settings.is_hover) self.close.call(self, $(this));
+        })
+        .on('opened.fndtn.dropdown', '[data-dropdown-content]', this.settings.opened)
+        .on('closed.fndtn.dropdown', '[data-dropdown-content]', this.settings.closed);
+
+      $(document).on('click.fndtn.dropdown', function (e) {
+        var parent = $(e.target).closest('[data-dropdown-content]');
+
+        if ($(e.target).data('dropdown')) {
+          return;
         }
+        if (parent.length > 0 && ($(e.target).is('[data-dropdown-content]') || $.contains(parent.first()[0], e.target))) {
+          e.stopPropagation();
+          return;
+        }
+
+        self.close.call(self, $('[data-dropdown-content]'));
       });
 
       $(window).on('resize.fndtn.dropdown', self.throttle(function () {
@@ -1034,19 +1362,35 @@ if (typeof jQuery === "undefined" &&
       this.settings.init = true;
     },
 
-    toggle : function (target, resize) {
-      var dropdown = $('#' + target.data('dropdown'));
+    close: function (dropdown) {
+      var self = this;
+      dropdown.each(function () {
+        if ($(this).hasClass(self.settings.activeClass)) {
+          $(this)
+            .css(Foundation.rtl ? 'right':'left', '-99999px')
+            .removeClass(self.settings.activeClass);
+          $(this).trigger('closed');
+        }
+      });
+    },
 
-      $('[data-dropdown-content]').not(dropdown).css('left', '-99999px').removeClass(this.settings.activeClass);
-
-      if (dropdown.hasClass(this.settings.activeClass)) {
-        dropdown
-          .css('left', '-99999px')
-          .removeClass(this.settings.activeClass);
-      } else {
+    open: function (dropdown, target) {
         this
           .css(dropdown
             .addClass(this.settings.activeClass), target);
+        dropdown.trigger('opened');
+    },
+
+    toggle : function (target) {
+      var dropdown = $('#' + target.data('dropdown'));
+
+      this.close.call(this, $('[data-dropdown-content]').not(dropdown));
+
+      if (dropdown.hasClass(this.settings.activeClass)) {
+        this.close.call(this, dropdown);
+      } else {
+        this.close.call(this, $('[data-dropdown-content]'))
+        this.open.call(this, dropdown, target);
       }
     },
 
@@ -1060,9 +1404,14 @@ if (typeof jQuery === "undefined" &&
     },
 
     css : function (dropdown, target) {
-      var position = target.position();
-      position.top += target.offsetParent().scrollTop();
-      position.left += target.offsetParent().scrollLeft();
+      var offset_parent = dropdown.offsetParent();
+      // if (offset_parent.length > 0 && /body/i.test(dropdown.offsetParent()[0].nodeName)) {
+        var position = target.offset();
+        position.top -= offset_parent.offset().top;
+        position.left -= offset_parent.offset().left;
+      // } else {
+      //   var position = target.position();
+      // }
 
       if (this.small()) {
         dropdown.css({
@@ -1073,14 +1422,18 @@ if (typeof jQuery === "undefined" &&
           top: position.top + this.outerHeight(target)
         });
       } else {
-        if ($(window).width() > this.outerWidth(dropdown) + target.offset().left) {
+        if (!Foundation.rtl && $(window).width() > this.outerWidth(dropdown) + target.offset().left) {
           var left = position.left;
+          if (dropdown.hasClass('right')) {
+            dropdown.removeClass('right');
+          }
         } else {
           if (!dropdown.hasClass('right')) {
             dropdown.addClass('right');
           }
           var left = position.left - (this.outerWidth(dropdown) - this.outerWidth(target));
         }
+
         dropdown.attr('style', '').css({
           position : 'absolute',
           top: position.top + this.outerHeight(target),
@@ -1101,32 +1454,34 @@ if (typeof jQuery === "undefined" &&
       $(window).off('.fndtn.dropdown');
       $('[data-dropdown-content]').off('.fndtn.dropdown');
       this.settings.init = false;
-    }
+    },
+
+    reflow : function () {}
   };
 }(Foundation.zj, this, this.document));
 
-/*jslint unparam: true, browser: true, indent: 2 */
-
-;(function ($, window, document, undefined) {
+(function ($, window, document, undefined) {
   'use strict';
 
   Foundation.libs.forms = {
     name : 'forms',
 
-    version : '4.0.4',
+    version: '4.3.1',
 
-    settings : {
-      disable_class: 'no-custom'
+    cache: {},
+
+    settings: {
+      disable_class: 'no-custom',
+      last_combo : null
     },
 
-    init : function (scope, method, options) {
-      this.scope = scope || this.scope;
+    init: function (scope, method, options) {
 
       if (typeof method === 'object') {
         $.extend(true, this.settings, method);
       }
 
-      if (typeof method != 'string') {
+      if (typeof method !== 'string') {
         if (!this.settings.init) {
           this.events();
         }
@@ -1139,54 +1494,77 @@ if (typeof jQuery === "undefined" &&
       }
     },
 
-    assemble : function () {
-      $('form.custom input[type="radio"]', $(this.scope)).not('[data-customforms="disabled"]')
+    assemble: function () {
+      $('form.custom input[type="radio"]', $(this.scope))
+        .not('[data-customforms="disabled"]')
+        .not('.' + this.settings.disable_class)
         .each(this.append_custom_markup);
-      $('form.custom input[type="checkbox"]', $(this.scope)).not('[data-customforms="disabled"]')
+      $('form.custom input[type="checkbox"]', $(this.scope))
+        .not('[data-customforms="disabled"]')
+        .not('.' + this.settings.disable_class)
         .each(this.append_custom_markup);
-      $('form.custom select', $(this.scope)).not('[data-customforms="disabled"]')
+      $('form.custom select', $(this.scope))
+        .not('[data-customforms="disabled"]')
+        .not('.' + this.settings.disable_class)
+        .not('[multiple=multiple]')
         .each(this.append_custom_select);
     },
 
-    events : function () {
+    events: function () {
       var self = this;
 
       $(this.scope)
-        .on('change.fndtn.forms', 'form.custom select:not([data-customforms="disabled"])', function (e) {
-          self.refresh_custom_select($(this));
+        .on('click.fndtn.forms', 'form.custom span.custom.checkbox', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          self.toggle_checkbox($(this));
+        })
+        .on('click.fndtn.forms', 'form.custom span.custom.radio', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          self.toggle_radio($(this));
+        })
+        .on('change.fndtn.forms', 'form.custom select', function (e, force_refresh) {
+          if ($(this).is('[data-customforms="disabled"]')) return;
+          self.refresh_custom_select($(this), force_refresh);
         })
         .on('click.fndtn.forms', 'form.custom label', function (e) {
-          var $associatedElement = $('#' + self.escape($(this).attr('for')) + ':not([data-customforms="disabled"])'),
+          if ($(e.target).is('label')) {
+            var $associatedElement = $('#' + self.escape($(this).attr('for'))).not('[data-customforms="disabled"]'),
               $customCheckbox,
               $customRadio;
-          if ($associatedElement.length !== 0) {
-            if ($associatedElement.attr('type') === 'checkbox') {
-              e.preventDefault();
-              $customCheckbox = $(this).find('span.custom.checkbox');
-              //the checkbox might be outside after the label
-              if ($customCheckbox.length == 0) {
-                $customCheckbox = $(this).siblings('span.custom.checkbox').first();
+
+            if ($associatedElement.length !== 0) {
+              if ($associatedElement.attr('type') === 'checkbox') {
+                e.preventDefault();
+                $customCheckbox = $(this).find('span.custom.checkbox');
+                //the checkbox might be outside after the label or inside of another element
+                if ($customCheckbox.length === 0) {
+                  $customCheckbox = $associatedElement.add(this).siblings('span.custom.checkbox').first();
+                }
+                self.toggle_checkbox($customCheckbox);
+              } else if ($associatedElement.attr('type') === 'radio') {
+                e.preventDefault();
+                $customRadio = $(this).find('span.custom.radio');
+                //the radio might be outside after the label or inside of another element
+                if ($customRadio.length === 0) {
+                  $customRadio = $associatedElement.add(this).siblings('span.custom.radio').first();
+                }
+                self.toggle_radio($customRadio);
               }
-              self.toggle_checkbox($customCheckbox);
-            } else if ($associatedElement.attr('type') === 'radio') {
-              e.preventDefault();
-              $customRadio = $(this).find('span.custom.radio');
-              //the radio might be outside after the label
-              if ($customRadio.length == 0) {
-                $customRadio = $(this).siblings('span.custom.radio').first();
-              }
-              self.toggle_radio($customRadio);
             }
           }
+        })
+        .on('mousedown.fndtn.forms', 'form.custom div.custom.dropdown', function () {
+          return false;
         })
         .on('click.fndtn.forms', 'form.custom div.custom.dropdown a.current, form.custom div.custom.dropdown a.selector', function (e) {
           var $this = $(this),
               $dropdown = $this.closest('div.custom.dropdown'),
-              $select = $dropdown.prev();
+              $select = getFirstPrevSibling($dropdown, 'select');
 
           // make sure other dropdowns close
-          if(!$dropdown.hasClass('open'))
-            $(self.scope).trigger('click');
+          if (!$dropdown.hasClass('open')) $(self.scope).trigger('click');
 
           e.preventDefault();
           if (false === $select.is(':disabled')) {
@@ -1206,48 +1584,132 @@ if (typeof jQuery === "undefined" &&
         .on('click.fndtn.forms touchend.fndtn.forms', 'form.custom div.custom.dropdown li', function (e) {
           var $this = $(this),
               $customDropdown = $this.closest('div.custom.dropdown'),
-              $select = $customDropdown.prev(),
+              $select = getFirstPrevSibling($customDropdown, 'select'),
               selectedIndex = 0;
 
           e.preventDefault();
           e.stopPropagation();
 
-          if ( ! $(this).hasClass('disabled')) {
+          if (!$(this).hasClass('disabled')) {
             $('div.dropdown').not($customDropdown).removeClass('open');
 
-            var $oldThis= $this
-              .closest('ul')
+            var $oldThis = $this.closest('ul')
               .find('li.selected');
             $oldThis.removeClass('selected');
 
             $this.addClass('selected');
 
-            $customDropdown
-              .removeClass('open')
+            $customDropdown.removeClass('open')
               .find('a.current')
-              .html($this.html());
+              .text($this.text());
 
             $this.closest('ul').find('li').each(function (index) {
-              if ($this[0] == this) {
+              if ($this[0] === this) {
                 selectedIndex = index;
               }
-
             });
             $select[0].selectedIndex = selectedIndex;
 
             //store the old value in data
             $select.data('prevalue', $oldThis.html());
-            $select.trigger('change');
+            
+            // Kick off full DOM change event
+            if (typeof (document.createEvent) != 'undefined') {
+              var event = document.createEvent('HTMLEvents');
+              event.initEvent('change', true, true);
+              $select[0].dispatchEvent(event);
+            } else {
+              $select[0].fireEvent('onchange'); // for IE
+            }
           }
-        });
+      });
+
+      $(window).on('keydown', function (e) {
+        var focus = document.activeElement,
+            self = Foundation.libs.forms,
+            dropdown = $('.custom.dropdown.open');
+
+        if (dropdown.length > 0) {
+          e.preventDefault();
+
+          if (e.which === 13) {
+            dropdown.find('li.selected').trigger('click');
+          }
+
+          if (e.which === 27) {
+            dropdown.removeClass('open');
+          }
+
+          if (e.which >= 65 && e.which <= 90) {
+            var next = self.go_to(dropdown, e.which),
+                current = dropdown.find('li.selected');
+
+            if (next) {
+              current.removeClass('selected');
+              self.scrollTo(next.addClass('selected'), 300);
+            }
+          }
+
+          if (e.which === 38) {
+            var current = dropdown.find('li.selected'),
+                prev = current.prev(':not(.disabled)');
+
+            if (prev.length > 0) {
+              prev.parent()[0].scrollTop = prev.parent().scrollTop() - self.outerHeight(prev);
+              current.removeClass('selected');
+              prev.addClass('selected');
+            }
+          } else if (e.which === 40) {
+            var current = dropdown.find('li.selected'),
+                next = current.next(':not(.disabled)');
+
+            if (next.length > 0) {
+              next.parent()[0].scrollTop = next.parent().scrollTop() + self.outerHeight(next);
+              current.removeClass('selected');
+              next.addClass('selected');
+            }
+          }
+        }
+      });
 
       this.settings.init = true;
     },
 
-    append_custom_markup : function (idx, sel) {
-      var $this = $(sel).hide(),
-          type  = $this.attr('type'),
+    go_to: function (dropdown, character) {
+      var lis = dropdown.find('li'),
+          count = lis.length;
+
+      if (count > 0) {
+        for (var i = 0; i < count; i++) {
+          var first_letter = lis.eq(i).text().charAt(0).toLowerCase();
+          if (first_letter === String.fromCharCode(character).toLowerCase()) return lis.eq(i);
+        }
+      }
+    },
+
+    scrollTo: function (el, duration) {
+      if (duration < 0) return;
+      var parent = el.parent();
+      var li_height = this.outerHeight(el);
+      var difference = (li_height * (el.index())) - parent.scrollTop();
+      var perTick = difference / duration * 10;
+
+      this.scrollToTimerCache = setTimeout(function () {
+        if (!isNaN(parseInt(perTick, 10))) {
+          parent[0].scrollTop = parent.scrollTop() + perTick;
+          this.scrollTo(el, duration - 10);
+        }
+      }.bind(this), 10);
+    },
+
+    append_custom_markup: function (idx, sel) {
+      var $this = $(sel),
+          type = $this.attr('type'),
           $span = $this.next('span.custom.' + type);
+          
+      if (!$this.parent().hasClass('switch')) {
+        $this.addClass('hidden-field');
+      }
 
       if ($span.length === 0) {
         $span = $('<span class="custom ' + type + '"></span>').insertAfter($this);
@@ -1257,134 +1719,157 @@ if (typeof jQuery === "undefined" &&
       $span.toggleClass('disabled', $this.is(':disabled'));
     },
 
-    append_custom_select : function (idx, sel) {
-      var self = Foundation.libs.forms,
-          $this = $( sel ),
-          $customSelect = $this.next( 'div.custom.dropdown' ),
-          $customList = $customSelect.find( 'ul' ),
-          $selectCurrent = $customSelect.find( ".current" ),
-          $selector = $customSelect.find( ".selector" ),
-          $options = $this.find( 'option' ),
-          $selectedOption = $options.filter( ':selected' ),
-          copyClasses = $this.attr('class') ? $this.attr('class').split(' ') : [],
-          maxWidth = 0,
-          liHtml = '',
-          $listItems,
-          $currentSelect = false;
+    append_custom_select: function (idx, sel) {
+        var self = Foundation.libs.forms,
+            $this = $(sel),
+            $customSelect = $this.next('div.custom.dropdown'),
+            $customList = $customSelect.find('ul'),
+            $selectCurrent = $customSelect.find(".current"),
+            $selector = $customSelect.find(".selector"),
+            $options = $this.find('option'),
+            $selectedOption = $options.filter(':selected'),
+            copyClasses = $this.attr('class') ? $this.attr('class').split(' ') : [],
+            maxWidth = 0,
+            liHtml = '',
+            $listItems,
+            $currentSelect = false;
 
-      if ($this.hasClass(self.settings.disable_class)) return;
+        if ($customSelect.length === 0) {
+          var customSelectSize = $this.hasClass('small') ? 'small' : $this.hasClass('medium') ? 'medium' : $this.hasClass('large') ? 'large' : $this.hasClass('expand') ? 'expand' : '';
 
-      if ($customSelect.length === 0) {
-        var customSelectSize = $this.hasClass( 'small' )   ? 'small'   :
-                               $this.hasClass( 'medium' )  ? 'medium'  :
-                               $this.hasClass( 'large' )   ? 'large'   :
-                               $this.hasClass( 'expand' )  ? 'expand'  : '';
+          $customSelect = $('<div class="' + ['custom', 'dropdown', customSelectSize].concat(copyClasses).filter(function (item, idx, arr) {
+            if (item === '') return false;
+            return arr.indexOf(item) === idx;
+          }).join(' ') + '"><a href="#" class="selector"></a><ul /></div>');
 
-        $customSelect = $('<div class="' + ['custom', 'dropdown', customSelectSize ].concat(copyClasses).filter(function(item, idx,arr){ if(item == '') return false; return arr.indexOf(item) == idx; }).join( ' ' ) + '"><a href="#" class="selector"></a><ul /></div>');
-        $selector = $customSelect.find(".selector");
-        $customList = $customSelect.find("ul");
-        liHtml = $options.map(function() { return "<li>" + $( this ).html() + "</li>"; } ).get().join( '' );
-        $customList.append(liHtml);
-        $currentSelect = $customSelect.prepend('<a href="#" class="current">' + $selectedOption.html() + '</a>' ).find( ".current" );
-        $this
-          .after( $customSelect )
-          .hide();
+          $selector = $customSelect.find(".selector");
+          $customList = $customSelect.find("ul");
 
-      } else {
-        liHtml = $options.map(function() {
-            return "<li>" + $( this ).html() + "</li>";
-          })
-          .get().join('');
-        $customList
-          .html('')
-          .append(liHtml);
+          liHtml = $options.map(function () {
+            var copyClasses = $(this).attr('class') ? $(this).attr('class') : '';
+            return "<li class='" + copyClasses + "'>" + $(this).html() + "</li>";
+          }).get().join('');
 
-      } // endif $customSelect.length === 0
-      $customSelect.toggleClass('disabled', $this.is( ':disabled' ) );
-      $listItems = $customList.find( 'li' );
+          $customList.append(liHtml);
 
-      $options.each( function ( index ) {
-        if ( this.selected ) {
-          $listItems.eq( index ).addClass( 'selected' );
+          $currentSelect = $customSelect
+            .prepend('<a href="#" class="current">' + $selectedOption.html() + '</a>')
+            .find(".current");
 
-          if ($currentSelect) {
-            $currentSelect.html( $( this ).html() );
+          $this.after($customSelect)
+            .addClass('hidden-field');
+        } else {
+          liHtml = $options.map(function () {
+              return "<li>" + $(this).html() + "</li>";
+            })
+            .get().join('');
+
+          $customList.html('')
+            .append(liHtml);
+
+        } // endif $customSelect.length === 0
+
+        self.assign_id($this, $customSelect);
+        $customSelect.toggleClass('disabled', $this.is(':disabled'));
+        $listItems = $customList.find('li');
+
+        // cache list length
+        self.cache[$customSelect.data('id')] = $listItems.length;
+
+        $options.each(function (index) {
+          if (this.selected) {
+            $listItems.eq(index).addClass('selected');
+
+            if ($currentSelect) {
+              $currentSelect.html($(this).html());
+            }
           }
+          if ($(this).is(':disabled')) {
+            $listItems.eq(index).addClass('disabled');
+          }
+        });
 
-        }
-        if ($(this).is(':disabled')) {
-          $listItems.eq( index ).addClass( 'disabled' );
-        }
-      });
-
-      //
-      // If we're not specifying a predetermined form size.
-      //
-      if (!$customSelect.is('.small, .medium, .large, .expand')) {
-
-        // ------------------------------------------------------------------------------------
-        // This is a work-around for when elements are contained within hidden parents.
-        // For example, when custom-form elements are inside of a hidden reveal modal.
         //
-        // We need to display the current custom list element as well as hidden parent elements
-        // in order to properly calculate the list item element's width property.
-        // -------------------------------------------------------------------------------------
-
-        $customSelect.addClass( 'open' );
+        // If we're not specifying a predetermined form size.
         //
-        // Quickly, display all parent elements.
-        // This should help us calcualate the width of the list item's within the drop down.
-        //
-        var self = Foundation.libs.forms;
-        self.hidden_fix.adjust( $customList );
+        if (!$customSelect.is('.small, .medium, .large, .expand')) {
 
-        maxWidth = ( self.outerWidth($listItems) > maxWidth ) ? self.outerWidth($listItems) : maxWidth;
+          // ------------------------------------------------------------------------------------
+          // This is a work-around for when elements are contained within hidden parents.
+          // For example, when custom-form elements are inside of a hidden reveal modal.
+          //
+          // We need to display the current custom list element as well as hidden parent elements
+          // in order to properly calculate the list item element's width property.
+          // -------------------------------------------------------------------------------------
 
-        Foundation.libs.forms.hidden_fix.reset();
+          $customSelect.addClass('open');
+          //
+          // Quickly, display all parent elements.
+          // This should help us calcualate the width of the list item's within the drop down.
+          //
+          var self = Foundation.libs.forms;
+          self.hidden_fix.adjust($customList);
 
-        $customSelect.removeClass( 'open' );
+          maxWidth = (self.outerWidth($listItems) > maxWidth) ? self.outerWidth($listItems) : maxWidth;
 
-      } // endif
+          Foundation.libs.forms.hidden_fix.reset();
+
+          $customSelect.removeClass('open');
+
+        } // endif
 
     },
 
-    refresh_custom_select : function ($select) {
+    assign_id: function ($select, $customSelect) {
+      var id = [+new Date(), Foundation.random_str(5)].join('-');
+      $select.attr('data-id', id);
+      $customSelect.attr('data-id', id);
+    },
+
+    refresh_custom_select: function ($select, force_refresh) {
       var self = this;
       var maxWidth = 0,
-        $customSelect = $select.next(),
-        $options = $select.find('option');
+          $customSelect = $select.next(),
+          $options = $select.find('option'),
+          $listItems = $customSelect.find('li');
 
-      $customSelect.find('ul').html('');
+      if ($listItems.length !== this.cache[$customSelect.data('id')] || force_refresh) {
+        $customSelect.find('ul').html('');
 
-      $options.each(function () {
-        var $li = $('<li>' + $(this).html() + '</li>');
-        $customSelect.find('ul').append($li);
-      });
+        $options.each(function () {
+          var $li = $('<li>' + $(this).html() + '</li>');
+          $customSelect.find('ul').append($li);
+        });
 
-      // re-populate
-      $options.each(function (index) {
-        if (this.selected) {
-          $customSelect.find('li').eq(index).addClass('selected');
-          $customSelect.find('.current').html($(this).html());
-        }
-        if ($(this).is(':disabled')) {
-          $customSelect.find('li').eq(index).addClass('disabled');
-        }
-      });
+        // re-populate
+        $options.each(function (index) {
+          if (this.selected) {
+            $customSelect.find('li').eq(index).addClass('selected');
+            $customSelect.find('.current').html($(this).html());
+          }
+          if ($(this).is(':disabled')) {
+            $customSelect.find('li').eq(index).addClass('disabled');
+          }
+        });
 
-      // fix width
-      $customSelect.removeAttr('style')
-        .find('ul').removeAttr('style');
-      $customSelect.find('li').each(function () {
-        $customSelect.addClass('open');
-        if (self.outerWidth($(this)) > maxWidth) {
-          maxWidth = self.outerWidth($(this));
-        }
-        $customSelect.removeClass('open');
-      });
+        // fix width
+        $customSelect.removeAttr('style')
+          .find('ul').removeAttr('style');
+        $customSelect.find('li').each(function () {
+          $customSelect.addClass('open');
+          if (self.outerWidth($(this)) > maxWidth) {
+            maxWidth = self.outerWidth($(this));
+          }
+          $customSelect.removeClass('open');
+        });
+
+        $listItems = $customSelect.find('li');
+        // cache list length
+        this.cache[$customSelect.data('id')] = $listItems.length;
+      }
     },
 
-    toggle_checkbox : function ($element) {
+    toggle_checkbox: function ($element) {
       var $input = $element.prev(),
           input = $input[0];
 
@@ -1396,121 +1881,422 @@ if (typeof jQuery === "undefined" &&
       }
     },
 
-    toggle_radio : function ($element) {
-      var $input = $element.prev(),
-          $form = $input.closest('form.custom'),
-          input = $input[0];
+    toggle_radio: function ($element) {
+        var $input = $element.prev(),
+            $form = $input.closest('form.custom'),
+            input = $input[0];
 
-      if (false === $input.is(':disabled')) {
-        $form.find('input[type="radio"][name="' + this.escape($input.attr('name')) + '"]').next().not($element).removeClass('checked');
-        if ( !$element.hasClass('checked') ) {
-          $element.toggleClass('checked');
+        if (false === $input.is(':disabled')) {
+          $form.find('input[type="radio"][name="' + this.escape($input.attr('name')) + '"]')
+            .next().not($element).removeClass('checked');
+
+          if (!$element.hasClass('checked')) {
+            $element.toggleClass('checked');
+          }
+
+          input.checked = $element.hasClass('checked');
+
+          $input.trigger('change');
         }
-        input.checked = $element.hasClass('checked');
-
-        $input.trigger('change');
-      }
     },
 
-    escape : function (text) {
+    escape: function (text) {
+      if (!text) return '';
       return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
     },
 
-    hidden_fix : {
-      /**
-       * Sets all hidden parent elements and self to visibile.
-       *
-       * @method adjust
-       * @param {jQuery Object} $child
-       */
+    hidden_fix: {
+        /**
+         * Sets all hidden parent elements and self to visibile.
+         *
+         * @method adjust
+         * @param {jQuery Object} $child
+         */
 
-      // We'll use this to temporarily store style properties.
-      tmp : [],
+        // We'll use this to temporarily store style properties.
+        tmp: [],
 
-      // We'll use this to set hidden parent elements.
-      hidden : null,
+        // We'll use this to set hidden parent elements.
+        hidden: null,
 
-      adjust : function( $child ) {
-        // Internal reference.
-        var _self = this;
+        adjust: function ($child) {
+          // Internal reference.
+          var _self = this;
 
-        // Set all hidden parent elements, including this element.
-        _self.hidden = $child.parents().andSelf().filter( ":hidden" );
+          // Set all hidden parent elements, including this element.
+          _self.hidden = $child.parents();
+          _self.hidden = _self.hidden.add($child).filter(":hidden");
 
-        // Loop through all hidden elements.
-        _self.hidden.each( function() {
+          // Loop through all hidden elements.
+          _self.hidden.each(function () {
 
-          // Cache the element.
-          var $elem = $( this );
+            // Cache the element.
+            var $elem = $(this);
 
-          // Store the style attribute.
-          // Undefined if element doesn't have a style attribute.
-          _self.tmp.push( $elem.attr( 'style' ) );
+            // Store the style attribute.
+            // Undefined if element doesn't have a style attribute.
+            _self.tmp.push($elem.attr('style'));
 
-          // Set the element's display property to block,
-          // but ensure it's visibility is hidden.
-          $elem.css( { 'visibility' : 'hidden', 'display' : 'block' } );
-        });
+            // Set the element's display property to block,
+            // but ensure it's visibility is hidden.
+            $elem.css({
+                'visibility': 'hidden',
+                'display': 'block'
+            });
+          });
 
-      }, // end adjust
+        }, // end adjust
 
-      /**
-       * Resets the elements previous state.
-       *
-       * @method reset
-       */
-      reset : function() {
-        // Internal reference.
-        var _self = this;
-        // Loop through our hidden element collection.
-        _self.hidden.each( function( i ) {
-          // Cache this element.
-          var $elem = $( this ),
-              _tmp = _self.tmp[ i ]; // Get the stored 'style' value for this element.
+        /**
+         * Resets the elements previous state.
+         *
+         * @method reset
+         */
+        reset: function () {
+          // Internal reference.
+          var _self = this;
+          // Loop through our hidden element collection.
+          _self.hidden.each(function (i) {
+            // Cache this element.
+            var $elem = $(this),
+                _tmp = _self.tmp[i]; // Get the stored 'style' value for this element.
 
-          // If the stored value is undefined.
-          if( _tmp === undefined )
+            // If the stored value is undefined.
+            if (_tmp === undefined)
             // Remove the style attribute.
-            $elem.removeAttr( 'style' );
-          else
+            $elem.removeAttr('style');
+            else
             // Otherwise, reset the element style attribute.
-            $elem.attr( 'style', _tmp );
+            $elem.attr('style', _tmp);
+          });
+          // Reset the tmp array.
+          _self.tmp = [];
+          // Reset the hidden elements variable.
+          _self.hidden = null;
 
-        });
-        // Reset the tmp array.
-        _self.tmp = [];
-        // Reset the hidden elements variable.
-        _self.hidden = null;
-
-      } // end reset
-
+        } // end reset
     },
 
-    off : function () {
+    off: function () {
       $(this.scope).off('.fndtn.forms');
+    },
+
+    reflow : function () {}
+  };
+
+  var getFirstPrevSibling = function($el, selector) {
+    var $el = $el.prev();
+    while ($el.length) {
+      if ($el.is(selector)) return $el;
+      $el = $el.prev();
     }
+    return $();
   };
 }(Foundation.zj, this, this.document));
+
 /*jslint unparam: true, browser: true, indent: 2 */
 
 ;(function ($, window, document, undefined) {
   'use strict';
 
-  Foundation.libs.joyride = {
-    name: 'joyride',
+  Foundation.libs.interchange = {
+    name : 'interchange',
 
-    version : '4.0.0',
+    version : '4.2.4',
+
+    cache : {},
+
+    images_loaded : false,
+
+    settings : {
+      load_attr : 'interchange',
+
+      named_queries : {
+        'default' : 'only screen and (min-width: 1px)',
+        small : 'only screen and (min-width: 768px)',
+        medium : 'only screen and (min-width: 1280px)',
+        large : 'only screen and (min-width: 1440px)',
+        landscape : 'only screen and (orientation: landscape)',
+        portrait : 'only screen and (orientation: portrait)',
+        retina : 'only screen and (-webkit-min-device-pixel-ratio: 2),' + 
+          'only screen and (min--moz-device-pixel-ratio: 2),' + 
+          'only screen and (-o-min-device-pixel-ratio: 2/1),' + 
+          'only screen and (min-device-pixel-ratio: 2),' + 
+          'only screen and (min-resolution: 192dpi),' + 
+          'only screen and (min-resolution: 2dppx)'
+      },
+
+      directives : {
+        replace: function (el, path) {
+          if (/IMG/.test(el[0].nodeName)) {
+            var orig_path = el[0].src;
+
+            if (new RegExp(path, 'i').test(orig_path)) return;
+
+            el[0].src = path;
+
+            return el.trigger('replace', [el[0].src, orig_path]);
+          }
+        }
+      }
+    },
+
+    init : function (scope, method, options) {
+      Foundation.inherit(this, 'throttle');
+
+      if (typeof method === 'object') {
+        $.extend(true, this.settings, method);
+      }
+
+      this.events();
+      this.images();
+
+      if (typeof method !== 'string') {
+        return this.settings.init;
+      } else {
+        return this[method].call(this, options);
+      }
+    },
+
+    events : function () {
+      var self = this;
+
+      $(window).on('resize.fndtn.interchange', self.throttle(function () {
+        self.resize.call(self);
+      }, 50));
+    },
+
+    resize : function () {
+      var cache = this.cache;
+
+      if(!this.images_loaded) {
+        setTimeout($.proxy(this.resize, this), 50);
+        return;
+      }
+
+      for (var uuid in cache) {
+        if (cache.hasOwnProperty(uuid)) {
+          var passed = this.results(uuid, cache[uuid]);
+
+          if (passed) {
+            this.settings.directives[passed
+              .scenario[1]](passed.el, passed.scenario[0]);
+          }
+        }
+      }
+
+    },
+
+    results : function (uuid, scenarios) {
+      var count = scenarios.length;
+
+      if (count > 0) {
+        var el = $('[data-uuid="' + uuid + '"]');
+
+        for (var i = count - 1; i >= 0; i--) {
+          var mq, rule = scenarios[i][2];
+          if (this.settings.named_queries.hasOwnProperty(rule)) {
+            mq = matchMedia(this.settings.named_queries[rule]);
+          } else {
+            mq = matchMedia(rule);
+          }
+          if (mq.matches) {
+            return {el: el, scenario: scenarios[i]};
+          }
+        }
+      }
+
+      return false;
+    },
+
+    images : function (force_update) {
+      if (typeof this.cached_images === 'undefined' || force_update) {
+        return this.update_images();
+      }
+
+      return this.cached_images;
+    },
+
+    update_images : function () {
+      var images = document.getElementsByTagName('img'),
+          count = images.length,
+          loaded_count = 0,
+          data_attr = 'data-' + this.settings.load_attr;
+
+      this.cached_images = [];
+      this.images_loaded = false;
+
+      for (var i = count - 1; i >= 0; i--) {
+        this.loaded($(images[i]), function (image) {
+          loaded_count++;
+          if (image) {
+            var str = image.getAttribute(data_attr) || '';
+
+            if (str.length > 0) {
+              this.cached_images.push(image);
+            }
+          }
+
+          if(loaded_count === count) {
+            this.images_loaded = true;
+            this.enhance();
+          }
+        }.bind(this));
+      }
+
+      return 'deferred';
+    },
+
+    // based on jquery.imageready.js
+    // @weblinc, @jsantell, (c) 2012
+
+    loaded : function (image, callback) {
+      function loaded () {
+        callback(image[0]);
+      }
+
+      function bindLoad () {
+        this.one('load', loaded);
+
+        if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
+          var src = this.attr( 'src' ),
+              param = src.match( /\?/ ) ? '&' : '?';
+
+          param += 'random=' + (new Date()).getTime();
+          this.attr('src', src + param);
+        }
+      }
+
+      if (!image.attr('src')) {
+        loaded();
+        return;
+      }
+
+      if (image[0].complete || image[0].readyState === 4) {
+        loaded();
+      } else {
+        bindLoad.call(image);
+      }
+    },
+
+    enhance : function () {
+      var count = this.images().length;
+
+      for (var i = count - 1; i >= 0; i--) {
+        this._object($(this.images()[i]));
+      }
+
+      return $(window).trigger('resize');
+    },
+
+    parse_params : function (path, directive, mq) {
+      return [this.trim(path), this.convert_directive(directive), this.trim(mq)];
+    },
+
+    convert_directive : function (directive) {
+      var trimmed = this.trim(directive);
+
+      if (trimmed.length > 0) {
+        return trimmed;
+      }
+
+      return 'replace';
+    },
+
+    _object : function(el) {
+      var raw_arr = this.parse_data_attr(el),
+          scenarios = [], count = raw_arr.length;
+
+      if (count > 0) {
+        for (var i = count - 1; i >= 0; i--) {
+          var split = raw_arr[i].split(/\((.*?)(\))$/);
+
+          if (split.length > 1) {
+            var cached_split = split[0].split(','),
+                params = this.parse_params(cached_split[0],
+                  cached_split[1], split[1]);
+
+            scenarios.push(params);
+          }
+        }
+      }
+
+      return this.store(el, scenarios);
+    },
+
+    uuid : function (separator) {
+      var delim = separator || "-";
+
+      function S4() {
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+      }
+
+      return (S4() + S4() + delim + S4() + delim + S4()
+        + delim + S4() + delim + S4() + S4() + S4());
+    },
+
+    store : function (el, scenarios) {
+      var uuid = this.uuid(),
+          current_uuid = el.data('uuid');
+
+      if (current_uuid) return this.cache[current_uuid];
+
+      el.attr('data-uuid', uuid);
+
+      return this.cache[uuid] = scenarios;
+    },
+
+    trim : function(str) {
+      if (typeof str === 'string') {
+        return $.trim(str);
+      }
+
+      return str;
+    },
+
+    parse_data_attr : function (el) {
+      var raw = el.data(this.settings.load_attr).split(/\[(.*?)\]/),
+          count = raw.length, output = [];
+
+      for (var i = count - 1; i >= 0; i--) {
+        if (raw[i].replace(/[\W\d]+/, '').length > 4) {
+          output.push(raw[i]);
+        }
+      }
+
+      return output;
+    },
+
+    reflow : function () {
+      this.images(true);
+    }
+
+  };
+
+}(Foundation.zj, this, this.document));
+/*jslint unparam: true, browser: true, indent: 2 */
+
+(function ($, window, document, undefined) {
+  'use strict';
+
+  Foundation.libs.joyride = {
+    name : 'joyride',
+
+    version : '4.2.2',
 
     defaults : {
+      expose               : false,      // turn on or off the expose feature
+      modal                : false,      // Whether to cover page with modal during the tour
       tipLocation          : 'bottom',  // 'top' or 'bottom' in relation to parent
       nubPosition          : 'auto',    // override on a per tooltip bases
-      scrollSpeed          : 300,       // Page scrolling speed in milliseconds
+      scrollSpeed          : 300,       // Page scrolling speed in milliseconds, 0 = no scroll animation
       timer                : 0,         // 0 = no timer , all other numbers = timer in milliseconds
       startTimerOnClick    : true,      // true or false - true requires clicking the first button start the timer
       startOffset          : 0,         // the index of the tooltip you want to start on (index of the li)
       nextButton           : true,      // true or false to control whether a next button is used
       tipAnimation         : 'fade',    // 'pop' or 'fade' in each tip
       pauseAfter           : [],        // array of indexes where to pause the tour after
+      exposed              : [],        // array of expose elements
       tipAnimationFadeSpeed: 300,       // when tipAnimation = 'fade' this is speed in milliseconds for the transition
       cookieMonster        : false,     // true or false to control whether cookies are used
       cookieName           : 'joyride', // Name the cookie you'll use
@@ -1519,13 +2305,20 @@ if (typeof jQuery === "undefined" &&
       tipContainer         : 'body',    // Where will the tip be attached
       postRideCallback     : function (){},    // A method to call once the tour closes (canceled or complete)
       postStepCallback     : function (){},    // A method to call after each step
+      preStepCallback      : function (){},    // A method to call before each step
+      preRideCallback      : function (){},    // A method to call before the tour starts (passed index, tip, and cloned exposed element)
+      postExposeCallback   : function (){},    // A method to call after an element has been exposed
       template : { // HTML segments for tip layout
         link    : '<a href="#close" class="joyride-close-tip">&times;</a>',
         timer   : '<div class="joyride-timer-indicator-wrap"><span class="joyride-timer-indicator"></span></div>',
         tip     : '<div class="joyride-tip-guide"><span class="joyride-nub"></span></div>',
         wrapper : '<div class="joyride-content-wrapper"></div>',
-        button  : '<a href="#" class="small button joyride-next-tip"></a>'
-      }
+        button  : '<a href="#" class="small button joyride-next-tip"></a>',
+        modal   : '<div class="joyride-modal-bg"></div>',
+        expose  : '<div class="joyride-expose-wrapper"></div>',
+        exposeCover: '<div class="joyride-expose-cover"></div>'
+      },
+      exposeAddClass : '' // One or more space-separated class names to be added to exposed element
     },
 
     settings : {},
@@ -1540,7 +2333,7 @@ if (typeof jQuery === "undefined" &&
         $.extend(true, this.settings, this.defaults, options);
       }
 
-      if (typeof method != 'string') {
+      if (typeof method !== 'string') {
         if (!this.settings.init) this.events();
 
         return this.settings.init;
@@ -1577,10 +2370,20 @@ if (typeof jQuery === "undefined" &&
 
       $(window).on('resize.fndtn.joyride', self.throttle(function () {
         if ($('[data-joyride]').length > 0 && self.settings.$next_tip) {
+          if (self.settings.exposed.length > 0) {
+            var $els = $(self.settings.exposed);
+
+            $els.each(function () {
+              var $this = $(this);
+              self.un_expose($this);
+              self.expose($this);
+            });
+          }
+
           if (self.is_phone()) {
             self.pos_phone();
           } else {
-            self.pos_default();
+            self.pos_default(false, true);
           }
         }
       }, 100));
@@ -1595,9 +2398,10 @@ if (typeof jQuery === "undefined" &&
           int_settings_count = integer_settings.length;
 
       if (!this.settings.init) this.init();
-      
+
       // non configureable settings
       this.settings.$content_el = $this;
+      this.settings.$body = $(this.settings.tipContainer);
       this.settings.body_offset = $(this.settings.tipContainer).position();
       this.settings.$tip_content = this.settings.$content_el.find('> li');
       this.settings.paused = false;
@@ -1712,6 +2516,18 @@ if (typeof jQuery === "undefined" &&
         this.settings.attempts = 0;
 
         if (this.settings.$li.length && this.settings.$target.length > 0) {
+          if (init) { //run when we first start
+            this.settings.preRideCallback(this.settings.$li.index(), this.settings.$next_tip);
+            if (this.settings.modal) {
+              this.show_modal();
+            }
+          }
+
+          this.settings.preStepCallback(this.settings.$li.index(), this.settings.$next_tip);
+
+          if (this.settings.modal && this.settings.expose) {
+            this.expose();
+          }
 
           this.settings.tipSettings = $.extend(this.settings, this.data_options(this.settings.$li));
 
@@ -1736,7 +2552,7 @@ if (typeof jQuery === "undefined" &&
 
             $timer.width(0);
 
-            if (thsi.settings.timer > 0) {
+            if (this.settings.timer > 0) {
 
               this.settings.$next_tip.show();
 
@@ -1799,14 +2615,26 @@ if (typeof jQuery === "undefined" &&
         return Modernizr.mq('only screen and (max-width: 767px)') || $('.lt-ie9').length > 0;
       }
 
-      return (this.settings.$window.width() < 767) ? true : false;
+      return (this.settings.$window.width() < 767);
     },
 
     hide : function () {
+      if (this.settings.modal && this.settings.expose) {
+        this.un_expose();
+      }
+
+      if (!this.settings.modal) {
+        $('.joyride-modal-bg').hide();
+      }
+
+      // Prevent scroll bouncing...wait to remove from layout
+      this.settings.$current_tip.css('visibility', 'hidden');
+      setTimeout($.proxy(function() {
+        this.hide();
+        this.css('visibility', 'visible');
+      }, this.settings.$current_tip), 0);
       this.settings.postStepCallback(this.settings.$li.index(),
         this.settings.$current_tip);
-      $('.joyride-modal-bg').hide();
-      this.settings.$current_tip.hide();
     },
 
     set_li : function (init) {
@@ -1854,11 +2682,7 @@ if (typeof jQuery === "undefined" &&
     },
 
     paused : function () {
-      if (($.inArray((this.settings.$li.index() + 1), this.settings.pauseAfter) === -1)) {
-        return true;
-      }
-
-      return false;
+      return ($.inArray((this.settings.$li.index() + 1), this.settings.pauseAfter) === -1);
     },
 
     restart : function () {
@@ -1867,10 +2691,11 @@ if (typeof jQuery === "undefined" &&
       this.show('init');
     },
 
-    pos_default : function (init) {
+    pos_default : function (init, resizing) {
       var half_fold = Math.ceil($(window).height() / 2),
           tip_position = this.settings.$next_tip.offset(),
           $nub = this.settings.$next_tip.find('.joyride-nub'),
+          nub_width = Math.ceil(this.outerWidth($nub) / 2),
           nub_height = Math.ceil(this.outerHeight($nub) / 2),
           toggle = init || false;
 
@@ -1880,20 +2705,31 @@ if (typeof jQuery === "undefined" &&
         this.settings.$next_tip.show();
       }
 
+      if (typeof resizing === 'undefined') {
+        resizing = false;
+      }
+
       if (!/body/i.test(this.settings.$target.selector)) {
 
           if (this.bottom()) {
+            var leftOffset = this.settings.$target.offset().left;
+            if (Foundation.rtl) {
+              leftOffset = this.settings.$target.offset().width - this.settings.$next_tip.width() + leftOffset;
+            }
             this.settings.$next_tip.css({
               top: (this.settings.$target.offset().top + nub_height + this.outerHeight(this.settings.$target)),
-              left: this.settings.$target.offset().left});
+              left: leftOffset});
 
             this.nub_position($nub, this.settings.tipSettings.nubPosition, 'top');
 
           } else if (this.top()) {
-
+            var leftOffset = this.settings.$target.offset().left;
+            if (Foundation.rtl) {
+              leftOffset = this.settings.$target.offset().width - this.settings.$next_tip.width() + leftOffset;
+            }
             this.settings.$next_tip.css({
               top: (this.settings.$target.offset().top - this.outerHeight(this.settings.$next_tip) - nub_height),
-              left: this.settings.$target.offset().left});
+              left: leftOffset});
 
             this.nub_position($nub, this.settings.tipSettings.nubPosition, 'bottom');
 
@@ -1901,7 +2737,7 @@ if (typeof jQuery === "undefined" &&
 
             this.settings.$next_tip.css({
               top: this.settings.$target.offset().top,
-              left: (this.outerWidth(this.settings.$target) + this.settings.$target.offset().left)});
+              left: (this.outerWidth(this.settings.$target) + this.settings.$target.offset().left + nub_width)});
 
             this.nub_position($nub, this.settings.tipSettings.nubPosition, 'left');
 
@@ -1909,7 +2745,7 @@ if (typeof jQuery === "undefined" &&
 
             this.settings.$next_tip.css({
               top: this.settings.$target.offset().top,
-              left: (this.settings.$target.offset().left - this.outerWidth(this.settings.$next_tip) - nub_height)});
+              left: (this.settings.$target.offset().left - this.outerWidth(this.settings.$next_tip) - nub_width)});
 
             this.nub_position($nub, this.settings.tipSettings.nubPosition, 'right');
 
@@ -1926,7 +2762,7 @@ if (typeof jQuery === "undefined" &&
 
             this.settings.attempts++;
 
-            this.pos_default(true);
+            this.pos_default();
 
           }
 
@@ -1988,15 +2824,176 @@ if (typeof jQuery === "undefined" &&
     pos_modal : function ($nub) {
       this.center();
       $nub.hide();
+
+      this.show_modal();
+    },
+
+    show_modal : function () {
       if (!this.settings.$next_tip.data('closed')) {
-        if ($('.joyride-modal-bg').length < 1) {
-          $('body').append('<div class="joyride-modal-bg">').show();
+        var joyridemodalbg =  $('.joyride-modal-bg');
+        if (joyridemodalbg.length < 1) {
+          $('body').append(this.settings.template.modal).show();
         }
 
         if (/pop/i.test(this.settings.tipAnimation)) {
-          $('.joyride-modal-bg').show();
+            joyridemodalbg.show();
         } else {
-          $('.joyride-modal-bg').fadeIn(this.settings.tipAnimationFadeSpeed);
+            joyridemodalbg.fadeIn(this.settings.tipAnimationFadeSpeed);
+        }
+      }
+    },
+
+    expose : function () {
+      var expose,
+          exposeCover,
+          el,
+          origCSS,
+          origClasses,
+          randId = 'expose-'+Math.floor(Math.random()*10000);
+
+      if (arguments.length > 0 && arguments[0] instanceof $) {
+        el = arguments[0];
+      } else if(this.settings.$target && !/body/i.test(this.settings.$target.selector)){
+        el = this.settings.$target;
+      }  else {
+        return false;
+      }
+
+      if(el.length < 1){
+        if(window.console){
+          console.error('element not valid', el);
+        }
+        return false;
+      }
+
+      expose = $(this.settings.template.expose);
+      this.settings.$body.append(expose);
+      expose.css({
+        top: el.offset().top,
+        left: el.offset().left,
+        width: this.outerWidth(el, true),
+        height: this.outerHeight(el, true)
+      });
+
+      exposeCover = $(this.settings.template.exposeCover);
+
+      origCSS = {
+        zIndex: el.css('z-index'),
+        position: el.css('position')
+      };
+      
+      origClasses = el.attr('class') == null ? '' : el.attr('class');
+
+      el.css('z-index',parseInt(expose.css('z-index'))+1);
+
+      if (origCSS.position == 'static') {
+        el.css('position','relative');
+      }
+
+      el.data('expose-css',origCSS);
+      el.data('orig-class', origClasses);
+      el.attr('class', origClasses + ' ' + this.settings.exposeAddClass);
+
+      exposeCover.css({
+        top: el.offset().top,
+        left: el.offset().left,
+        width: this.outerWidth(el, true),
+        height: this.outerHeight(el, true)
+      });
+
+      this.settings.$body.append(exposeCover);
+      expose.addClass(randId);
+      exposeCover.addClass(randId);
+      el.data('expose', randId);
+      this.settings.postExposeCallback(this.settings.$li.index(), this.settings.$next_tip, el);
+      this.add_exposed(el);
+    },
+
+    un_expose : function () {
+      var exposeId,
+          el,
+          expose ,
+          origCSS,
+          origClasses,
+          clearAll = false;
+
+      if (arguments.length > 0 && arguments[0] instanceof $) {
+        el = arguments[0];
+      } else if(this.settings.$target && !/body/i.test(this.settings.$target.selector)){
+        el = this.settings.$target;
+      }  else {
+        return false;
+      }
+
+      if(el.length < 1){
+        if (window.console) {
+          console.error('element not valid', el);
+        }
+        return false;
+      }
+
+      exposeId = el.data('expose');
+      expose = $('.' + exposeId);
+
+      if (arguments.length > 1) {
+        clearAll = arguments[1];
+      }
+
+      if (clearAll === true) {
+        $('.joyride-expose-wrapper,.joyride-expose-cover').remove();
+      } else {
+        expose.remove();
+      }
+
+      origCSS = el.data('expose-css');
+
+      if (origCSS.zIndex == 'auto') {
+        el.css('z-index', '');
+      } else {
+        el.css('z-index', origCSS.zIndex);
+      }
+
+      if (origCSS.position != el.css('position')) {
+        if(origCSS.position == 'static') {// this is default, no need to set it.
+          el.css('position', '');
+        } else {
+          el.css('position', origCSS.position);
+        }
+      }
+      
+      origClasses = el.data('orig-class');
+      el.attr('class', origClasses);
+      el.removeData('orig-classes');
+
+      el.removeData('expose');
+      el.removeData('expose-z-index');
+      this.remove_exposed(el);
+    },
+
+    add_exposed: function(el){
+      this.settings.exposed = this.settings.exposed || [];
+      if (el instanceof $ || typeof el === 'object') {
+        this.settings.exposed.push(el[0]);
+      } else if (typeof el == 'string') {
+        this.settings.exposed.push(el);
+      }
+    },
+
+    remove_exposed: function(el){
+      var search, count;
+      if (el instanceof $) {
+        search = el[0]
+      } else if (typeof el == 'string'){
+        search = el;
+      }
+
+      this.settings.exposed = this.settings.exposed || [];
+      count = this.settings.exposed.length;
+
+      for (var i=0; i < count; i++) {
+        if (this.settings.exposed[i] == search) {
+          this.settings.exposed.splice(i, 1);
+          return;
         }
       }
     },
@@ -2030,14 +3027,31 @@ if (typeof jQuery === "undefined" &&
 
     corners : function (el) {
       var w = $(window),
+          window_half = w.height() / 2,
+          //using this to calculate since scroll may not have finished yet.
+          tipOffset = Math.ceil(this.settings.$target.offset().top - window_half + this.settings.$next_tip.outerHeight()),
           right = w.width() + this.scrollLeft(w),
-          bottom = w.width() + w.scrollTop();
+          offsetBottom =  w.height() + tipOffset,
+          bottom = w.height() + w.scrollTop(),
+          top = w.scrollTop();
+
+      if (tipOffset < top) {
+        if (tipOffset < 0) {
+          top = 0;
+        } else {
+          top = tipOffset;
+        }
+      }
+
+      if (offsetBottom > bottom) {
+        bottom = offsetBottom;
+      }
 
       return [
-        el.offset().top <= w.scrollTop(),
-        right <= el.offset().left + this.outerWidth(el),
-        bottom <= el.offset().top + this.outerHeight(el),
-        this.scrollLeft(w) >= el.offset().left
+        el.offset().top < top,
+        right < el.offset().left + el.outerWidth(),
+        bottom < el.offset().top + el.outerHeight(),
+        this.scrollLeft(w) > el.offset().left
       ];
     },
 
@@ -2080,12 +3094,17 @@ if (typeof jQuery === "undefined" &&
         clearTimeout(this.settings.automate);
       }
 
+      if (this.settings.modal && this.settings.expose) {
+        this.un_expose();
+      }
+
       this.settings.$next_tip.data('closed', true);
 
       $('.joyride-modal-bg').hide();
       this.settings.$current_tip.hide();
       this.settings.postStepCallback(this.settings.$li.index(), this.settings.$current_tip);
       this.settings.postRideCallback(this.settings.$li.index(), this.settings.$current_tip);
+      $('.joyride-tip-guide').remove();
     },
 
     outerHTML : function (el) {
@@ -2100,9 +3119,12 @@ if (typeof jQuery === "undefined" &&
       $('.joyride-tip-guide, .joyride-modal-bg').remove();
       clearTimeout(this.settings.automate);
       this.settings = {};
-    }
+    },
+
+    reflow : function () {}
   };
 }(Foundation.zj, this, this.document));
+
 /*jslint unparam: true, browser: true, indent: 2 */
 
 ;(function ($, window, document, undefined) {
@@ -2111,10 +3133,11 @@ if (typeof jQuery === "undefined" &&
   Foundation.libs.magellan = {
     name : 'magellan',
 
-    version : '4.0.0',
+    version : '4.2.2',
 
     settings : {
-      activeClass: 'active'
+      activeClass: 'active',
+      threshold: 0
     },
 
     init : function (scope, method, options) {
@@ -2125,7 +3148,7 @@ if (typeof jQuery === "undefined" &&
         $.extend(true, this.settings, method);
       }
 
-      if (typeof method != 'string') {
+      if (typeof method !== 'string') {
         if (!this.settings.init) {
           this.fixed_magellan = $("[data-magellan-expedition]");
           this.set_threshold();
@@ -2159,7 +3182,7 @@ if (typeof jQuery === "undefined" &&
         .on('update-position.fndtn.magellan', function(){
           var $el = $(this);
           // $el.data("magellan-fixed-position","");
-          //$el.data("magellan-top-offset", "");
+          // $el.data("magellan-top-offset", "");
         })
         .trigger('update-position');
 
@@ -2184,8 +3207,10 @@ if (typeof jQuery === "undefined" &&
             if ($expedition.data("magellan-fixed-position") != fixed_position) {
               $expedition.data("magellan-fixed-position", fixed_position);
               if (fixed_position) {
+                $expedition.addClass('fixed');
                 $expedition.css({position:"fixed", top:0});
               } else {
+                $expedition.removeClass('fixed');
                 $expedition.css({position:"", top:""});
               }
               if (fixed_position && typeof attr != 'undefined' && attr != false) {
@@ -2230,24 +3255,372 @@ if (typeof jQuery === "undefined" &&
 
     off : function () {
       $(this.scope).off('.fndtn.magellan');
-    }
+    },
+
+    reflow : function () {}
   };
 }(Foundation.zj, this, this.document));
+
 ;(function ($, window, document, undefined) {
   'use strict';
+
+  var noop = function() {};
+
+  var Orbit = function(el, settings) {
+    var self = this,
+        container,
+        slides_container = el,
+        number_container,
+        bullets_container,
+        timer_container,
+        idx = 0,
+        animate,
+        timer,
+        locked = false,
+        adjust_height_after = false;
+
+    slides_container.children().first().addClass(settings.active_slide_class);
+
+    self.update_slide_number = function(index) {
+      if (settings.slide_number) {
+        number_container.find('span:first').text(parseInt(index)+1);
+        number_container.find('span:last').text(slides_container.children().length);
+      }
+      if (settings.bullets) {
+        bullets_container.children().removeClass(settings.bullets_active_class);
+        $(bullets_container.children().get(index)).addClass(settings.bullets_active_class);
+      }
+    };
+
+    self.build_markup = function() {
+      slides_container.wrap('<div class="'+settings.container_class+'"></div>');
+      container = slides_container.parent();
+      slides_container.addClass(settings.slides_container_class);
+      
+      if (settings.navigation_arrows) {
+        container.append($('<a>').addClass(settings.prev_class).append('<span>'));
+        container.append($('<a>').addClass(settings.next_class).append('<span>'));
+      }
+
+      if (settings.timer) {
+        timer_container = $('<div>').addClass(settings.timer_container_class);
+        timer_container.append('<span>');
+        timer_container.append($('<div>').addClass(settings.timer_progress_class));
+        timer_container.addClass(settings.timer_paused_class);
+        container.append(timer_container);
+      }
+
+      if (settings.slide_number) {
+        number_container = $('<div>').addClass(settings.slide_number_class);
+        number_container.append('<span></span> of <span></span>');
+        container.append(number_container);
+      }
+
+      if (settings.bullets) {
+        bullets_container = $('<ol>').addClass(settings.bullets_container_class);
+        container.append(bullets_container);
+        slides_container.children().each(function(idx, el) {
+          var bullet = $('<li>').attr('data-orbit-slide', idx);
+          bullets_container.append(bullet);
+        });
+      }
+
+      if (settings.stack_on_small) {
+        container.addClass(settings.stack_on_small_class);
+      }
+
+      self.update_slide_number(0);
+    };
+
+    self._goto = function(next_idx, start_timer) {
+      // if (locked) {return false;}
+      if (next_idx === idx) {return false;}
+      if (typeof timer === 'object') {timer.restart();}
+      var slides = slides_container.children();
+
+      var dir = 'next';
+      locked = true;
+      if (next_idx < idx) {dir = 'prev';}
+      if (next_idx >= slides.length) {next_idx = 0;}
+      else if (next_idx < 0) {next_idx = slides.length - 1;}
+      
+      var current = $(slides.get(idx));
+      var next = $(slides.get(next_idx));
+
+      current.css('zIndex', 2);
+      next.css('zIndex', 4).addClass('active');
+
+      slides_container.trigger('orbit:before-slide-change');
+      settings.before_slide_change();
+      
+      var callback = function() {
+        var unlock = function() {
+          idx = next_idx;
+          locked = false;
+          if (start_timer === true) {timer = self.create_timer(); timer.start();}
+          self.update_slide_number(idx);
+          slides_container.trigger('orbit:after-slide-change',[{slide_number: idx, total_slides: slides.length}]);
+          settings.after_slide_change(idx, slides.length);
+        };
+        if (slides_container.height() != next.height()) {
+          slides_container.animate({'height': next.height()}, 250, 'linear', unlock);
+        } else {
+          unlock();
+        }
+      };
+
+      if (slides.length === 1) {callback(); return false;}
+
+      var start_animation = function() {
+        if (dir === 'next') {animate.next(current, next, callback);}
+        if (dir === 'prev') {animate.prev(current, next, callback);}        
+      };
+
+      if (next.height() > slides_container.height()) {
+        slides_container.animate({'height': next.height()}, 250, 'linear', start_animation);
+      } else {
+        start_animation();
+      }
+    };
+    
+    self.next = function(e) {
+      e.stopImmediatePropagation();
+      e.preventDefault();
+      self._goto(idx + 1);
+    };
+    
+    self.prev = function(e) {
+      e.stopImmediatePropagation();
+      e.preventDefault();
+      self._goto(idx - 1);
+    };
+
+    self.link_custom = function(e) {
+      e.preventDefault();
+      var link = $(this).attr('data-orbit-link');
+      if ((typeof link === 'string') && (link = $.trim(link)) != "") {
+        var slide = container.find('[data-orbit-slide='+link+']');
+        if (slide.index() != -1) {self._goto(slide.index());}
+      }
+    };
+
+    self.link_bullet = function(e) {
+      var index = $(this).attr('data-orbit-slide');
+      if ((typeof index === 'string') && (index = $.trim(index)) != "") {
+        self._goto(index);
+      }
+    }
+
+    self.timer_callback = function() {
+      self._goto(idx + 1, true);
+    }
+    
+    self.compute_dimensions = function() {
+      var current = $(slides_container.children().get(idx));
+      var h = current.height();
+      if (!settings.variable_height) {
+        slides_container.children().each(function(){
+          if ($(this).height() > h) { h = $(this).height(); }
+        });
+      }
+      slides_container.height(h);
+    };
+
+    self.create_timer = function() {
+      var t = new Timer(
+        container.find('.'+settings.timer_container_class), 
+        settings, 
+        self.timer_callback
+      );
+      return t;
+    };
+
+    self.stop_timer = function() {
+      if (typeof timer === 'object') timer.stop();
+    };
+
+    self.toggle_timer = function() {
+      var t = container.find('.'+settings.timer_container_class);
+      if (t.hasClass(settings.timer_paused_class)) {
+        if (typeof timer === 'undefined') {timer = self.create_timer();}
+        timer.start();     
+      }
+      else {
+        if (typeof timer === 'object') {timer.stop();}
+      }
+    };
+
+    self.init = function() {
+      self.build_markup();
+      if (settings.timer) {timer = self.create_timer(); timer.start();}
+      animate = new FadeAnimation(slides_container);
+      if (settings.animation === 'slide') 
+        animate = new SlideAnimation(slides_container);        
+      container.on('click', '.'+settings.next_class, self.next);
+      container.on('click', '.'+settings.prev_class, self.prev);
+      container.on('click', self.toggle_timer);
+      container.on('touchstart.fndtn.orbit', function(e) {
+        if (!e.touches) {e = e.originalEvent;}
+        var data = {
+          start_page_x: e.touches[0].pageX,
+          start_page_y: e.touches[0].pageY,
+          start_time: (new Date()).getTime(),
+          delta_x: 0,
+          is_scrolling: undefined
+        };
+        container.data('swipe-transition', data);
+        e.stopPropagation();
+      })
+      .on('touchmove.fndtn.orbit', function(e) {
+        if (!e.touches) { e = e.originalEvent; }
+        // Ignore pinch/zoom events
+        if(e.touches.length > 1 || e.scale && e.scale !== 1) return;
+
+        var data = container.data('swipe-transition');
+        if (typeof data === 'undefined') {data = {};}
+
+        data.delta_x = e.touches[0].pageX - data.start_page_x;
+
+        if ( typeof data.is_scrolling === 'undefined') {
+          data.is_scrolling = !!( data.is_scrolling || Math.abs(data.delta_x) < Math.abs(e.touches[0].pageY - data.start_page_y) );
+        }
+
+        if (!data.is_scrolling && !data.active) {
+          e.preventDefault();
+          var direction = (data.delta_x < 0) ? (idx+1) : (idx-1);
+          data.active = true;
+          self._goto(direction);
+        }
+      })
+      .on('touchend.fndtn.orbit', function(e) {
+        container.data('swipe-transition', {});
+        e.stopPropagation();
+      })
+      .on('mouseenter.fndtn.orbit', function(e) {
+        if (settings.timer && settings.pause_on_hover) {
+          self.stop_timer();
+        }
+      })
+      .on('mouseleave.fndtn.orbit', function(e) {
+        if (settings.timer && settings.resume_on_mouseout) {
+          timer.start();
+        }
+      });
+      
+      $(document).on('click', '[data-orbit-link]', self.link_custom);
+      $(document).on('click', '[data-orbit-slide]', self.link_bullet)
+      $(window).on('resize', self.compute_dimensions);
+      $(window).on('load', self.compute_dimensions);
+      slides_container.trigger('orbit:ready');
+    };
+
+    self.init();
+  };
+
+  var Timer = function(el, settings, callback) {
+    var self = this,
+        duration = settings.timer_speed,
+        progress = el.find('.'+settings.timer_progress_class),
+        start, 
+        timeout,
+        left = -1;
+
+    this.update_progress = function(w) {
+      var new_progress = progress.clone();
+      new_progress.attr('style', '');
+      new_progress.css('width', w+'%');
+      progress.replaceWith(new_progress);
+      progress = new_progress;
+    };
+
+    this.restart = function() {
+      clearTimeout(timeout);
+      el.addClass(settings.timer_paused_class);
+      left = -1;
+      self.update_progress(0);
+    };
+
+    this.start = function() {
+      if (!el.hasClass(settings.timer_paused_class)) {return true;}
+      left = (left === -1) ? duration : left;
+      el.removeClass(settings.timer_paused_class);
+      start = new Date().getTime();
+      progress.animate({'width': '100%'}, left, 'linear');
+      timeout = setTimeout(function() {
+        self.restart();
+        callback();
+      }, left);
+      el.trigger('orbit:timer-started')
+    };
+
+    this.stop = function() {
+      if (el.hasClass(settings.timer_paused_class)) {return true;}
+      clearTimeout(timeout);
+      el.addClass(settings.timer_paused_class);
+      var end = new Date().getTime();
+      left = left - (end - start);
+      var w = 100 - ((left / duration) * 100);
+      self.update_progress(w);
+      el.trigger('orbit:timer-stopped');
+    };
+  };
+  
+  var SlideAnimation = function(container) {
+    var duration = 400;
+
+    this.next = function(current, next, callback) {
+      next.animate({'marginLeft': '0%'}, duration, 'linear', function() {
+        current.css('marginLeft', '100%');
+        callback();
+      });
+    };
+
+    this.prev = function(current, prev, callback) {
+      prev.css('marginLeft', '-100%');
+      prev.animate({'marginLeft':'0%'}, duration, 'linear', function() {
+        current.css('marginLeft', '100%');
+        callback();
+      });
+    };
+  };
+
+  var FadeAnimation = function(container) {
+    var duration = 250;
+
+    this.next = function(current, next, callback) {
+      next.css({'marginLeft':'0%', 'opacity':'0.01'});
+      next.animate({'opacity':'1'}, duration, 'linear', function() {
+        current.css('marginLeft', '100%');
+        callback();
+      });
+    };
+
+    this.prev = function(current, prev, callback) {
+      prev.css({'marginLeft':'0%', 'opacity':'0.01'});
+      prev.animate({'opacity':'1'}, duration, 'linear', function() {
+        current.css('marginLeft', '100%');
+        callback();
+      });
+    };
+  };
+
 
   Foundation.libs = Foundation.libs || {};
 
   Foundation.libs.orbit = {
     name: 'orbit',
 
-    version: '4.0.7',
+    version: '4.3.0',
 
     settings: {
+      animation: 'slide',
       timer_speed: 10000,
+      pause_on_hover: true,
+      resume_on_mouseout: false,
       animation_speed: 500,
-      bullets: true,
-      stack_on_small: true,
+      stack_on_small: false,
+      navigation_arrows: true,
+      slide_number: true,
       container_class: 'orbit-container',
       stack_on_small_class: 'orbit-stack-on-small',
       next_class: 'orbit-next',
@@ -2261,7 +3634,12 @@ if (typeof jQuery === "undefined" &&
       slide_number_class: 'orbit-slide-number',
       caption_class: 'orbit-caption',
       active_slide_class: 'active',
-      orbit_transition_class: 'orbit-transitioning'
+      orbit_transition_class: 'orbit-transitioning',
+      bullets: true,
+      timer: true,
+      variable_height: false,
+      before_slide_change: noop,
+      after_slide_change: noop
     },
 
     init: function (scope, method, options) {
@@ -2272,333 +3650,22 @@ if (typeof jQuery === "undefined" &&
         $.extend(true, self.settings, method);
       }
 
+      if ($(scope).is('[data-orbit]')) {
+        var $el = $(scope);
+        var opts = self.data_options($el);
+        new Orbit($el, $.extend({},self.settings, opts));
+      }
+
       $('[data-orbit]', scope).each(function(idx, el) {
-        var scoped_self = $.extend(true, {}, self);
-        scoped_self._init(idx, el);
+        var $el = $(el);
+        var opts = self.data_options($el);
+        new Orbit($el, $.extend({},self.settings, opts));
       });
-    },
-
-    _container_html: function() {
-      var self = this;
-      return '<div class="' + self.settings.container_class + '"></div>';
-    },
-
-    _bullets_container_html: function($slides) {
-      var self = this,
-          $list = $('<ol class="' + self.settings.bullets_container_class + '"></ol>');
-      $slides.each(function(idx, slide) {
-        var $item = $('<li data-orbit-slide-number="' + (idx+1) + '" class=""></li>');
-        if (idx === 0) {
-          $item.addClass(self.settings.bullets_active_class);
-        }
-        $list.append($item);
-      });
-      return $list;
-    },
-
-    _slide_number_html: function(slide_number, total_slides) {
-      var self = this,
-          $container = $('<div class="' + self.settings.slide_number_class + '"></div>');
-      $container.append('<span>' + slide_number + '</span> of <span>' + total_slides + '</span>');
-      return $container;
-    },
-
-    _timer_html: function() {
-      var self = this;
-      if (typeof self.settings.timer_speed === 'number' && self.settings.timer_speed > 0) {
-        return '<div class="' + self.settings.timer_container_class
-          + '"><span></span><div class="' + self.settings.timer_progress_class
-          + '"></div></div>';
-      } else {
-        return '';
-      }
-    },
-
-    _next_html: function() {
-      var self = this;
-      return '<a href="#" class="' + self.settings.next_class + '">Next <span></span></a>';
-    },
-
-    _prev_html: function() {
-      var self = this;
-      return '<a href="#" class="' + self.settings.prev_class + '">Prev <span></span></a>';
-    },
-
-    _init: function (idx, slider) {
-      var self = this,
-          $slides_container = $(slider),
-          $container = $slides_container.wrap(self._container_html()).parent(),
-          $slides = $slides_container.children();
-      
-      $.extend(true, self.settings, self.data_options($slides_container));
-
-      $container.append(self._prev_html());
-      $container.append(self._next_html());
-      $slides_container.addClass(self.settings.slides_container_class);
-      if (self.settings.stack_on_small) {
-        $container.addClass(self.settings.stack_on_small_class);
-      }
-      $container.append(self._slide_number_html(1, $slides.length));
-      $container.append(self._timer_html());
-      if (self.settings.bullets) {
-        $container.after(self._bullets_container_html($slides));
-      }
-      // To better support the "sliding" effect it's easier
-      // if we just clone the first and last slides
-      $slides_container.append($slides.first().clone().attr('data-orbit-slide',''));
-      $slides_container.prepend($slides.last().clone().attr('data-orbit-slide',''));
-      // Make the first "real" slide active
-      $slides_container.css('marginLeft', '-100%');
-      $slides.first().addClass(self.settings.active_slide_class);
-
-      self._init_events($slides_container);
-      self._init_dimensions($slides_container);
-      self._start_timer($slides_container);
-    },
-
-    _init_events: function ($slides_container) {
-      var self = this,
-          $container = $slides_container.parent();
-
-      $(window)
-        .on('load.fndtn.orbit', function() {
-          $slides_container.height('');
-          $slides_container.height($slides_container.height($container.height()));
-          $slides_container.trigger('orbit:ready');
-        })
-        .on('resize.fndtn.orbit', function() {
-          $slides_container.height('');
-          $slides_container.height($slides_container.height($container.height()));
-        });
-
-      $(document).on('click.fndtn.orbit', '[data-orbit-link]', function(e) {
-        e.preventDefault();
-        var id = $(e.currentTarget).attr('data-orbit-link'),
-            $slide = $slides_container.find('[data-orbit-slide=' + id + ']').first();
-
-        if ($slide.length === 1) {
-          self._reset_timer($slides_container, true);
-          self._goto($slides_container, $slide.index(), function() {});
-        }
-      });
-
-      $container.siblings('.' + self.settings.bullets_container_class)
-        .on('click.fndtn.orbit', '[data-orbit-slide-number]', function(e) {
-          e.preventDefault();
-          self._reset_timer($slides_container, true);
-          self._goto($slides_container, $(e.currentTarget).data('orbit-slide-number'),function() {});
-        });
-
-      $container
-        .on('orbit:after-slide-change.fndtn.orbit', function(e, orbit) {
-          var $slide_number = $container.find('.' + self.settings.slide_number_class);
-
-          if ($slide_number.length === 1) {
-            $slide_number.replaceWith(self._slide_number_html(orbit.slide_number, orbit.total_slides));
-          }
-        })
-        .on('orbit:next-slide.fndtn.orbit click.fndtn.orbit', '.' + self.settings.next_class, function(e) {
-          e.preventDefault();
-          self._reset_timer($slides_container, true);
-          self._goto($slides_container, 'next', function() {});
-        })
-        .on('orbit:prev-slide.fndtn.orbit click.fndtn.orbit', '.' + self.settings.prev_class, function(e) {
-          e.preventDefault();
-          self._reset_timer($slides_container, true);
-          self._goto($slides_container, 'prev', function() {});
-        })
-        .on('orbit:toggle-play-pause.fndtn.orbit click.fndtn.orbit touchstart.fndtn.orbit', '.' + self.settings.timer_container_class, function(e) {
-          e.preventDefault();
-          var $timer = $(e.currentTarget).toggleClass(self.settings.timer_paused_class),
-              $slides_container = $timer.closest('.' + self.settings.container_class)
-                .find('.' + self.settings.slides_container_class);
-
-          if ($timer.hasClass(self.settings.timer_paused_class)) {
-            self._stop_timer($slides_container);
-          } else {
-            self._start_timer($slides_container);
-          }
-        })
-        .on('touchstart.fndtn.orbit', function(e) {
-          if (!e.touches) { e = e.originalEvent; }
-          var data = {
-            start_page_x: e.touches[0].pageX,
-            start_page_y: e.touches[0].pageY,
-            start_time: (new Date()).getTime(),
-            delta_x: 0,
-            is_scrolling: undefined
-          };
-          $container.data('swipe-transition', data);
-          e.stopPropagation();
-        })
-        .on('touchmove.fndtn.orbit', function(e) {
-          if (!e.touches) { e = e.originalEvent; }
-          // Ignore pinch/zoom events
-          if(e.touches.length > 1 || e.scale && e.scale !== 1) return;
-
-          var data = $container.data('swipe-transition');
-          if (typeof data === 'undefined') {
-            data = {};
-          }
-
-          data.delta_x = e.touches[0].pageX - data.start_page_x;
-
-          if ( typeof data.is_scrolling === 'undefined') {
-            data.is_scrolling = !!( data.is_scrolling || Math.abs(data.delta_x) < Math.abs(e.touches[0].pageY - data.start_page_y) );
-          }
-
-          if (!data.is_scrolling && !data.active) {
-            e.preventDefault();
-            self._stop_timer($slides_container);
-            var direction = (data.delta_x < 0) ? 'next' : 'prev';
-            data.active = true;
-            self._goto($slides_container, direction, function() {});
-          }
-        })
-        .on('touchend.fndtn.orbit', function(e) {
-          $container.data('swipe-transition', {});
-          e.stopPropagation();
-        });
-    },
-
-    _init_dimensions: function ($slides_container) {
-      var $container = $slides_container.parent(),
-          $slides = $slides_container.children();
-
-      $slides_container.css('width', $slides.length * 100 + '%');
-      $slides.css('width', 100 / $slides.length + '%');
-      $slides_container.height($container.height());
-      $slides_container.css('width', $slides.length * 100 + '%');
-    },
-
-    _start_timer: function ($slides_container) {
-      var self = this,
-          $container = $slides_container.parent();
-
-      var callback = function() {
-        self._reset_timer($slides_container, false);
-        self._goto($slides_container, 'next', function() {
-          self._start_timer($slides_container);
-        });
-      };
-
-      var $timer = $container.find('.' + self.settings.timer_container_class),
-          $progress = $timer.find('.' + self.settings.timer_progress_class),
-          progress_pct = ($progress.width() / $timer.width()),
-          delay = self.settings.timer_speed - (progress_pct * self.settings.timer_speed);
-
-      $progress.animate({'width': '100%'}, delay, 'linear', callback);
-      $slides_container.trigger('orbit:timer-started');
-    },
-
-    _stop_timer: function ($slides_container) {
-      var self = this,
-          $container = $slides_container.parent(),
-          $timer = $container.find('.' + self.settings.timer_container_class),
-          $progress = $timer.find('.' + self.settings.timer_progress_class),
-          progress_pct = $progress.width() / $timer.width()
-      self._rebuild_timer($container, progress_pct * 100 + '%');
-      // $progress.stop();
-      $slides_container.trigger('orbit:timer-stopped');
-      $timer = $container.find('.' + self.settings.timer_container_class);
-      $timer.addClass(self.settings.timer_paused_class);
-    },
-
-    _reset_timer: function($slides_container, is_paused) {
-      var self = this,
-          $container = $slides_container.parent();
-      self._rebuild_timer($container, '0%');
-      if (typeof is_paused === 'boolean' && is_paused) {
-        var $timer = $container.find('.' + self.settings.timer_container_class);
-        $timer.addClass(self.settings.timer_paused_class);
-      }
-    },
-
-    _rebuild_timer: function ($container, width_pct) {
-      // Zepto is unable to stop animations since they
-      // are css-based. This is a workaround for that
-      // limitation, which rebuilds the dom element
-      // thus stopping the animation
-      var self = this,
-          $timer = $container.find('.' + self.settings.timer_container_class),
-          $new_timer = $(self._timer_html()),
-          $new_timer_progress = $new_timer.find('.' + self.settings.timer_progress_class);
-
-      if (typeof Zepto === 'function') {
-        $timer.remove();
-        $container.append($new_timer);
-        $new_timer_progress.css('width', width_pct);
-      } else if (typeof jQuery === 'function') {
-        var $progress = $timer.find('.' + self.settings.timer_progress_class);
-        $progress.css('width', width_pct);
-        $progress.stop();
-      }
-    },
-
-    _goto: function($slides_container, index_or_direction, callback) {
-      var self = this,
-          $container = $slides_container.parent(),
-          $slides = $slides_container.children(),
-          $active_slide = $slides_container.find('.' + self.settings.active_slide_class),
-          active_index = $active_slide.index();
-
-      if ($container.hasClass(self.settings.orbit_transition_class)) {
-        return false;
-      }
-
-      if (index_or_direction === 'prev') {
-        if (active_index === 0) {
-          active_index = $slides.length - 1;
-        }
-        else {
-          active_index--;
-        }
-      }
-      else if (index_or_direction === 'next') {
-        active_index = (active_index+1) % $slides.length;
-      }
-      else if (typeof index_or_direction === 'number') {
-        active_index = (index_or_direction % $slides.length);
-      }
-      if (active_index === ($slides.length - 1) && index_or_direction === 'next') {
-        $slides_container.css('marginLeft', '0%');
-        active_index = 1;
-      }
-      else if (active_index === 0 && index_or_direction === 'prev') {
-        $slides_container.css('marginLeft', '-' + ($slides.length - 1) * 100 + '%');
-        active_index = $slides.length - 2;
-      }
-      // Start transition, make next slide active
-      $container.addClass(self.settings.orbit_transition_class);
-      $active_slide.removeClass(self.settings.active_slide_class);
-      $($slides[active_index]).addClass(self.settings.active_slide_class);
-      // Make next bullet active
-      var $bullets = $container.siblings('.' + self.settings.bullets_container_class);
-      if ($bullets.length === 1) {
-        $bullets.children().removeClass(self.settings.bullets_active_class);
-        $($bullets.children()[active_index-1]).addClass(self.settings.bullets_active_class);
-      }
-      var new_margin_left = '-' + (active_index * 100) + '%';
-      // Check to see if animation will occur, otherwise perform
-      // callbacks manually
-      $slides_container.trigger('orbit:before-slide-change');
-      if ($slides_container.css('marginLeft') === new_margin_left) {
-        $container.removeClass(self.settings.orbit_transition_class);
-        $slides_container.trigger('orbit:after-slide-change', [{slide_number: active_index, total_slides: $slides_container.children().length - 2}]);
-        callback();
-      } else {
-        $slides_container.animate({
-          'marginLeft' : new_margin_left
-        }, self.settings.animation_speed, 'linear', function() {
-          $container.removeClass(self.settings.orbit_transition_class);
-          $slides_container.trigger('orbit:after-slide-change', [{slide_number: active_index, total_slides: $slides_container.children().length - 2}]);
-          callback();
-        });
-      }
     }
   };
-}(Foundation.zj, this, this.document));
 
+    
+}(Foundation.zj, this, this.document));
 /*! http://mths.be/placeholder v2.0.7 by @mathias 
 	Modified to work with Zepto.js by ZURB
 */
@@ -2758,15 +3825,35 @@ if (typeof jQuery === "undefined" &&
 	}
 
 }(this, document, Foundation.zj));
+
+;(function ($, window, document, undefined) {
+  'use strict';
+
+  Foundation.libs.placeholder = {
+    name : 'placeholder',
+
+    version : '4.2.2',
+
+    init : function (scope, method, options) {
+      this.scope = scope || this.scope;
+
+      if (typeof method !== 'string') {
+        window.onload = function () {
+        	$('input, textarea').placeholder();
+        }
+      }
+    }
+  };
+}(Foundation.zj, this, this.document));
 /*jslint unparam: true, browser: true, indent: 2 */
 
 ;(function ($, window, document, undefined) {
   'use strict';
 
   Foundation.libs.reveal = {
-    name: 'reveal',
+    name : 'reveal',
 
-    version : '4.0.9',
+    version : '4.2.2',
 
     locked : false,
 
@@ -2774,6 +3861,7 @@ if (typeof jQuery === "undefined" &&
       animation: 'fadeAndPop',
       animationSpeed: 250,
       closeOnBackgroundClick: true,
+      closeOnEsc: true,
       dismissModalClass: 'close-reveal-modal',
       bgClass: 'reveal-modal-bg',
       open: function(){},
@@ -2796,14 +3884,15 @@ if (typeof jQuery === "undefined" &&
     },
 
     init : function (scope, method, options) {
-      this.scope = scope || this.scope;
       Foundation.inherit(this, 'data_options delay');
 
       if (typeof method === 'object') {
         $.extend(true, this.settings, method);
+      } else if (typeof options !== 'undefined') {
+        $.extend(true, this.settings, options);
       }
 
-      if (typeof method != 'string') {
+      if (typeof method !== 'string') {
         this.events();
 
         return this.settings.init;
@@ -2819,14 +3908,30 @@ if (typeof jQuery === "undefined" &&
         .off('.fndtn.reveal')
         .on('click.fndtn.reveal', '[data-reveal-id]', function (e) {
           e.preventDefault();
+
           if (!self.locked) {
+            var element = $(this),
+                ajax = element.data('reveal-ajax');
+
             self.locked = true;
-            self.open.call(self, $(this));
+
+            if (typeof ajax === 'undefined') {
+              self.open.call(self, element);
+            } else {
+              var url = ajax === true ? element.attr('href') : ajax;
+
+              self.open.call(self, element, {url: url});
+            }
           }
         })
-        .on('click.fndtn.reveal touchend.click.fndtn.reveal', this.close_targets(), function (e) {
+        .on('click.fndtn.reveal', this.close_targets(), function (e) {
           e.preventDefault();
           if (!self.locked) {
+            var settings = $.extend({}, self.settings, self.data_options($('.reveal-modal.open')));
+            if ($(e.target)[0] === $('.' + settings.bgClass)[0] && !settings.closeOnBackgroundClick) {
+              return;
+            }
+
             self.locked = true;
             self.close.call(self, $(this).closest('.reveal-modal'));
           }
@@ -2838,12 +3943,26 @@ if (typeof jQuery === "undefined" &&
         .on('closed.fndtn.reveal', '.reveal-modal', this.settings.closed)
         .on('closed.fndtn.reveal', '.reveal-modal', this.close_video);
 
+      $( 'body' ).bind( 'keyup.reveal', function ( event ) {
+        var open_modal = $('.reveal-modal.open'),
+            settings = $.extend({}, self.settings, self.data_options(open_modal));
+        if ( event.which === 27  && settings.closeOnEsc) { // 27 is the keycode for the Escape key
+          open_modal.foundation('reveal', 'close');
+        }
+      });
+
       return true;
     },
 
-    open : function (target) {
+    open : function (target, ajax_settings) {
       if (target) {
-        var modal = $('#' + target.data('reveal-id'));
+        if (typeof target.selector !== 'undefined') {
+          var modal = $('#' + target.data('reveal-id'));
+        } else {
+          var modal = $(this.scope);
+
+          ajax_settings = target;
+        }
       } else {
         var modal = $(this.scope);
       }
@@ -2861,14 +3980,36 @@ if (typeof jQuery === "undefined" &&
         if (open_modal.length < 1) {
           this.toggle_bg(modal);
         }
-        this.hide(open_modal, this.settings.css.open);
-        this.show(modal, this.settings.css.open);
+
+        if (typeof ajax_settings === 'undefined' || !ajax_settings.url) {
+          this.hide(open_modal, this.settings.css.close);
+          this.show(modal, this.settings.css.open);
+        } else {
+          var self = this,
+              old_success = typeof ajax_settings.success !== 'undefined' ? ajax_settings.success : null;
+
+          $.extend(ajax_settings, {
+            success: function (data, textStatus, jqXHR) {
+              if ( $.isFunction(old_success) ) {
+                old_success(data, textStatus, jqXHR);
+              }
+
+              modal.html(data);
+              $(modal).foundation('section', 'reflow');
+
+              self.hide(open_modal, self.settings.css.close);
+              self.show(modal, self.settings.css.open);
+            }
+          });
+
+          $.ajax(ajax_settings);
+        }
       }
     },
 
     close : function (modal) {
 
-      var modal = modal || $(this.scope),
+      var modal = modal && modal.length ? modal : $(this.scope),
           open_modals = $('.reveal-modal.open');
 
       if (open_modals.length > 0) {
@@ -2892,7 +4033,7 @@ if (typeof jQuery === "undefined" &&
     toggle_bg : function (modal) {
       if ($('.reveal-modal-bg').length === 0) {
         this.settings.bg = $('<div />', {'class': this.settings.bgClass})
-          .insertAfter(modal);
+          .appendTo('body');
       }
 
       if (this.settings.bg.filter(':visible').length > 0) {
@@ -2910,7 +4051,7 @@ if (typeof jQuery === "undefined" &&
           var end_css = {
             top: $(window).scrollTop() + el.data('css-top') + 'px',
             opacity: 1
-          }
+          };
 
           return this.delay(function () {
             return el
@@ -2998,7 +4139,7 @@ if (typeof jQuery === "undefined" &&
       if (iframe.length > 0) {
         iframe.attr('data-src', iframe[0].src);
         iframe.attr('src', 'about:blank');
-        video.fadeOut(100).hide();
+        video.hide();
       }
     },
 
@@ -3010,8 +4151,12 @@ if (typeof jQuery === "undefined" &&
         var data_src = iframe.attr('data-src');
         if (typeof data_src === 'string') {
           iframe[0].src = iframe.attr('data-src');
+        } else {
+          var src = iframe[0].src;
+          iframe[0].src = undefined;
+          iframe[0].src = src;
         }
-        video.show().fadeIn(100);
+        video.show();
       }
     },
 
@@ -3025,260 +4170,380 @@ if (typeof jQuery === "undefined" &&
 
     off : function () {
       $(this.scope).off('.fndtn.reveal');
-    }
+    },
+
+    reflow : function () {}
   };
 }(Foundation.zj, this, this.document));
 /*jslint unparam: true, browser: true, indent: 2 */
 
-;(function ($, window, document, undefined) {
+;
+(function($, window, document) {
   'use strict';
 
   Foundation.libs.section = {
-    name: 'section',
+    name : 'section',
 
-    version : '4.0.9',
+    version : '4.3.0',
 
-    settings : {
+    settings: {
       deep_linking: false,
+      small_breakpoint: 768,
       one_up: true,
-      callback: function (){}
+      section_selector: '[data-section]',
+      region_selector: 'section, .section, [data-section-region]',
+      title_selector: '.title, [data-section-title]',
+      //marker: container is resized
+      resized_data_attr: 'data-section-resized',
+      //marker: container should apply accordion style
+      small_style_data_attr: 'data-section-small-style',
+      content_selector: '.content, [data-section-content]',
+      nav_selector: '[data-section="vertical-nav"], [data-section="horizontal-nav"]',
+      active_class: 'active',
+      callback: function() {
+      }
     },
 
-    init : function (scope, method, options) {
+    init: function(scope, method, options) {
       var self = this;
+      Foundation.inherit(this, 'throttle data_options position_right offset_right');
 
-      this.scope = scope || this.scope;
-      Foundation.inherit(this, 'throttle data_options');
+      if (typeof method === 'object') {
+        $.extend(true, self.settings, method);
+      }
 
-      if (typeof method != 'string') {
-        this.set_active_from_hash();
+      if (typeof method !== 'string') {
         this.events();
-
         return true;
       } else {
         return this[method].call(this, options);
       }
     },
 
-    events : function () {
+    events: function() {
       var self = this;
 
-      $(this.scope)
-        .on('click.fndtn.section', '[data-section] .title', function (e) {
-          var $this = $(this),
-              section = $this.closest('[data-section]');
+      //combine titles selector from settings for click event binding
+      var click_title_selectors = [],
+          section_selector = self.settings.section_selector,
+          region_selectors = self.settings.region_selector.split(","),
+          title_selectors = self.settings.title_selector.split(",");
 
-          self.toggle_active.call(this, e, self);
+      for (var i = 0, len = region_selectors.length; i < len; i++) {
+        var region_selector = region_selectors[i];
+
+        for (var j = 0, len1 = title_selectors.length; j < len1; j++) {
+          var title_selector = section_selector + ">" + region_selector + ">" + title_selectors[j];
+
+          click_title_selectors.push(title_selector + " a"); //or we can not do preventDefault for click event of <a>
+          click_title_selectors.push(title_selector);
+        }
+      }
+
+      $(self.scope)
+        .on('click.fndtn.section', click_title_selectors.join(","), function(e) {
+          var title = $(this).closest(self.settings.title_selector);
+
+          self.close_navs(title);
+          if (title.siblings(self.settings.content_selector).length > 0) {
+            self.toggle_active.call(title[0], e);
+          }
         });
 
       $(window)
-        .on('resize.fndtn.section', self.throttle(function () {
-          self.resize.call(this);
-        }, 30))
-        .on('hashchange', function () {
-          if (!self.settings.toggled){
-            self.set_active_from_hash();
-            $(this).trigger('resize');
-          }
-        }).trigger('resize');
+        .on('resize.fndtn.section', self.throttle(function() { self.resize(); }, 30))
+        .on('hashchange.fndtn.section', self.set_active_from_hash);
 
-      $(document)
-        .on('click.fndtn.section', function (e) {
-          if ($(e.target).closest('.title').length < 1) {
-            $('[data-section="vertical-nav"], [data-section="horizontal-nav"]')
-              .find('section, .section')
-              .removeClass('active')
-              .attr('style', '');
-          }
-        });
+      $(document).on('click.fndtn.section', function (e) {
+        if (e.isPropagationStopped && e.isPropagationStopped()) return;
+        if (e.target === document) return;
+        self.close_navs($(e.target).closest(self.settings.title_selector));
+      });
 
+      $(window).triggerHandler('resize.fndtn.section');
+      $(window).triggerHandler('hashchange.fndtn.section');
+    },
+    
+    //close nav !one_up on click elsewhere
+    close_navs: function(except_nav_with_title) {
+      var self = Foundation.libs.section,
+          navsToClose = $(self.settings.nav_selector)
+            .filter(function() { return !$.extend({}, 
+              self.settings, self.data_options($(this))).one_up; });
+
+      if (except_nav_with_title.length > 0) {
+        var section = except_nav_with_title.parent().parent();
+
+        if (self.is_horizontal_nav(section) || self.is_vertical_nav(section)) {
+          //exclude current nav from list
+          navsToClose = navsToClose.filter(function() { return this !== section[0]; });
+        }
+      }
+      //close navs on click on title
+      navsToClose.children(self.settings.region_selector).removeClass(self.settings.active_class);
     },
 
-    toggle_active : function (e, self) {
+    toggle_active: function(e) {
       var $this = $(this),
-          section = $this.closest('section, .section'),
-          content = section.find('.content'),
-          parent = section.closest('[data-section]'),
           self = Foundation.libs.section,
-          settings = $.extend({}, self.settings, self.data_options(parent));
+          region = $this.parent(),
+          content = $this.siblings(self.settings.content_selector),
+          section = region.parent(),
+          settings = $.extend({}, self.settings, self.data_options(section)),
+          prev_active_region = section.children(self.settings.region_selector).filter("." + self.settings.active_class);
 
-      self.settings.toggled = true;
-
+      //for anchors inside [data-section-title]
       if (!settings.deep_linking && content.length > 0) {
         e.preventDefault();
       }
 
-      if (section.hasClass('active')) {
-        if (self.small(parent)
-          || self.is_vertical(parent)
-          || self.is_horizontal(parent)
-          || self.is_accordion(parent)) {
-          section
-            .removeClass('active')
-            .attr('style', '');
-        }
-      } else {
-        var prev_active_section = null,
-            title_height = self.outerHeight(section.find('.title'));
+      e.stopPropagation(); //do not catch same click again on parent
 
-        if (self.small(parent) || settings.one_up) {
-          prev_active_section = $this.closest('[data-section]').find('section.active, .section.active');
-
-          if (self.small(parent)) {
-            prev_active_section.attr('style', '');
-          } else {
-            prev_active_section.attr('style', 'visibility: hidden; padding-top: '+title_height+'px;');
-          }
-        }
-
-        if (self.small(parent)) {
-          section.attr('style', '');
-        } else {
-          section.css('padding-top', title_height);
-        }
-
-        section.addClass('active');
-
-        if (prev_active_section !== null) {
-          prev_active_section.removeClass('active').attr('style', '');
-        }
+      if (!region.hasClass(self.settings.active_class)) {
+        prev_active_region.removeClass(self.settings.active_class);
+        region.addClass(self.settings.active_class);
+        //force resize for better performance (do not wait timer)
+        self.resize(region.find(self.settings.section_selector).not("[" + self.settings.resized_data_attr + "]"), true);
+      } else if (!settings.one_up && (self.small(section) || self.is_vertical_nav(section) || self.is_horizontal_nav(section) || self.is_accordion(section))) {
+        region.removeClass(self.settings.active_class);
       }
-
-      setTimeout(function () {
-        self.settings.toggled = false;
-      }, 300);
-
       settings.callback();
     },
 
-    resize : function () {
-      var sections = $('[data-section]'),
-          self = Foundation.libs.section;
+    check_resize_timer: null,
 
-      sections.each(function() {
-        var $this = $(this),
-            active_section = $this.find('section.active, .section.active'),
-            settings = $.extend({}, self.settings, self.data_options($this));
+    //main function that sets title and content positions; runs for :not(.resized) and :visible once when window width is medium up
+    //sections:
+    //  selected sections to resize, are defined on resize forced by visibility changes
+    //ensure_has_active_region:
+    //  is true when we force resize for no resized sections that were hidden and became visible, 
+    //  these sections can have no selected region, because all regions were hidden along with section on executing set_active_from_hash
+    resize: function(sections, ensure_has_active_region) {
 
-        if (active_section.length > 1) {
-          active_section
-            .not(':first')
-            .removeClass('active')
-            .attr('style', '');
-        } else if (active_section.length < 1
-          && !self.is_vertical($this)
-          && !self.is_horizontal($this)
-          && !self.is_accordion($this)) {
+      var self = Foundation.libs.section,
+          is_small_window = self.small($(document)),
+          //filter for section resize
+          should_be_resized = function (section, now_is_hidden) {
+            return !self.is_accordion(section) && 
+              !section.is("[" + self.settings.resized_data_attr + "]") && 
+              (!is_small_window || self.is_horizontal_tabs(section)) && 
+              now_is_hidden === (section.css('display') === 'none' || 
+              !section.parent().is(':visible'));
+          };
 
-          var first = $this.find('section, .section').first();
-          first.addClass('active');
+      sections = sections || $(self.settings.section_selector);
 
-          if (self.small($this)) {
-            first.attr('style', '');
-          } else {
-            first.css('padding-top', self.outerHeight(first.find('.title')));
+      clearTimeout(self.check_resize_timer);
+
+      if (!is_small_window) {
+        sections.removeAttr(self.settings.small_style_data_attr);
+      }
+
+      //resize
+      sections.filter(function() { return should_be_resized($(this), false); })
+        .each(function() {
+          var section = $(this),
+            regions = section.children(self.settings.region_selector),
+            titles = regions.children(self.settings.title_selector),
+            content = regions.children(self.settings.content_selector),
+            titles_max_height = 0;
+
+          if (ensure_has_active_region && 
+            section.children(self.settings.region_selector).filter("." + self.settings.active_class).length == 0) {
+            var settings = $.extend({}, self.settings, self.data_options(section));
+
+            if (!settings.deep_linking && (settings.one_up || !self.is_horizontal_nav(section) &&
+              !self.is_vertical_nav(section) && !self.is_accordion(section))) {
+                regions.filter(":visible").first().addClass(self.settings.active_class);
+            }
           }
-        }
 
-        if (self.small($this)) {
-          active_section.attr('style', '');
-        } else {
-          active_section.css('padding-top', self.outerHeight(active_section.find('.title')));
-        }
+          if (self.is_horizontal_tabs(section) || self.is_auto(section)) {
+            //    region: position relative
+            //    title: position absolute
+            //    content: position static
+            var titles_sum_width = 0;
 
-        self.position_titles($this);
+            titles.each(function() {
+              var title = $(this);
 
-        if (self.is_horizontal($this) && !self.small($this)) {
-          self.position_content($this);
-        } else {
-          self.position_content($this, false);
-        }
-      });
+              if (title.is(":visible")) {
+                title.css(!self.rtl ? 'left' : 'right', titles_sum_width);
+                var title_h_border_width = parseInt(title.css("border-" + (self.rtl ? 'left' : 'right') + "-width"), 10);
+
+                if (title_h_border_width.toString() === 'Nan') {
+                  title_h_border_width = 0;
+                }
+
+                titles_sum_width += self.outerWidth(title) - title_h_border_width;
+                titles_max_height = Math.max(titles_max_height, self.outerHeight(title));
+              }
+            });
+            titles.css('height', titles_max_height);
+            regions.each(function() {
+              var region = $(this),
+                  region_content = region.children(self.settings.content_selector),
+                  content_top_border_width = parseInt(region_content.css("border-top-width"), 10);
+
+              if (content_top_border_width.toString() === 'Nan') {
+                content_top_border_width = 0;
+              }
+
+              region.css('padding-top', titles_max_height - content_top_border_width);
+            });
+
+            section.css("min-height", titles_max_height);
+          } else if (self.is_horizontal_nav(section)) {
+            var first = true;
+            //    region: positon relative, float left
+            //    title: position static
+            //    content: position absolute
+            titles.each(function() {
+              titles_max_height = Math.max(titles_max_height, self.outerHeight($(this)));
+            });
+
+            regions.each(function() {
+              var region = $(this);
+
+              region.css("margin-left", "-" + (first ? section : region.children(self.settings.title_selector)).css("border-left-width"));
+              first = false;
+            });
+
+            regions.css("margin-top", "-" + section.css("border-top-width"));
+            titles.css('height', titles_max_height);
+            content.css('top', titles_max_height);
+            section.css("min-height", titles_max_height);
+          } else if (self.is_vertical_tabs(section)) {
+            var titles_sum_height = 0;
+            //    region: position relative, for .active: fixed padding==title.width
+            //    title: fixed width, position absolute
+            //    content: position static
+            titles.each(function() {
+              var title = $(this);
+
+              if (title.is(":visible")) {
+                title.css('top', titles_sum_height);
+                var title_top_border_width = parseInt(title.css("border-top-width"), 10);
+
+                if (title_top_border_width.toString() === 'Nan') {
+                  title_top_border_width = 0;
+                }
+
+                titles_sum_height += self.outerHeight(title) - title_top_border_width;
+              }
+            });
+
+            content.css('min-height', titles_sum_height + 1);
+          } else if (self.is_vertical_nav(section)) {
+            var titles_max_width = 0,
+                first1 = true;
+            //    region: positon relative
+            //    title: position static
+            //    content: position absolute
+            titles.each(function() {
+              titles_max_width = Math.max(titles_max_width, self.outerWidth($(this)));
+            });
+
+            regions.each(function () {
+              var region = $(this);
+
+              region.css("margin-top", "-" + (first1 ? section : region.children(self.settings.title_selector)).css("border-top-width"));
+              first1 = false;
+            });
+
+            titles.css('width', titles_max_width);
+            content.css(!self.rtl ? 'left' : 'right', titles_max_width);
+            section.css('width', titles_max_width);
+          }
+
+          section.attr(self.settings.resized_data_attr, true);
+        });
+
+      //wait elements to become visible then resize
+      if ($(self.settings.section_selector).filter(function() { return should_be_resized($(this), true); }).length > 0)
+        self.check_resize_timer = setTimeout(function() {
+          self.resize(sections.filter(function() { return should_be_resized($(this), false); }), true);
+        }, 700);
+
+      if (is_small_window) {
+        sections.attr(self.settings.small_style_data_attr, true);
+      }
     },
 
-    is_vertical : function (el) {
+    is_vertical_nav: function(el) {
       return /vertical-nav/i.test(el.data('section'));
     },
 
-    is_horizontal : function (el) {
+    is_horizontal_nav: function(el) {
       return /horizontal-nav/i.test(el.data('section'));
     },
 
-    is_accordion : function (el) {
+    is_accordion: function(el) {
       return /accordion/i.test(el.data('section'));
     },
 
-    is_tabs : function (el) {
-      return /tabs/i.test(el.data('section'));
+    is_horizontal_tabs: function(el) {
+      return /^tabs$/i.test(el.data('section'));
     },
 
-    set_active_from_hash : function () {
-      var hash = window.location.hash.substring(1),
-          sections = $('[data-section]'),
-          self = this;
+    is_vertical_tabs: function(el) {
+      return /vertical-tabs/i.test(el.data('section'));
+    },
+    
+    is_auto: function (el) {
+      var data_section = el.data('section');
+      return data_section === '' || /auto/i.test(data_section);
+    },
 
-      sections.each(function () {
+    set_active_from_hash: function() {
+      var self = Foundation.libs.section,
+          hash = window.location.hash.substring(1),
+          sections = $(self.settings.section_selector);
+
+      sections.each(function() {
         var section = $(this),
-            settings = $.extend({}, self.settings, self.data_options(section));
+            settings = $.extend({}, self.settings, self.data_options(section)),
+            regions = section.children(self.settings.region_selector),
+            set_active_from_hash = settings.deep_linking && hash.length > 0,
+            selected = false;
 
-        if (hash.length > 0 && settings.deep_linking) {
-          section
-            .find('section, .section')
-            .attr('style', '')
-            .removeClass('active');
-          section
-            .find('.content[data-slug="' + hash + '"]')
-            .closest('section, .section')
-            .addClass('active');
-        }
+        regions.each(function() {
+          var region = $(this);
+
+          if (selected) {
+            region.removeClass(self.settings.active_class);
+          } else if (set_active_from_hash) {
+            var data_slug = region.children(self.settings.content_selector).data('slug');
+
+            if (data_slug && new RegExp(data_slug, 'i').test(hash)) {
+              if (!region.hasClass(self.settings.active_class))
+                region.addClass(self.settings.active_class);
+              selected = true;
+            } else {
+              region.removeClass(self.settings.active_class);
+            }
+          } else if (region.hasClass(self.settings.active_class)) {
+            selected = true;
+          }
+        });
+
+        if (!selected && !settings.deep_linking && (settings.one_up || !self.is_horizontal_nav(section) &&
+         !self.is_vertical_nav(section) && !self.is_accordion(section)))
+          regions.filter(":visible").first().addClass(self.settings.active_class);
       });
     },
 
-    position_titles : function (section, off) {
-      var titles = section.find('.title'),
-          previous_width = 0,
-          self = this;
+    reflow: function() {
+      var self = Foundation.libs.section;
 
-      if (typeof off === 'boolean') {
-        titles.attr('style', '');
-
-      } else {
-        titles.each(function () {
-          $(this).css('left', previous_width);
-          previous_width += self.outerWidth($(this));
-        });
-      }
+      $(self.settings.section_selector).removeAttr(self.settings.resized_data_attr);
+      self.throttle(function() { self.resize(); }, 30)();
     },
 
-    position_content : function (section, off) {
-      var titles = section.find('.title'),
-          content = section.find('.content'),
-          self = this;
-
-      if (typeof off === 'boolean') {
-        content.attr('style', '');
-        section.attr('style', '');
-      } else {
-        section.find('section, .section').each(function () {
-          var title = $(this).find('.title'),
-              content = $(this).find('.content');
-
-          content.css({left: title.position().left - 1, top: self.outerHeight(title) - 2});
-        });
-
-        // temporary work around for Zepto outerheight calculation issues.
-        if (typeof Zepto === 'function') {
-          section.height(this.outerHeight(titles.first()));
-        } else {
-          section.height(this.outerHeight(titles.first()) - 2);
-        }
-      }
-
-    },
-
-    small : function (el) {
+    small: function(el) {
       var settings = $.extend({}, this.settings, this.data_options(el));
-      if (this.is_tabs(el)) {
+
+      if (this.is_horizontal_tabs(el)) {
         return false;
       }
       if (el && this.is_accordion(el)) {
@@ -3290,30 +4555,44 @@ if (typeof jQuery === "undefined" &&
       if ($('html').hasClass('ie8compat')) {
         return true;
       }
-      return $(this.scope).width() < 768;
+      return $(this.scope).width() < settings.small_breakpoint;
     },
 
-    off : function () {
+    off: function() {
       $(this.scope).off('.fndtn.section');
       $(window).off('.fndtn.section');
-      $(document).off('.fndtn.section')
+      $(document).off('.fndtn.section');
     }
   };
-}(Foundation.zj, this, this.document));
+
+  //resize selected sections
+  $.fn.reflow_section = function(ensure_has_active_region) {
+    var section = this,
+        self = Foundation.libs.section;
+
+    section.removeAttr(self.settings.resized_data_attr);
+    self.throttle(function() { self.resize(section, ensure_has_active_region); }, 30)();
+    return this;
+  };
+
+}(Foundation.zj, window, document));
+
 /*jslint unparam: true, browser: true, indent: 2 */
 
 ;(function ($, window, document, undefined) {
   'use strict';
 
   Foundation.libs.tooltips = {
-    name: 'tooltips',
+    name : 'tooltips',
 
-    version : '4.0.2',
+    version : '4.2.2',
 
     settings : {
       selector : '.has-tip',
       additionalInheritableClasses : [],
       tooltipClass : '.tooltip',
+      appendTo: 'body',
+      'disable-for-touch': false,
       tipTemplate : function (selector, content) {
         return '<span data-selector="' + selector + '" class="' 
           + Foundation.libs.tooltips.settings.tooltipClass.substring(1) 
@@ -3324,21 +4603,26 @@ if (typeof jQuery === "undefined" &&
     cache : {},
 
     init : function (scope, method, options) {
+      Foundation.inherit(this, 'data_options');
       var self = this;
-      this.scope = scope || this.scope;
 
       if (typeof method === 'object') {
         $.extend(true, this.settings, method);
+      } else if (typeof options !== 'undefined') {
+        $.extend(true, this.settings, options);
       }
 
-      if (typeof method != 'string') {
+      if (typeof method !== 'string') {
         if (Modernizr.touch) {
           $(this.scope)
             .on('click.fndtn.tooltip touchstart.fndtn.tooltip touchend.fndtn.tooltip', 
               '[data-tooltip]', function (e) {
-              e.preventDefault();
-              $(self.settings.tooltipClass).hide();
-              self.showOrCreateTip($(this));
+              var settings = $.extend({}, self.settings, self.data_options($(this)));
+              if (!settings['disable-for-touch']) {
+                e.preventDefault();
+                $(settings.tooltipClass).hide();
+                self.showOrCreateTip($(this));
+              }
             })
             .on('click.fndtn.tooltip touchstart.fndtn.tooltip touchend.fndtn.tooltip', 
               this.settings.tooltipClass, function (e) {
@@ -3351,7 +4635,7 @@ if (typeof jQuery === "undefined" &&
               '[data-tooltip]', function (e) {
               var $this = $(this);
 
-              if (e.type === 'mouseover' || e.type === 'mouseenter') {
+              if (/enter|over/i.test(e.type)) {
                 self.showOrCreateTip($this);
               } else if (e.type === 'mouseout' || e.type === 'mouseleave') {
                 self.hide($this);
@@ -3381,7 +4665,7 @@ if (typeof jQuery === "undefined" &&
           tip = null;
 
       if (selector) {
-        tip = $('span[data-selector=' + selector + ']' + this.settings.tooltipClass);
+        tip = $('span[data-selector="' + selector + '"]' + this.settings.tooltipClass);
       }
 
       return (typeof tip === 'object') ? tip : false;
@@ -3400,10 +4684,10 @@ if (typeof jQuery === "undefined" &&
     },
 
     create : function ($target) {
-      var $tip = $(this.settings.tipTemplate(this.selector($target), $('<div>').html($target.attr('title')).html())),
+      var $tip = $(this.settings.tipTemplate(this.selector($target), $('<div></div>').html($target.attr('title')).html())),
           classes = this.inheritable_classes($target);
 
-      $tip.addClass(classes).appendTo('body');
+      $tip.addClass(classes).appendTo(this.settings.appendTo);
       if (Modernizr.touch) {
         $tip.append('<span class="tap-to-close">tap to close </span>');
       }
@@ -3438,10 +4722,14 @@ if (typeof jQuery === "undefined" &&
         tip.addClass('tip-override');
         objPos(nub, -nubHeight, 'auto', 'auto', target.offset().left);
       } else {
-        objPos(tip, (target.offset().top + this.outerHeight(target) + 10), 'auto', 'auto', target.offset().left, width);
+        var left = target.offset().left;
+        if (Foundation.rtl) {
+          left = target.offset().left + target.offset().width - this.outerWidth(tip);
+        }
+        objPos(tip, (target.offset().top + this.outerHeight(target) + 10), 'auto', 'auto', left, width);
         tip.removeClass('tip-override');
         if (classes && classes.indexOf('tip-top') > -1) {
-          objPos(tip, (target.offset().top - this.outerHeight(tip)), 'auto', 'auto', target.offset().left, width)
+          objPos(tip, (target.offset().top - this.outerHeight(tip)), 'auto', 'auto', left, width)
             .removeClass('tip-override');
         } else if (classes && classes.indexOf('tip-left') > -1) {
           objPos(tip, (target.offset().top + (this.outerHeight(target) / 2) - nubHeight*2.5), 'auto', 'auto', (target.offset().left - this.outerWidth(tip) - nubHeight), width)
@@ -3492,10 +4780,11 @@ if (typeof jQuery === "undefined" &&
       $(this.settings.tooltipClass).each(function (i) {
         $('[data-tooltip]').get(i).attr('title', $(this).text());
       }).remove();
-    }
+    },
+
+    reflow : function () {}
   };
 }(Foundation.zj, this, this.document));
-
 /*jslint unparam: true, browser: true, indent: 2 */
 
 ;(function ($, window, document, undefined) {
@@ -3504,33 +4793,37 @@ if (typeof jQuery === "undefined" &&
   Foundation.libs.topbar = {
     name : 'topbar',
 
-    version : '4.0.0',
+    version : '4.3.0',
 
     settings : {
       index : 0,
       stickyClass : 'sticky',
       custom_back_text: true,
       back_text: 'Back',
+      is_hover: true,
+      mobile_show_parent_link: true,
+      scrolltop : true, // jump to top when sticky nav menu toggle is clicked
       init : false
     },
 
-    init : function (scope, method, options) {
+    init : function (section, method, options) {
+      Foundation.inherit(this, 'data_options');
       var self = this;
-      this.scope = scope || this.scope;
 
       if (typeof method === 'object') {
         $.extend(true, this.settings, method);
+      } else if (typeof options !== 'undefined') {
+        $.extend(true, this.settings, options);
       }
 
-      if (typeof method != 'string') {
+      if (typeof method !== 'string') {
 
-        $('.top-bar').each(function () {
+        $('.top-bar, [data-topbar]').each(function () {
+          $.extend(true, self.settings, self.data_options($(this)));
           self.settings.$w = $(window);
           self.settings.$topbar = $(this);
           self.settings.$section = self.settings.$topbar.find('section');
           self.settings.$titlebar = self.settings.$topbar.children('ul').first();
-
-
           self.settings.$topbar.data('index', 0);
 
           var breakpoint = $("<div class='top-bar-js-breakpoint'/>").insertAfter(self.settings.$topbar);
@@ -3538,6 +4831,10 @@ if (typeof jQuery === "undefined" &&
           breakpoint.remove();
 
           self.assemble();
+
+          if (self.settings.is_hover) {
+            self.settings.$topbar.find('.has-dropdown').addClass('not-click');
+          }
 
           if (self.settings.$topbar.parent().hasClass('fixed')) {
             $('body').css('padding-top', self.outerHeight(self.settings.$topbar));
@@ -3555,90 +4852,151 @@ if (typeof jQuery === "undefined" &&
       }
     },
 
+    timer : null,
+
     events : function () {
       var self = this;
-      var offst = this.outerHeight($('.top-bar'));
+      var offst = this.outerHeight($('.top-bar, [data-topbar]'));
       $(this.scope)
-        .on('click.fndtn.topbar', '.top-bar .toggle-topbar', function (e) {
-          var topbar = $(this).closest('.top-bar'),
+        .off('.fndtn.topbar')
+        .on('click.fndtn.topbar', '.top-bar .toggle-topbar, [data-topbar] .toggle-topbar', function (e) {
+          var topbar = $(this).closest('.top-bar, [data-topbar]'),
               section = topbar.find('section, .section'),
               titlebar = topbar.children('ul').first();
-
-          if (!topbar.data('height')) self.largestUL();
 
           e.preventDefault();
 
           if (self.breakpoint()) {
+            if (!self.rtl) {
+              section.css({left: '0%'});
+              section.find('>.name').css({left: '100%'});
+            } else {
+              section.css({right: '0%'});
+              section.find('>.name').css({right: '100%'});
+            }
+
+            section.find('li.moved').removeClass('moved');
+            topbar.data('index', 0);
+
             topbar
               .toggleClass('expanded')
-              .css('min-height', '');
+              .css('height', '');
           }
 
           if (!topbar.hasClass('expanded')) {
-            section.css({left: '0%'});
-            section.find('>.name').css({left: '100%'});
-            section.find('li.moved').removeClass('moved');
-            topbar.data('index', 0);
-          }
-
-          if (topbar.parent().hasClass('fixed')) {
+            if (topbar.hasClass('fixed')) {
+              topbar.parent().addClass('fixed');
+              topbar.removeClass('fixed');
+              $('body').css('padding-top',offst);
+            }
+          } else if (topbar.parent().hasClass('fixed')) {
             topbar.parent().removeClass('fixed');
+            topbar.addClass('fixed');
             $('body').css('padding-top','0');
-            window.scrollTo(0,0);
-          } else if (topbar.hasClass('fixed expanded')) {
-            topbar.parent().addClass('fixed');
-            $('body').css('padding-top',offst);
-          }
 
+            if (self.settings.scrolltop) {
+              window.scrollTo(0,0);
+            }
+          }
         })
 
-        .on('click.fndtn.topbar', '.top-bar .has-dropdown>a', function (e) {
-          var topbar = $(this).closest('.top-bar'),
-              section = topbar.find('section, .section'),
-              titlebar = topbar.children('ul').first();
+        .on('click.fndtn.topbar', '.top-bar li.has-dropdown', function (e) {
+          if (self.breakpoint()) return;
 
-          if (Modernizr.touch || self.breakpoint()) {
+          var li = $(this),
+              target = $(e.target),
+              topbar = li.closest('[data-topbar], .top-bar'),
+              is_hover = topbar.data('topbar');
+
+          if (self.settings.is_hover && !Modernizr.touch) return;
+
+          e.stopImmediatePropagation();
+
+          if (target[0].nodeName === 'A' && target.parent().hasClass('has-dropdown')) {
             e.preventDefault();
           }
 
+          if (li.hasClass('hover')) {
+            li
+              .removeClass('hover')
+              .find('li')
+              .removeClass('hover');
+          } else {
+            li.addClass('hover');
+          }
+        })
+
+        .on('click.fndtn.topbar', '.top-bar .has-dropdown>a, [data-topbar] .has-dropdown>a', function (e) {
           if (self.breakpoint()) {
+            e.preventDefault();
+
             var $this = $(this),
+                topbar = $this.closest('.top-bar, [data-topbar]'),
+                section = topbar.find('section, .section'),
+                titlebar = topbar.children('ul').first(),
+                dropdownHeight = $this.next('.dropdown').outerHeight(),
                 $selectedLi = $this.closest('li');
 
             topbar.data('index', topbar.data('index') + 1);
             $selectedLi.addClass('moved');
-            section.css({left: -(100 * topbar.data('index')) + '%'});
-            section.find('>.name').css({left: 100 * topbar.data('index') + '%'});
 
-            $this.siblings('ul')
-              .height(topbar.data('height') + self.outerHeight(titlebar, true));
-            topbar
-              .css('min-height', topbar.data('height') + self.outerHeight(titlebar, true) * 2)
+            if (!self.rtl) {
+              section.css({left: -(100 * topbar.data('index')) + '%'});
+              section.find('>.name').css({left: 100 * topbar.data('index') + '%'});
+            } else {
+              section.css({right: -(100 * topbar.data('index')) + '%'});
+              section.find('>.name').css({right: 100 * topbar.data('index') + '%'});
+            }
+
+            topbar.css('height', self.outerHeight($this.siblings('ul'), true) + self.outerHeight(titlebar, true));
           }
-      });
+        });
 
       $(window).on('resize.fndtn.topbar', function () {
-        if (!this.breakpoint()) {
-          $('.top-bar').css('min-height', '');
+        if (!self.breakpoint()) {
+          $('.top-bar, [data-topbar]')
+            .css('height', '')
+            .removeClass('expanded')
+            .find('li')
+            .removeClass('hover');
         }
       }.bind(this));
 
+      $('body').on('click.fndtn.topbar', function (e) {
+        var parent = $(e.target).closest('[data-topbar], .top-bar');
+
+        if (parent.length > 0) {
+          return;
+        }
+
+        $('.top-bar li, [data-topbar] li').removeClass('hover');
+      });
+
       // Go up a level on Click
-      $(this.scope).on('click.fndtn', '.top-bar .has-dropdown .back', function (e) {
+      $(this.scope).on('click.fndtn', '.top-bar .has-dropdown .back, [data-topbar] .has-dropdown .back', function (e) {
         e.preventDefault();
 
         var $this = $(this),
-            topbar = $this.closest('.top-bar'),
+            topbar = $this.closest('.top-bar, [data-topbar]'),
+            titlebar = topbar.children('ul').first(),
             section = topbar.find('section, .section'),
             $movedLi = $this.closest('li.moved'),
             $previousLevelUl = $movedLi.parent();
 
         topbar.data('index', topbar.data('index') - 1);
-        section.css({left: -(100 * topbar.data('index')) + '%'});
-        section.find('>.name').css({'left': 100 * topbar.data('index') + '%'});
+
+        if (!self.rtl) {
+          section.css({left: -(100 * topbar.data('index')) + '%'});
+          section.find('>.name').css({left: 100 * topbar.data('index') + '%'});
+        } else {
+          section.css({right: -(100 * topbar.data('index')) + '%'});
+          section.find('>.name').css({right: 100 * topbar.data('index') + '%'});
+        }
 
         if (topbar.data('index') === 0) {
-          topbar.css('min-height', 0);
+          topbar.css('height', '');
+        } else {
+          topbar.css('height', self.outerHeight($previousLevelUl, true) + self.outerHeight(titlebar, true));
         }
 
         setTimeout(function () {
@@ -3648,7 +5006,7 @@ if (typeof jQuery === "undefined" &&
     },
 
     breakpoint : function () {
-      return $(window).width() <= this.settings.breakPoint || $('html').hasClass('lt-ie9');
+      return $(document).width() <= this.settings.breakPoint || $('html').hasClass('lt-ie9');
     },
 
     assemble : function () {
@@ -3659,7 +5017,13 @@ if (typeof jQuery === "undefined" &&
       this.settings.$section.find('.has-dropdown>a').each(function () {
         var $link = $(this),
             $dropdown = $link.siblings('.dropdown'),
-            $titleLi = $('<li class="title back js-generated"><h5><a href="#"></a></h5></li>');
+            url = $link.attr('href');
+
+        if (self.settings.mobile_show_parent_link && url && url.length > 1) {
+          var $titleLi = $('<li class="title back js-generated"><h5><a href="#"></a></h5></li><li><a class="parent-link js-generated" href="' + url + '">' + $link.text() +'</a></li>');
+        } else {
+          var $titleLi = $('<li class="title back js-generated"><h5><a href="#"></a></h5></li>');
+        }
 
         // Copy link to subnav
         if (self.settings.custom_back_text == true) {
@@ -3677,37 +5041,35 @@ if (typeof jQuery === "undefined" &&
       this.sticky();
     },
 
-    largestUL : function () {
-      var uls = this.settings.$topbar.find('section ul ul'),
-          largest = uls.first(),
-          total = 0,
+    height : function (ul) {
+      var total = 0,
           self = this;
 
-      uls.each(function () {
-        if ($(this).children('li').length > largest.children('li').length) {
-          largest = $(this);
-        }
-      });
+      ul.find('> li').each(function () { total += self.outerHeight($(this), true); });
 
-      largest.children('li').each(function () { total += self.outerHeight($(this), true); });
-
-      this.settings.$topbar.data('height', total);
+      return total;
     },
 
     sticky : function () {
       var klass = '.' + this.settings.stickyClass;
       if ($(klass).length > 0) {
         var distance = $(klass).length ? $(klass).offset().top: 0,
-            $window = $(window);
-            var offst = this.outerHeight($('.top-bar'));
+            $window = $(window),
+            offst = this.outerHeight($('.top-bar')),
+            t_top;
 
+          //Whe resize elements of the page on windows resize. Must recalculate distance
+      		$(window).resize(function() {
+            clearTimeout(t_top);
+      			t_top = setTimeout (function() {
+        			distance = $(klass).offset().top;
+      			},105);
+      		});
           $window.scroll(function() {
-            if ($window.scrollTop() >= (distance)) {
+            if ($window.scrollTop() > (distance)) {
               $(klass).addClass("fixed");
               $('body').css('padding-top',offst);
-            }
-
-            else if ($window.scrollTop() < distance) {
+            } else if ($window.scrollTop() <= distance) {
               $(klass).removeClass("fixed");
               $('body').css('padding-top','0');
             }
@@ -3718,6 +5080,8 @@ if (typeof jQuery === "undefined" &&
     off : function () {
       $(this.scope).off('.fndtn.topbar');
       $(window).off('.fndtn.topbar');
-    }
+    },
+
+    reflow : function () {}
   };
 }(Foundation.zj, this, this.document));

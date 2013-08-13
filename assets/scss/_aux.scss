@@ -18,37 +18,37 @@ $white : #fff;
 //MIXIN
 
 @mixin panel {
-	background-color: lighten( $black, 98% );
+	@include box-shadow(rgba(0,0,0,0.1) 0px 0px 1px);
 	border-bottom: 2px solid lighten( $black, 90% );
-	@include box-shadow(rgba(0,0,0,0.1) 0px 0px 1px);	
+	background-color: lighten( $black, 98% );	
 }
 
-@mixin content-box($height, $min-height) {
-	height: $height;
-	min-height: $min-height;	
+@mixin content-box($height, $min-height) {	
 	position:relative;
-	width: 100%;
 	z-index: 1;
 	overflow: hidden;
+	min-height: $min-height;
+	width: 100%;
+	height: $height;
 }
 
-@mixin avatar($height, $width, $border) {
-	height: $height;
-	width: $width;	
+@mixin avatar($height, $width, $border) {	
 	@include border-radius($border);
+	width: $width;
+	height: $height;
 }
 
 @mixin circle($color, $dimensions) {
+	@include border-radius($dimensions);
 	display: block;
-	border: $dimensions/20 solid $color;
-	color: $color;
 	width: $dimensions;
 	height: $dimensions;
-	@include border-radius($dimensions);
-	line-height: $dimensions - $dimensions/10 ;
+	border: $dimensions/20 solid $color;
+	color: $color;
 	text-align: center;
 	font-weight: 600;
 	font-size: $dimensions/4 ;
+	line-height: $dimensions - $dimensions/10 ;
 }
 
 //AUX
@@ -64,12 +64,12 @@ $white : #fff;
 //UI 
 
 a.add {
-	border-color: lighten( $black, 90% );
+	margin-top: .5em;
 	border-width: 2px;
+	border-color: lighten( $black, 90% );
 	background-color: rgba(255, 255, 255, 0);
 	color: lighten( $black, 70% ) ;
 	font-weight: 500;
-	margin-top: .5em;
 }
 
 .view-more-wrap {
@@ -77,118 +77,75 @@ a.add {
 }
 
 .view-more {
-	color: lighten( $black, 70% ) ;
-	font-weight: 500;
-	text-align: center;
-	text-transform: uppercase;
-	background-color:rgba(255, 255, 255, 0.80);
-	color: lighten( $black, 70% ) ;
 	margin-top: 1em;
 	border: 2px solid lighten( $black, 90% );
+	background-color:rgba(255, 255, 255, 0.80);
+	color: lighten( $black, 70% ) ;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: 500;
 }
 
 .gradient {
 	position: absolute;
-	background-image: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
-	background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.05)), to(rgba(255, 255, 255, 0)));
-	z-index: 2;
+	right: 0%;
 	bottom: 0;
 	left: 0%;
-	right: 0%;
+	z-index: 2;
 	height:20px;
+	background-image: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+	background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.05)), to(rgba(255, 255, 255, 0)));
 }
 
 .fade-out {
 	position: relative;
-	white-space: nowrap;
 	overflow: hidden;
+	white-space: nowrap;
 
 }
 
 .fade-out:after {
-	display: block;
 	position: absolute;
 	top: 0;
 	right: 0;
 	bottom: 0;
+	display: block;
 	width: 30px;
-	content: "";
 	background:-webkit-gradient(linear, left top, right top, from(rgba(255,255,255,0)), to(rgb(249, 250, 249)));background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgb(249, 250, 249) 100%);background: -moz-linear-gradient(left, rgba(255,255,255,0) 0%, rgb(249, 250, 249) 100%);background: -ms-linear-gradient(left, rgba(255,255,255,0) 0%, rgb(249, 250, 249) 100%);background: -o-linear-gradient(left, rgba(255,255,255,0) 0%, rgb(249, 250, 249) 100%);background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgb(249, 250, 249) 100%);
+	content: "";
 
 }
 
 
 .button {
-	-moz-box-shadow: 0 0 0;
 	-webkit-box-shadow: 0 0 0;
+	-moz-box-shadow: 0 0 0;
 	box-shadow: 0 0 0;
 }
 
 .hollow {
+	@include border-radius(2em);
+	display: inline-block;	   
+	padding:.5em 2em;
+	border: .2em solid $white;
 	background-color:transparent;
-   border: .2em solid $white;
-   color: darken($white, 20%);
-   font-weight:bold;
-   font-size:70%;
-   @include border-radius(2em);	   
-	padding:.6em 2em;
+	box-shadow:1px 2px rgba(255, 255, 254, 0.3);
+	color: darken($white, 20%);
 	text-transform: uppercase;
-	display: inline-block;
-	&.big {
-	font-size: emCalc(14px);
-	}
-	&.black {
-		box-shadow:2px 2px lighten($black, 70%);
-		color: lighten($black, 20%);
-		border: .2em solid $black;
-	}
+	font-weight:bold;
+	font-size:70%;
 }
 
 .title-1 {
-	text-transform: uppercase;
-	color: lighten(black, 75%);
-	font-size: 80%;
 	margin-top: 1em;
-	margin-bottom: 1em;
+	margin-bottom: 1em; 
+	color: lighten(black, 75%); 
+	text-transform: uppercase;
+	font-size: 80%;
 }
 
 .panel {
 	border: none;
-	@include clearfix;
-}
-
-// FORMS 
-
-input[type=text], input[type=password]  {
-	border-style: none;
-	@include border-radius(.4em);
-	font-weight: 300;
-	color: $black;
-	margin-top: .4em;
-	margin-bottom: 1em;
-}
-
-input[type=text]:focus, input[type=password]:focus {
-	border-bottom: 1px solid lighten($black, 50%);
-	box-shadow: 0 0 0;
-	@include border-radius(0);
-
-}
-
-label {
-	text-transform: capitalize;
-}
-
-// AUTH
-
-.auth-content {
-	position: relative;
-}
-
-
-
-.auth-box{
-	margin-top: 3em;
 }
 
 //TYPO
@@ -202,8 +159,8 @@ p.small {
 }
 
 .x-small {
-	font-size: emCalc(12px);
 	color: lighten( $black, 77% );
+	font-size: emCalc(12px);
 }
 
 // FOOTER
@@ -222,20 +179,20 @@ p.small {
 
 article.main {
 	@include panel;
-	margin-bottom: 1em;
-	min-height: 550px;
 	position: relative;
 	z-index: 1;
+	margin-bottom: 1em;
+	min-height: 550px;
 }
 
 .share-panel {
-	background-color: lighten( $black, 97% );
-	border-bottom: 2px solid lighten( $black, 90% );
-	margin-bottom: 1em;
+	@include box-shadow(rgba(0,0,0,0.2) 0px 0px 1px);
 	position: relative;
 	z-index: 1;
-	@include box-shadow(rgba(0,0,0,0.2) 0px 0px 1px);
-	padding: .5em;	
+	margin-bottom: 1em;
+	padding: .5em;
+	border-bottom: 2px solid lighten( $black, 90% );
+	background-color: lighten( $black, 97% );	
 }
 
 .article-head {
@@ -245,10 +202,10 @@ article.main {
 
 .article-img {
 	position: relative;
-	overflow: hidden;
-	height: auto;
-	width: 100%;
 	z-index: 10;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
 }
 
 .article-img img {
@@ -265,9 +222,9 @@ article.main {
 
 .panel {
 	@include panel;
-	margin-bottom: 1em;
 	position: relative;
-	z-index: 1;	
+	z-index: 1;
+	margin-bottom: 1em;	
 }
 
 /*Nav Bar*/
@@ -275,7 +232,7 @@ article.main {
 .nav-search {
 	padding: 0 emCalc(16px);
 	input {
-	@include border-radius(4px) 
+	@include border-radius(4px); 
 	}
 }
 
@@ -287,55 +244,55 @@ article.main {
 // banner
 
 .full-banner {
-	width: 100%;
 	bottom: 0;
 	z-index: 2;
+	width: 100%;
 }
 
 .full-img {
-	height: auto;
 	width: 100%;
+	height: auto;
 }
 
 // main-info
 
 
 .profile-resume-data {
-	width: 100%;
-	background-color: lighten( $black, 10% );
+	margin-top:-2px;
 	padding-top: emCalc(35px);
 	padding-bottom: emCalc(30px);
-	margin-top:-2px;
+	width: 100%;
+	background-color: lighten( $black, 10% );
 	
 	h2 {
+		margin-bottom:.3em;
 		font-size: emCalc(23px);
 		line-height: 1em;
-		margin-bottom:.3em;
 	}
 	h4 {
+		margin-bottom: 1em ;
 		font-size: emCalc(12px);
 		line-height: 1em;
-		margin-bottom: 1em ;
 		opacity: .6;
 	}
 	p {
-		font-size: emCalc(14px);
-		line-height: 1.5em;
 		margin-bottom: .8em ;
 		font-weight: 300;
+		font-size: emCalc(14px);
+		line-height: 1.5em;
 		opacity: .9;
 	}
 	hr {
-		border: solid darken($white, 70%);
-		border-width: 1px 0 0;
 		clear: both;
 		margin: 1.3em 0 .4em;
 		height: 0;
+		border: solid darken($white, 70%);
+		border-width: 1px 0 0;
 	}
 	.label {
-	   color: darken($white, 20%);
-	   font-weight: 500;
-	   background-color: lighten($black, 50%);
+		background-color: lighten($black, 50%);
+		color: darken($white, 20%);
+		font-weight: 500;
 	} 
 }
 
@@ -356,28 +313,28 @@ article.main {
 .artist-resume {
 	background-color: lighten($black,15%);
 	h3 {
-		font-size: emCalc(44px);
-		line-height: 1em;
 		margin-bottom: .3em;
 		color: $white;
 		font-weight: 300;
+		font-size: emCalc(44px);
+		line-height: 1em;
 	}
 	span {
-		font-size: emCalc(11px);
-		color: lighten($black,60%);
-		font-weight: 500;
-		line-height: 1em;
-		margin-bottom: 1em;
-		text-transform: uppercase;
 		display: block;
+		margin-bottom: 1em;
+		color: lighten($black,60%);
+		text-transform: uppercase;
+		font-weight: 500;
+		font-size: emCalc(11px);
+		line-height: 1em;
 	}	
 }
 
 // exhibitions
 
 .exhibitions {
-	background-color: lighten($primary,100%);
 	padding: emCalc(30px) 0 0 0;
+	background-color: lighten($primary,100%);
 }
 
 .exhibitions .content-box {
@@ -387,14 +344,14 @@ article.main {
 
 .exhibitions-list li {
 	position: relative;
-	padding-left: 50px;
-	font-size: emCalc(15px);
-	color: lighten($black,40%);
 	margin-bottom: 2em;
+	padding-left: 50px;
+	color: lighten($black,40%);
+	font-size: emCalc(15px);
 	
 	small {
-		font-size: emCalc(14px);
 		color: lighten($black,50%);
+		font-size: emCalc(14px);
 	}
 	strong{
 		color: $black;
@@ -412,8 +369,8 @@ article.main {
 // works
 
 .works {
-	background-color: lighten($black,93%);
 	padding: emCalc(30px) 0 emCalc(30px) 0;
+	background-color: lighten($black,93%);
 }
 
 .works .content-box {
@@ -423,18 +380,18 @@ article.main {
 
 .work-item {
 	@include panel;
-	background-color: white;
-	margin-bottom: 1em;
-	height: 320px;
+	@include border-radius(.3em);
 	position: relative;
 	z-index: 1;
-	@include border-radius(.3em);	
+	margin-bottom: 1em;
+	height: 320px;	
 	border-top: 1px solid white;
+	background-color: white;
 }
 
 .work-item-img img {
-	  @include border-radius(.3em .3em 0 0);
-	  width: 100%;	
+		@include border-radius(.3em .3em 0 0);
+		width: 100%;	
 }
 
 .work-item-header h3 {
@@ -445,8 +402,8 @@ article.main {
 }
 
 .work-item-description p {
-	color: lighten( $black, 45% );
 	height: emCalc(65px);
+	color: lighten( $black, 45% );
 }
 
 .section-container section.active .content {
@@ -456,14 +413,14 @@ article.main {
 }
 
 .section-container section .title a {
-	font-weight: 400;
 	color: lighten( $black, 70% );
+	font-weight: 400;
 }
 
 .section-container section.active .title a {
-	font-weight: 600;
-	color: lighten( $black, 10% );
 	border-bottom: 3px solid lighten( $black, 10% );
+	color: lighten( $black, 10% );
+	font-weight: 600;
 }
 
 .work-item-description, .work-item-header {
@@ -474,8 +431,8 @@ article.main {
 
 
 .edu-awards {
-	background-color: lighten($primary,100%);
 	padding: emCalc(30px) 0 0 0;
+	background-color: lighten($primary,100%);
 }
 
 .edu-awards .content-box {
@@ -485,14 +442,14 @@ article.main {
 
 .award-list li {
 	position: relative;
-	padding-left: 50px;
-	font-size: emCalc(15px);
-	color: lighten($black,40%);
 	margin-bottom: 2em;
+	padding-left: 50px;
+	color: lighten($black,40%);
+	font-size: emCalc(15px);
 	
 	small {
-		font-size: emCalc(14px);
 		color: lighten($black,50%);
+		font-size: emCalc(14px);
 	}
 	strong{
 		color: $black;
@@ -502,13 +459,13 @@ article.main {
 
 .edu-list li {
 	position: relative;
-	font-size: emCalc(15px);
-	color: lighten($black,40%);
 	margin-bottom: 2em;
+	color: lighten($black,40%);
+	font-size: emCalc(15px);
 	
 	small {
-		font-size: emCalc(14px);
 		color: lighten($black,50%);
+		font-size: emCalc(14px);
 	}
 	strong{
 		color: $black;

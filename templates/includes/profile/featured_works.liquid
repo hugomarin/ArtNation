@@ -5,9 +5,9 @@
     <p class="title" data-section-title><a href="#">Obras</a></p>
     <div class="content" data-section-content>
 		
-		<ul class="large-block-grid-4  small-block-grid-2">
+		<div class="row">
 				{% for item in model.user_works %}
-					<li>
+					<div class="large-3  small-12 medium-4 columns">
 						<article class="work-item">
 							<div class="work-item-img">
 								<a href="#"><img src="{{ item.image }}" alt="{{ item.name }}" /> </a>
@@ -21,9 +21,9 @@
 								<p class="small">{{ item.description | truncate: 120 }}</p>	
 							</section>
 						</article>
-					</li>
+					</div>
 				{% endfor %}
-		</ul> 
+		</div> 
   
     </div>
   </section>
