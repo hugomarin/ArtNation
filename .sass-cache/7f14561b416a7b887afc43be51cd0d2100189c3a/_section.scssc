@@ -1,1080 +1,0 @@
-3.2.12 (Media Mark)
-f48cf3f4acf208faaf961233eb94987565ebd249
-o:Sass::Tree::RootNode
-:
-@linei:@template"à-//
-// Section Variables
-//
-$include-html-section-classes: $include-html-classes !default;
-
-// We use these to set padding and hover factor
-$section-title-padding: emCalc(15) !default;
-$section-content-padding: emCalc(15) !default;
-$section-function-factor: 10% !default;
-
-// These style the titles
-$section-title-color: #333 !default;
-$section-title-color-active: #333 !default;
-$section-title-bg: #efefef !default;
-$section-title-bg-active: darken($section-title-bg, $section-function-factor) !default;
-$section-title-bg-active-tabs: #fff !default;
-$section-title-bg-hover: darken($section-title-bg, $section-function-factor / 2) !default;
-
-// Want to control border size, here ya go!
-$section-border-size: 1px !default;
-$section-border-style: solid !default;
-$section-border-color: #ccc !default;
-
-// Font controls
-$section-font-size: emCalc(14) !default;
-
-// Control the color of the background and some size options
-$section-content-bg: #fff !default;
-$section-vertical-nav-min-width: emCalc(200) !default;
-$section-vertical-tabs-title-width: emCalc(200) !default;
-$section-bottom-margin: emCalc(20) !default;
-
-$title-selector: ".title" !default;
-$content-selector: ".content" !default;
-$active-region-selector: ".active" !default;
-
-//
-// Section Mixins
-//
-
-// basic styles for sections.js: positions
-@mixin section-container-base($section-type: accordion) {
-  width: 100%;
-  position: relative;
-  display: block;
-  margin-bottom: $section-bottom-margin;
-
-  @if $section-type != accordion {
-    &:not([data-section-resized]):not([data-section-small-style]) {
-      visibility: hidden;
-    }
-  }
-  
-  @if $section-type != tabs {
-  	&[data-section-small-style] {
-      width: 100% !important; // override inline style
-
-	  & > [data-section-region], & > section, & > .section { 
-        padding: 0 !important; // override inline style
-        margin: 0 !important; // override inline style
-        & > [data-section-title], & > #{$title-selector}{
-          width: 100% !important; // override inline style
-        }
-      }
-	}
-  }
-}
-
-// foundation styles for sections
-@mixin section-container-style($section-type: accordion) {
-
-  // Accordion container border styles
-  @if $section-type == accordion {
-    border-top: $section-border-size $section-border-style $section-border-color;
-  }
-
-  // Tabs container border styles
-  @else if $section-type == tabs {
-	border: none;
-  }
-
-  // Vertical Tabs container border styles
-  @else if $section-type == vertical-tabs {
-    border: none;
-  }
-
-  // Vertical Nav container border styles
-  @else if $section-type == vertical-nav {
-    border: none;
-  }
-
-  // Horizontal Nav container border styles
-  @else if $section-type == horizontal-nav {
-    background: $section-title-bg;
-    border: $section-border-size $section-border-style $section-border-color;
-  }
-}
-
-//basic styles for section.js: section region positions
-@mixin section-base($section-type: accordion) {
-
-  & > [data-section-title], & > #{$title-selector} {
-    margin-bottom: 0;
-	a {
-	  width: 100%;
-      display: inline-block;
-      white-space: nowrap;
-    }
-  }
-
-  & > [data-section-content], & > #{$content-selector} {
-    display: none;
-  }
-
-  &#{$active-region-selector} {
-    & > [data-section-content], & > #{$content-selector} { display: block; }    
-  }
-
-  &:not(#{$active-region-selector}) {
-    padding: 0 !important; //override inline style
-  }
-
-  // Style for when Accordion
-  @if $section-type == accordion {
-	margin: 0;
-    & > [data-section-title], & > #{$title-selector} { width: 100%; }
-  }
-
-  // Styles for when tabs
-  @else if $section-type == tabs {
-
-    & > [data-section-title], & > #{$title-selector} {
-	  width: auto;
-      position: absolute;
-      top: 0;
-	  #{$default-float}: 0;
-    }
-  }
-
-  // Styles for when Vertical Tabs
-  @else if $section-type == vertical-tabs {
-
-    & > [data-section-title], & > #{$title-selector} {
-	  position: absolute;
-	  top:0;
-      #{$default-float}: 0;
-      width: $section-vertical-tabs-title-width;
-    }
-
-    &#{$active-region-selector} {
-	  padding-#{$default-float}: $section-vertical-tabs-title-width;
-
-      & > [data-section-title], & > #{$title-selector} {
-        width: $section-vertical-tabs-title-width;     
-      }
-    }
-  }
-
-  // Styles for when Vertical Nav
-  @else if $section-type == vertical-nav {
-	
-	position: relative;
-    display: inline-block;
-
-	& > [data-section-title], & > #{$title-selector} {
-	  position: static;
-	  width: auto;
-	  a { display: block; }
-    }
-
-	& > [data-section-content], & > #{$content-selector} {
-	    position: absolute;
-	    top:0;
-		#{$default-float}: 0;
-		z-index: 999;
-		min-width: $section-vertical-nav-min-width;
-	}
-  }
-
-  // Styles for when Horizontal Nav
-  @else if $section-type == horizontal-nav {
-
-	position: relative;
-	float: #{$default-float};
-
-	& > [data-section-title], & > #{$title-selector} {
-	  position: static;
-	  width: auto;
-	  a { display: block; }
-    }
-
-	& > [data-section-content], & > #{$content-selector} {
-	  width: auto;
-	  position: absolute;
-	  top: 0;
-      #{$default-float}: 0;
-	  z-index: 999;
-	  min-width: $section-vertical-nav-min-width;
-	}
-  }
-}
-
-//foundation styles for section regions
-@mixin section-style($section-type:accordion, $title-selector: $title-selector, $content-selector: $content-selector, $title-padding:$section-title-padding, $title-color:$section-title-color, $title-font-size:$section-font-size, $title-bg:$section-title-bg, $title-bg-hover:$section-title-bg-hover, $title-bg-active:$section-title-bg-active, $title-color-active:$section-title-color-active, $content-bg:$section-content-bg, $content-padding:$section-content-padding, $section-border-size:$section-border-size, $section-border-style:$section-border-style, $section-border-color: $section-border-color) {
-
-  // Default Styles
-  & > #{$title-selector} {
-    background-color: $title-bg;
-    cursor: $cursor-pointer-value;
-	border: $section-border-style $section-border-size $section-border-color;
-	a {
-      padding: $title-padding;
-      color: $title-color;
-      font-size: $title-font-size;
-	  background: none;
-    }
-    &:hover { background-color: $title-bg-hover; }
-  }
-
-  & > #{$content-selector} {
-    padding: $content-padding;
-    background-color: $content-bg;
-	border: $section-border-style $section-border-size $section-border-color;
-
-    &>*:last-child { margin-bottom: 0; }
-    &>*:first-child { padding-top: 0; }
-    &>*:last-child:not(.flex-video) { padding-bottom: 0; }
-  }
-
-  &#{$active-region-selector} {
-	& > #{$title-selector} { 
-	  background: $title-bg-active;
-      a { color: $title-color-active; }
-    }
-  }
-
-  &:not(#{$active-region-selector}) {
-    padding: 0 !important; //override inline style
-  }
-
-  // Style for when Accordion
-  @if $section-type == accordion {
-    & > #{$title-selector} { border-top: none; }
-  }
-
-  // Styles for when tabs
-  @else if $section-type == tabs {
-
-	&#{$active-region-selector} > #{$title-selector} {
-      border-bottom: 0;
-	}
-  }
-
-  // Styles for when Vertical Tabs
-  @else if $section-type == vertical-tabs {
-
-    &#{$active-region-selector} {
-	  padding-#{$default-float}: $section-vertical-tabs-title-width - emCalc(1px);
-
-      & > #{$title-selector} {
-        background-color: $title-bg-active;  
-      }
-    }
-  }
-}
-
-@mixin section-container($base-style:true, $section-type:accordion)  {
-  @include section-container-base($section-type);
-  @include section-container-style($section-type);
-}
-
-@mixin section($section-type:accordion, $title-selector:$title-selector, $content-selector: $content-selector, $title-padding:$section-title-padding, $title-color:$section-title-color, $title-font-size:$section-font-size, $title-bg:$section-title-bg, $title-bg-hover:$section-title-bg-hover, $title-bg-active:$section-title-bg-active, $title-color-active:$section-title-color-active, $content-bg:$section-content-bg, $content-padding:$section-content-padding, $section-border-size:$section-border-size, $section-border-style:$section-border-style, $section-border-color: $section-border-color) {
-  @include section-base($section-type);
-  @include section-style($section-type, $title-selector, $content-selector, $title-padding, $title-color, $title-font-size, $title-bg, $title-bg-hover, $title-bg-active, $title-color-active, $content-bg, $content-padding, $section-border-size, $section-border-style, $section-border-color);
-}
-
-@if $include-html-section-classes != false {
-
-  /* Sections */
-
-  [data-section=''], [data-section='auto'], .section-container.auto,
-  [data-section='vertical-tabs'], .section-container.vertical-tabs,
-  [data-section='vertical-nav'], .section-container.vertical-nav,
-  [data-section='horizontal-nav'], .section-container.horizontal-nav,
-  [data-section='accordion'], .section-container.accordion {
-	@include section-container-base(accordion);
-	& > section, & > .section, & > [data-section-region] {
-      @include section-base(accordion);
-    }
-  }
-
-  .section-container.auto,
-  .section-container.vertical-tabs,
-  .section-container.vertical-nav,
-  .section-container.horizontal-nav,
-  .section-container.accordion {
-	@include section-container-style(accordion);
-	& > section, & > .section { 
-      @include section-style(accordion);
-    }
-  }
-
-  [data-section='tabs'], .section-container.tabs {
-	@include section-container-base(tabs);
-	& > section, & > .section, & > [data-section-region] {
-      @include section-base(tabs);
-    }
-  }
-
-  .section-container.tabs {
-	@include section-container-style(tabs);
-	& > section, & > .section { 
-      @include section-style(tabs, $title-bg-active: $section-title-bg-active-tabs);
-    }
-  }
-
-  @media #{$small} {
-
-    [data-section=''], [data-section='auto'], .section-container.auto {
-	  @include section-container-base(tabs);
-	  & > section, & > .section, & > [data-section-region] {
-        @include section-base(tabs);
-      }
-    }
-
-	.section-container.auto {
-	  @include section-container-style(tabs);
-	  & > section, & > .section { 
-        @include section-style(tabs, $title-bg-active: $section-title-bg-active-tabs);
-      }
-    }
-
-	[data-section='vertical-tabs'], .section-container.vertical-tabs {
-	  @include section-container-base(vertical-tabs);
-	  & > section, & > .section, & > [data-section-region] {
-        @include section-base(vertical-tabs);
-      }
-    }
-
-	.section-container.vertical-tabs {
-	  @include section-container-style(vertical-tabs);
-	  & > section, & > .section { 
-        @include section-style(vertical-tabs);
-      }
-    }
-
-	[data-section='vertical-nav'], .section-container.vertical-nav {
-	  @include section-container-base(vertical-nav);
-	  & > section, & > .section, & > [data-section-region] {
-        @include section-base(vertical-nav);
-      }
-    }
-
-	.section-container.vertical-nav {
-	  @include section-container-style(vertical-nav);
-	  & > section, & > .section { 
-        @include section-style(vertical-nav);
-      }
-    }
-
-	[data-section='horizontal-nav'], .section-container.horizontal-nav {
-	  @include section-container-base(horizontal-nav);
-	  & > section, & > .section, & > [data-section-region] {
-        @include section-base(horizontal-nav);
-      }
-    }
-
-	.section-container.horizontal-nav {
-	  @include section-container-style(horizontal-nav);
-	  & > section, & > .section { 
-        @include section-style(horizontal-nav);
-      }
-    }
-  }
-
-  // Change all variations to expanded accordions when no JS is detected.
-  .no-js {
-    [data-section], .section-container {
-	  @include section-container-base(accordion);
-	  & > section, & > .section, & > [data-section-region] {
-        @include section-base(accordion);
-      }
-    }
-	.section-container {
-      @include section-container-style(accordion);
-	  & > section, & > .section { 
-        @include section-style(accordion);
-      }
-    }
-  }
-}
-:@has_childrenT:@options{ :@children[,o:Sass::Tree::CommentNode
-:@value[""/*
- * Section Variables
- * */;i;	@;
-[ :
-@type:silento:Sass::Tree::VariableNode:@guarded"!default:
-@name"!include-html-section-classes;i	:
-@expro:Sass::Script::Variable	;"include-html-classes;i	:@underscored_name"include_html_classes;	@;	@;
-[ o;
-;["7/* We use these to set padding and hover factor */;i;	@;
-[ ;;o;;"!default;"section-title-padding;i;o:Sass::Script::Funcall:@keywords{ ;"emCalc;i;	@:@splat0:
-@args[o:Sass::Script::Number:@original"15;i:@numerator_units[ ;i;	@:@denominator_units[ ;	@;
-[ o;;"!default;"section-content-padding;i;o;;{ ;"emCalc;i;	@;0;[o;;"15;i;[ ;i;	@;@";	@;
-[ o;;"!default;"section-function-factor;i;o;;"10%;i;["%;i;	@;[ ;	@;
-[ o;
-;["!/* These style the titles */;i;	@;
-[ ;;o;;"!default;"section-title-color;i;o:Sass::Script::Color	;0;i;	@:@attrs{	:redi8:
-alphai:
-greeni8:	bluei8;	@;
-[ o;;"!default;"section-title-color-active;i;o;	;0;i;	@;{	;i8; i;!i8;"i8;	@;
-[ o;;"!default;"section-title-bg;i;o;	;0;i;	@;{	;iï; i;!iï;"iï;	@;
-[ o;;"!default;"section-title-bg-active;i;o;;{ ;"darken;i;	@;0;[o;	;"section-title-bg;i;"section_title_bg;	@o;	;"section-function-factor;i;"section_function_factor;	@;	@;
-[ o;;"!default;"!section-title-bg-active-tabs;i;o;	;0;i;	@;{	;iÿ; i;!iÿ;"iÿ;	@;
-[ o;;"!default;"section-title-bg-hover;i;o;;{ ;"darken;i;	@;0;[o;	;"section-title-bg;i;"section_title_bg;	@o:Sass::Script::Operation
-;i:@operand2o;;"2;i;[ ;i;	@;@";	@:@operand1o;	;"section-function-factor;i;"section_function_factor;	@:@operator:div;	@;
-[ o;
-;["3/* Want to control border size, here ya go! */;i;	@;
-[ ;;o;;"!default;"section-border-size;i;o;;"1px;i;["px;i;	@;[ ;	@;
-[ o;;"!default;"section-border-style;i;o:Sass::Script::String	;"
-solid;i;	@;:identifier;	@;
-[ o;;"!default;"section-border-color;i;o;	;0;i;	@;{	;iÌ; i;!iÌ;"iÌ;	@;
-[ o;
-;["/* Font controls */;i;	@;
-[ ;;o;;"!default;"section-font-size;i;o;;{ ;"emCalc;i;	@;0;[o;;"14;i;[ ;i;	@;@";	@;
-[ o;
-;["D/* Control the color of the background and some size options */;i ;	@;
-[ ;;o;;"!default;"section-content-bg;i!;o;	;0;i!;	@;{	;iÿ; i;!iÿ;"iÿ;	@;
-[ o;;"!default;"#section-vertical-nav-min-width;i";o;;{ ;"emCalc;i";	@;0;[o;;"200;iÈ;[ ;i";	@;@";	@;
-[ o;;"!default;"&section-vertical-tabs-title-width;i#;o;;{ ;"emCalc;i#;	@;0;[o;;"200;iÈ;[ ;i#;	@;@";	@;
-[ o;;"!default;"section-bottom-margin;i$;o;;{ ;"emCalc;i$;	@;0;[o;;"20;i;[ ;i$;	@;@";	@;
-[ o;;"!default;"title-selector;i&;o;(	;".title;i&;	@;:string;	@;
-[ o;;"!default;"content-selector;i';o;(	;".content;i';	@;;*;	@;
-[ o;;"!default;"active-region-selector;i(;o;(	;".active;i(;	@;;*;	@;
-[ o;
-;["/*
- * Section Mixins
- * */;i*;	@;
-[ ;;o;
-;["2/* basic styles for sections.js: positions */;i.;	@;
-[ ;;o:Sass::Tree::MixinDefNode;"section-container-base;i/;T;	@;0;
-[o:Sass::Tree::PropNode:@prop_syntax:new;o;(;"	100%;	@;;);["
-width;i0;	@:
-@tabsi ;
-[ o;,;-;.;o;(;"relative;	@;;);["position;i1;	@;/i ;
-[ o;,;-;.;o;(;"
-block;	@;;);["display;i2;	@;/i ;
-[ o;,;-;.;o;	;"section-bottom-margin;i3;"section_bottom_margin;	@;["margin-bottom;i3;	@;/i ;
-[ u:Sass::Tree::IfNodej[o:Sass::Script::Operation
-:
-@linei5:@operand2o:Sass::Script::String	:@value"accordion;i5:@options{ :
-@type:identifier;
-@	:@operand1o:Sass::Script::Variable	:
-@name"section-type;i5:@underscored_name"section_type;
-@	:@operator:neq0[o:Sass::Tree::RuleNode:@parsed_ruleso:"Sass::Selector::CommaSequence:@filename" :@members[o:Sass::Selector::Sequence;[o:#Sass::Selector::SimpleSequence
-;@;[o:Sass::Selector::Parent;@;i6o:Sass::Selector::Pseudo
-:	@arg["[data-section-resized];@;["not;i6:@syntactic_type:
-classo;
-;["[data-section-small-style];@;["not;i6;;;i6:@sourceso:Set:
-@hash{ :@subject0;i6;i6:@has_childrenT;
-@	:
-@tabsi :@children[o:Sass::Tree::PropNode:@prop_syntax:new;	o;;	"hidden;
-@	;;;["visibility;i7;
-@	;$i ;%[ :
-@rule["B&:not([data-section-resized]):not([data-section-small-style])u;0[o:Sass::Script::Operation
-:
-@linei;:@operand2o:Sass::Script::String	:@value"	tabs;i;:@options{ :
-@type:identifier;
-@	:@operand1o:Sass::Script::Variable	:
-@name"section-type;i;:@underscored_name"section_type;
-@	:@operator:neq0[o:Sass::Tree::RuleNode:@parsed_ruleso:"Sass::Selector::CommaSequence:@filename" :@members[o:Sass::Selector::Sequence;[o:#Sass::Selector::SimpleSequence
-;@;[o:Sass::Selector::Parent;@;i<o:Sass::Selector::Attribute;	0;@;["data-section-small-style;i<:@flags0:@namespace0;0;i<:@sourceso:Set:
-@hash{ :@subject0;i<;i<:@has_childrenT;
-@	:
-@tabsi :@children[o:Sass::Tree::PropNode:@prop_syntax:new;	o;;	"100% !important;
-@	;;;["
-width;i=;
-@	;#i ;$[ o:Sass::Tree::CommentNode
-;	[" /* override inline style */;i=;
-@	;$[ ;:silento;;o;;" ;[o;;[o;
-;@);[o;;@);i?;i?;o;; { ;!0">o;
-;@);[o;;	0;@);["data-section-region;i?;0;0;0;i?;o;; { ;!0o;;[o;
-;@);[o;;@);i?;i?;o;; { ;!0">o;
-;@);[o:Sass::Selector::Element	;@);["section;i?;0;i?;o;; { ;!0o;;[o;
-;@);[o;;@);i?;i?;o;; { ;!0">o;
-;@);[o:Sass::Selector::Class;@);["section;i?;i?;o;; { ;!0;i?;i?;"T;
-@	;#i ;$[
-o;%;&;';	o;;	"0 !important;
-@	;;;["padding;i@;
-@	;#i ;$[ o;(
-;	[" /* override inline style */;i@;
-@	;$[ ;;)o;%;&;';	o;;	"0 !important;
-@	;;;["margin;iA;
-@	;#i ;$[ o;(
-;	[" /* override inline style */;iA;
-@	;$[ ;;)o;;iB;"T;
-@	;#i ;$[o;%;&;';	o;;	"100% !important;
-@	;;;["
-width;iC;
-@	;#i ;$[ o;(
-;	[" /* override inline style */;iC;
-@	;$[ ;;):
-@rule["#& > [data-section-title], & > o;	;"title-selector;iB;"title_selector;
-@	;,["9& > [data-section-region], & > section, & > .section;,[" &[data-section-small-style];[[o;;"section-type;"section_type;	@o;(	;"accordion;i/;	@;;)o;
-;[")/* foundation styles for sections */;iJ;	@;
-[ ;;o;+;"section-container-style;iK;T;	@;0;
-[o;
-;[",/* Accordion container border styles */;iM;	@;
-[ ;;u;0d	[o:Sass::Script::Operation
-:
-@lineiN:@operand2o:Sass::Script::String	:@value"accordion;iN:@options{ :
-@type:identifier;
-@	:@operand1o:Sass::Script::Variable	:
-@name"section-type;iN:@underscored_name"section_type;
-@	:@operator:equ:Sass::Tree::IfNode[o:Sass::Script::Operation
-:
-@lineiS:@operand2o:Sass::Script::String	:@value"	tabs;iS:@options{ :
-@type:identifier;
-@	:@operand1o:Sass::Script::Variable	:
-@name"section-type;iS:@underscored_name"section_type;
-@	:@operator:equ:Sass::Tree::IfNodeš[o:Sass::Script::Operation
-:
-@lineiX:@operand2o:Sass::Script::String	:@value"vertical-tabs;iX:@options{ :
-@type:identifier;
-@	:@operand1o:Sass::Script::Variable	:
-@name"section-type;iX:@underscored_name"section_type;
-@	:@operator:equ:Sass::Tree::IfNode[o:Sass::Script::Operation
-:
-@linei]:@operand2o:Sass::Script::String	:@value"vertical-nav;i]:@options{ :
-@type:identifier;
-@	:@operand1o:Sass::Script::Variable	:
-@name"section-type;i]:@underscored_name"section_type;
-@	:@operator:equ:Sass::Tree::IfNode›[o:Sass::Script::Operation
-:
-@lineib:@operand2o:Sass::Script::String	:@value"horizontal-nav;ib:@options{ :
-@type:identifier;
-@	:@operand1o:Sass::Script::Variable	:
-@name"section-type;ib:@underscored_name"section_type;
-@	:@operator:eq0[o:Sass::Tree::PropNode:@prop_syntax:new;	o;	;"section-title-bg;ic;"section_title_bg;
-@	;["background;ic;
-@	:
-@tabsi :@children[ o;;;;	o:Sass::Script::List	;	[o;	;"section-border-size;id;"section_border_size;
-@	o;	;"section-border-style;id;"section_border_style;
-@	o;	;"section-border-color;id;"section_border_color;
-@	:@separator:
-space;id;
-@	;["border;id;
-@	;i ;[ [o:Sass::Tree::PropNode:@prop_syntax:new;	o;;	"	none;
-@	;;;["border;i^;
-@	:
-@tabsi :@children[ [o:Sass::Tree::PropNode:@prop_syntax:new;	o;;	"	none;
-@	;;;["border;iY;
-@	:
-@tabsi :@children[ [o:Sass::Tree::PropNode:@prop_syntax:new;	o;;	"	none;
-@	;;;["border;iT;
-@	:
-@tabsi :@children[ [o:Sass::Tree::PropNode:@prop_syntax:new;	o:Sass::Script::List	;	[o;	;"section-border-size;iO;"section_border_size;
-@	o;	;"section-border-style;iO;"section_border_style;
-@	o;	;"section-border-color;iO;"section_border_color;
-@	:@separator:
-space;iO;
-@	;["border-top;iO;
-@	:
-@tabsi :@children[ ;[[o;;"section-type;"section_type;	@o;(	;"accordion;iK;	@;;)o;
-;["?/*basic styles for section.js: section region positions */;ih;	@;
-[ ;;o;+;"section-base;ii;T;	@;0;
-[o:Sass::Tree::RuleNode;ik;T;	@;/i ;
-[o;,;-;.;o;(;"0;	@;;);["margin-bottom;il;	@;/i ;
-[ o;1:@parsed_ruleso:"Sass::Selector::CommaSequence:@filename" :@members[o:Sass::Selector::Sequence;5[o:#Sass::Selector::SimpleSequence
-;4@%;5[o:Sass::Selector::Element	;4@%;["a;im:@namespace0;im:@sourceso:Set:
-@hash{ :@subject0;im;im;T;	@;/i ;
-[o;,;-;.;o;(;"	100%;	@;;);["
-width;in;	@;/i ;
-[ o;,;-;.;o;(;"inline-block;	@;;);["display;io;	@;/i ;
-[ o;,;-;.;o;(;"nowrap;	@;;);["white-space;ip;	@;/i ;
-[ :
-@rule["a;>["#& > [data-section-title], & > o;	;"title-selector;ik;"title_selector;	@o;1;it;T;	@;/i ;
-[o;,;-;.;o;(;"	none;	@;;);["display;iu;	@;/i ;
-[ ;>["%& > [data-section-content], & > o;	;"content-selector;it;"content_selector;	@o;1;ix;T;	@;/i ;
-[o;1;iy;T;	@;/i ;
-[o;,;-;.;o;(;"
-block;	@;;);["display;iy;	@;/i ;
-[ ;>["%& > [data-section-content], & > o;	;"content-selector;iy;"content_selector;	@;>["&o;	;"active-region-selector;ix;"active_region_selector;	@o;1;i|;T;	@;/i ;
-[o;,;-;.;o;(;"0 !important;	@;;);["padding;i};	@;/i ;
-[ o;
-;["/*override inline style */;i};	@;
-[ ;;;>["&:not(o;	;"active-region-selector;i|;"active_region_selector;	@")o;
-;["#/* Style for when Accordion */;i{;	@;
-[ ;;u;0c[o:Sass::Script::Operation
-:
-@linei|:@operand2o:Sass::Script::String	:@value"accordion;i|:@options{ :
-@type:identifier;
-@	:@operand1o:Sass::Script::Variable	:
-@name"section-type;i|:@underscored_name"section_type;
-@	:@operator:equ:Sass::Tree::IfNode[o:Sass::Script::Operation
-:
-@linei‚:@operand2o:Sass::Script::String	:@value"	tabs;i‚:@options{ :
-@type:identifier;
-@	:@operand1o:Sass::Script::Variable	:
-@name"section-type;i‚:@underscored_name"section_type;
-@	:@operator:equ:Sass::Tree::IfNode7[o:Sass::Script::Operation
-:
-@linei:@operand2o:Sass::Script::String	:@value"vertical-tabs;i:@options{ :
-@type:identifier;
-@	:@operand1o:Sass::Script::Variable	:
-@name"section-type;i:@underscored_name"section_type;
-@	:@operator:equ:Sass::Tree::IfNode[o:Sass::Script::Operation
-:
-@linei :@operand2o:Sass::Script::String	:@value"vertical-nav;i :@options{ :
-@type:identifier;
-@	:@operand1o:Sass::Script::Variable	:
-@name"section-type;i :@underscored_name"section_type;
-@	:@operator:equ:Sass::Tree::IfNodeã[o:Sass::Script::Operation
-:
-@lineiµ:@operand2o:Sass::Script::String	:@value"horizontal-nav;iµ:@options{ :
-@type:identifier;
-@	:@operand1o:Sass::Script::Variable	:
-@name"section-type;iµ:@underscored_name"section_type;
-@	:@operator:eq0[	o:Sass::Tree::PropNode:@prop_syntax:new;	o;;	"relative;
-@	;;;["position;i·;
-@	:
-@tabsi :@children[ o;;;;	o: Sass::Script::Interpolation:@originally_textF:	@mido;	;"default-float;i¸;"default_float;
-@	;i¸:@whitespace_after0:@before0;
-@	:@whitespace_beforei˜:@after0;["
-float;i¸;
-@	;i ;[ o:Sass::Tree::RuleNode;iº:@has_childrenT;
-@	;i ;[o;;;;	o;;	"static;
-@	;;;["position;i»;
-@	;i ;[ o;;;;	o;;	"	auto;
-@	;;;["
-width;i¼;
-@	;i ;[ o;:@parsed_ruleso:"Sass::Selector::CommaSequence:@filename" :@members[o:Sass::Selector::Sequence;$[o:#Sass::Selector::SimpleSequence
-;#@,;$[o:Sass::Selector::Element	;#@,;["a;i½:@namespace0;i½:@sourceso:Set:
-@hash{ :@subject0;i½;i½; T;
-@	;i ;[o;;;;	o;;	"
-block;
-@	;;;["display;i½;
-@	;i ;[ :
-@rule["a;-["#& > [data-section-title], & > o;	;"title-selector;iº;"title_selector;
-@	o;;iÀ; T;
-@	;i ;[o;;;;	o;;	"	auto;
-@	;;;["
-width;iÁ;
-@	;i ;[ o;;;;	o;;	"absolute;
-@	;;;["position;iÂ;
-@	;i ;[ o;;;;	o;;	"0;
-@	;;;["top;iÃ;
-@	;i ;[ o;;;;	o;;	"0;
-@	;;;[o;	;"default-float;iÄ;"default_float;
-@	;iÄ;
-@	;i ;[ o;;;;	o;;	"999;
-@	;;;["z-index;iÅ;
-@	;i ;[ o;;;;	o;	;"#section-vertical-nav-min-width;iÆ;"#section_vertical_nav_min_width;
-@	;["min-width;iÆ;
-@	;i ;[ ;-["%& > [data-section-content], & > o;	;"content-selector;iÀ;"content_selector;
-@	[	o:Sass::Tree::PropNode:@prop_syntax:new;	o;;	"relative;
-@	;;;["position;i¢;
-@	:
-@tabsi :@children[ o;;;;	o;;	"inline-block;
-@	;;;["display;i£;
-@	;i ;[ o:Sass::Tree::RuleNode;i¥:@has_childrenT;
-@	;i ;[o;;;;	o;;	"static;
-@	;;;["position;i¦;
-@	;i ;[ o;;;;	o;;	"	auto;
-@	;;;["
-width;i§;
-@	;i ;[ o;:@parsed_ruleso:"Sass::Selector::CommaSequence:@filename" :@members[o:Sass::Selector::Sequence;[o:#Sass::Selector::SimpleSequence
-;@+;[o:Sass::Selector::Element	;@+;["a;i¨:@namespace0;i¨:@sourceso:Set:
-@hash{ :@subject0;i¨;i¨;T;
-@	;i ;[o;;;;	o;;	"
-block;
-@	;;;["display;i¨;
-@	;i ;[ :
-@rule["a;'["#& > [data-section-title], & > o;	;"title-selector;i¥;"title_selector;
-@	o;;i«;T;
-@	;i ;[
-o;;;;	o;;	"absolute;
-@	;;;["position;i¬;
-@	;i ;[ o;;;;	o;;	"0;
-@	;;;["top;i­;
-@	;i ;[ o;;;;	o;;	"0;
-@	;;;[o;	;"default-float;i®;"default_float;
-@	;i®;
-@	;i ;[ o;;;;	o;;	"999;
-@	;;;["z-index;i¯;
-@	;i ;[ o;;;;	o;	;"#section-vertical-nav-min-width;i°;"#section_vertical_nav_min_width;
-@	;["min-width;i°;
-@	;i ;[ ;'["%& > [data-section-content], & > o;	;"content-selector;i«;"content_selector;
-@	[o:Sass::Tree::RuleNode;i:@has_childrenT;
-@	:
-@tabsi :@children[	o:Sass::Tree::PropNode:@prop_syntax:new;	o;;	"absolute;
-@	;;;["position;i;
-@	;i ;[ o;;;;	o;;	"0;
-@	;;;["top;i‘;
-@	;i ;[ o;;;;	o;;	"0;
-@	;;;[o;	;"default-float;i’;"default_float;
-@	;i’;
-@	;i ;[ o;;;;	o;	;"&section-vertical-tabs-title-width;i“;"&section_vertical_tabs_title_width;
-@	;["
-width;i“;
-@	;i ;[ :
-@rule["#& > [data-section-title], & > o;	;"title-selector;i;"title_selector;
-@	o;;i–;T;
-@	;i ;[o;;;;	o;	;"&section-vertical-tabs-title-width;i—;"&section_vertical_tabs_title_width;
-@	;["padding-o;	;"default-float;i—;"default_float;
-@	;i—;
-@	;i ;[ o;;i™;T;
-@	;i ;[o;;;;	o;	;"&section-vertical-tabs-title-width;iš;"&section_vertical_tabs_title_width;
-@	;["
-width;iš;
-@	;i ;[ ;["#& > [data-section-title], & > o;	;"title-selector;i™;"title_selector;
-@	;["&o;	;"active-region-selector;i–;"active_region_selector;
-@	[o:Sass::Tree::RuleNode;i„:@has_childrenT;
-@	:
-@tabsi :@children[	o:Sass::Tree::PropNode:@prop_syntax:new;	o;;	"	auto;
-@	;;;["
-width;i…;
-@	;i ;[ o;;;;	o;;	"absolute;
-@	;;;["position;i†;
-@	;i ;[ o;;;;	o;;	"0;
-@	;;;["top;i‡;
-@	;i ;[ o;;;;	o;;	"0;
-@	;;;[o;	;"default-float;iˆ;"default_float;
-@	;iˆ;
-@	;i ;[ :
-@rule["#& > [data-section-title], & > o;	;"title-selector;i„;"title_selector;
-@	[o:Sass::Tree::PropNode:@prop_syntax:new;	o;;	"0;
-@	;;;["margin;i};
-@	:
-@tabsi :@children[ o:Sass::Tree::RuleNode;i~:@has_childrenT;
-@	;i ;[o;;;;	o;;	"	100%;
-@	;;;["
-width;i~;
-@	;i ;[ :
-@rule["#& > [data-section-title], & > o;	;"title-selector;i~;"title_selector;
-@	;[[o;;"section-type;"section_type;	@o;(	;"accordion;ii;	@;;)o;
-;["//*foundation styles for section regions */;iË;	@;
-[ ;;o;+;"section-style;iÌ;T;	@;0;
-[o;
-;["/* Default Styles */;iÎ;	@;
-[ ;;o;1;iÏ;T;	@;/i ;
-[
-o;,;-;.;o;	;"title-bg;iÐ;"title_bg;	@;["background-color;iÐ;	@;/i ;
-[ o;,;-;.;o;	;"cursor-pointer-value;iÑ;"cursor_pointer_value;	@;["cursor;iÑ;	@;/i ;
-[ o;,;-;.;o:Sass::Script::List	;[o;	;"section-border-style;iÒ;"section_border_style;	@o;	;"section-border-size;iÒ;"section_border_size;	@o;	;"section-border-color;iÒ;"section_border_color;	@:@separator:
-space;iÒ;	@;["border;iÒ;	@;/i ;
-[ o;1;2o;3;4" ;5[o;6;5[o;7
-;4@µ;5[o;8	;4@µ;["a;iÓ;90;iÓ;:o;;;<{ ;=0;iÓ;iÓ;T;	@;/i ;
-[	o;,;-;.;o;	;"title-padding;iÔ;"title_padding;	@;["padding;iÔ;	@;/i ;
-[ o;,;-;.;o;	;"title-color;iÕ;"title_color;	@;["
-color;iÕ;	@;/i ;
-[ o;,;-;.;o;	;"title-font-size;iÖ;"title_font_size;	@;["font-size;iÖ;	@;/i ;
-[ o;,;-;.;o;(;"	none;	@;;);["background;i×;	@;/i ;
-[ ;>["ao;1;2o;3;4" ;5[o;6;5[o;7
-;4@à;5[o:Sass::Selector::Parent;4@à;iÙo:Sass::Selector::Pseudo
-:	@arg0;4@à;["
-hover;iÙ:@syntactic_type:
-class;iÙ;:o;;;<{ ;=0;iÙ;iÙ;T;	@;/i ;
-[o;,;-;.;o;	;"title-bg-hover;iÙ;"title_bg_hover;	@;["background-color;iÙ;	@;/i ;
-[ ;>["&:hover;>["	& > o;	;"title-selector;iÏ;"title_selector;	@o;1;iÜ;T;	@;/i ;
-[o;,;-;.;o;	;"content-padding;iÝ;"content_padding;	@;["padding;iÝ;	@;/i ;
-[ o;,;-;.;o;	;"content-bg;iÞ;"content_bg;	@;["background-color;iÞ;	@;/i ;
-[ o;,;-;.;o;?	;[o;	;"section-border-style;iß;"section_border_style;	@o;	;"section-border-size;iß;"section_border_size;	@o;	;"section-border-color;iß;"section_border_color;	@;@;A;iß;	@;["border;iß;	@;/i ;
-[ o;1;2o;3;4" ;5[o;6;5[o;7
-;4@;5[o;B;4@;iá;iá;:o;;;<{ ;=0">o;7
-;4@;5[o:Sass::Selector::Universal;4@;iá;90o;C
-;D0;4@;["last-child;iá;E;F;iá;:o;;;<{ ;=0;iá;iá;T;	@;/i ;
-[o;,;-;.;o;(;"0;	@;;);["margin-bottom;iá;	@;/i ;
-[ ;>["& > *:last-childo;1;2o;3;4" ;5[o;6;5[o;7
-;4@9;5[o;B;4@9;iâ;iâ;:o;;;<{ ;=0">o;7
-;4@9;5[o;G;4@9;iâ;90o;C
-;D0;4@9;["first-child;iâ;E;F;iâ;:o;;;<{ ;=0;iâ;iâ;T;	@;/i ;
-[o;,;-;.;o;(;"0;	@;;);["padding-top;iâ;	@;/i ;
-[ ;>["& > *:first-childo;1;2o;3;4" ;5[o;6;5[o;7
-;4@V;5[o;B;4@V;iã;iã;:o;;;<{ ;=0">o;7
-;4@V;5[o;G;4@V;iã;90o;C
-;D0;4@V;["last-child;iã;E;Fo;C
-;D[".flex-video;4@V;["not;iã;E;F;iã;:o;;;<{ ;=0;iã;iã;T;	@;/i ;
-[o;,;-;.;o;(;"0;	@;;);["padding-bottom;iã;	@;/i ;
-[ ;>["&& > *:last-child:not(.flex-video);>["	& > o;	;"content-selector;iÜ;"content_selector;	@o;1;iæ;T;	@;/i ;
-[o;1;iç;T;	@;/i ;
-[o;,;-;.;o;	;"title-bg-active;iè;"title_bg_active;	@;["background;iè;	@;/i ;
-[ o;1;2o;3;4" ;5[o;6;5[o;7
-;4@ˆ;5[o;8	;4@ˆ;["a;ié;90;ié;:o;;;<{ ;=0;ié;ié;T;	@;/i ;
-[o;,;-;.;o;	;"title-color-active;ié;"title_color_active;	@;["
-color;ié;	@;/i ;
-[ ;>["a;>["	& > o;	;"title-selector;iç;"title_selector;	@;>["&o;	;"active-region-selector;iæ;"active_region_selector;	@o;1;ií;T;	@;/i ;
-[o;,;-;.;o;(;"0 !important;	@;;);["padding;iî;	@;/i ;
-[ o;
-;["/*override inline style */;iî;	@;
-[ ;;;>["&:not(o;	;"active-region-selector;ií;"active_region_selector;	@")o;
-;["#/* Style for when Accordion */;iñ;	@;
-[ ;;u;0*[o:Sass::Script::Operation
-:
-@lineiò:@operand2o:Sass::Script::String	:@value"accordion;iò:@options{ :
-@type:identifier;
-@	:@operand1o:Sass::Script::Variable	:
-@name"section-type;iò:@underscored_name"section_type;
-@	:@operator:equ:Sass::Tree::IfNode-[o:Sass::Script::Operation
-:
-@linei÷:@operand2o:Sass::Script::String	:@value"	tabs;i÷:@options{ :
-@type:identifier;
-@	:@operand1o:Sass::Script::Variable	:
-@name"section-type;i÷:@underscored_name"section_type;
-@	:@operator:equ:Sass::Tree::IfNodeò[o:Sass::Script::Operation
-:
-@lineiÿ:@operand2o:Sass::Script::String	:@value"vertical-tabs;iÿ:@options{ :
-@type:identifier;
-@	:@operand1o:Sass::Script::Variable	:
-@name"section-type;iÿ:@underscored_name"section_type;
-@	:@operator:eq0[o:Sass::Tree::RuleNode;i:@has_childrenT;
-@	:
-@tabsi :@children[o:Sass::Tree::PropNode:@prop_syntax:new;	o; 
-;i;o:Sass::Script::Funcall:@keywords{ ;"emCalc;i;
-@	:@splat0:
-@args[o:Sass::Script::Number:@original"1px;	i:@numerator_units["px;i;
-@	:@denominator_units[ ;
-@	;o;	;"&section-vertical-tabs-title-width;i;"&section_vertical_tabs_title_width;
-@	;:
-minus;["padding-o;	;"default-float;i;"default_float;
-@	;i;
-@	;i ;[ o;;i;T;
-@	;i ;[o;;;;	o;	;"title-bg-active;i;"title_bg_active;
-@	;["background-color;i;
-@	;i ;[ :
-@rule["	& > o;	;"title-selector;i;"title_selector;
-@	;#["&o;	;"active-region-selector;i;"active_region_selector;
-@	[o:Sass::Tree::RuleNode;iù:@has_childrenT;
-@	:
-@tabsi :@children[o:Sass::Tree::PropNode:@prop_syntax:new;	o;;	"0;
-@	;;;["border-bottom;iú;
-@	;i ;[ :
-@rule[	"&o;	;"active-region-selector;iù;"active_region_selector;
-@	" > o;	;"title-selector;iù;"title_selector;
-@	[o:Sass::Tree::RuleNode;ió:@has_childrenT;
-@	:
-@tabsi :@children[o:Sass::Tree::PropNode:@prop_syntax:new;	o;;	"	none;
-@	;;;["border-top;ió;
-@	;i ;[ :
-@rule["	& > o;	;"title-selector;ió;"title_selector;
-@	;[[o;;"section-type;"section_type;	@o;(	;"accordion;iÌ;	@;;)[o;;"title-selector;"title_selector;	@o;	;"title-selector;iÌ;"title_selector;	@[o;;"content-selector;"content_selector;	@o;	;"content-selector;iÌ;"content_selector;	@[o;;"title-padding;"title_padding;	@o;	;"section-title-padding;iÌ;"section_title_padding;	@[o;;"title-color;"title_color;	@o;	;"section-title-color;iÌ;"section_title_color;	@[o;;"title-font-size;"title_font_size;	@o;	;"section-font-size;iÌ;"section_font_size;	@[o;;"title-bg;"title_bg;	@o;	;"section-title-bg;iÌ;"section_title_bg;	@[o;;"title-bg-hover;"title_bg_hover;	@o;	;"section-title-bg-hover;iÌ;"section_title_bg_hover;	@[o;;"title-bg-active;"title_bg_active;	@o;	;"section-title-bg-active;iÌ;"section_title_bg_active;	@[o;;"title-color-active;"title_color_active;	@o;	;"section-title-color-active;iÌ;"section_title_color_active;	@[o;;"content-bg;"content_bg;	@o;	;"section-content-bg;iÌ;"section_content_bg;	@[o;;"content-padding;"content_padding;	@o;	;"section-content-padding;iÌ;"section_content_padding;	@[o;;"section-border-size;"section_border_size;	@o;	;"section-border-size;iÌ;"section_border_size;	@[o;;"section-border-style;"section_border_style;	@o;	;"section-border-style;iÌ;"section_border_style;	@[o;;"section-border-color;"section_border_color;	@o;	;"section-border-color;iÌ;"section_border_color;	@o;+;"section-container;i;T;	@;0;
-[o:Sass::Tree::MixinNode;{ ;"section-container-base;i;	@;0;
-[ ;[o;	;"section-type;i;"section_type;	@o;H;{ ;"section-container-style;i;	@;0;
-[ ;[o;	;"section-type;i;"section_type;	@;[[o;;"base-style;"base_style;	@o:Sass::Script::Bool;T;i;	@[o;;"section-type;"section_type;	@o;(	;"accordion;i;	@;;)o;+;"section;i;T;	@;0;
-[o;H;{ ;"section-base;i;	@;0;
-[ ;[o;	;"section-type;i;"section_type;	@o;H;{ ;"section-style;i;	@;0;
-[ ;[o;	;"section-type;i;"section_type;	@o;	;"title-selector;i;"title_selector;	@o;	;"content-selector;i;"content_selector;	@o;	;"title-padding;i;"title_padding;	@o;	;"title-color;i;"title_color;	@o;	;"title-font-size;i;"title_font_size;	@o;	;"title-bg;i;"title_bg;	@o;	;"title-bg-hover;i;"title_bg_hover;	@o;	;"title-bg-active;i;"title_bg_active;	@o;	;"title-color-active;i;"title_color_active;	@o;	;"content-bg;i;"content_bg;	@o;	;"content-padding;i;"content_padding;	@o;	;"section-border-size;i;"section_border_size;	@o;	;"section-border-style;i;"section_border_style;	@o;	;"section-border-color;i;"section_border_color;	@;[[o;;"section-type;"section_type;	@o;(	;"accordion;i;	@;;)[o;;"title-selector;"title_selector;	@o;	;"title-selector;i;"title_selector;	@[o;;"content-selector;"content_selector;	@o;	;"content-selector;i;"content_selector;	@[o;;"title-padding;"title_padding;	@o;	;"section-title-padding;i;"section_title_padding;	@[o;;"title-color;"title_color;	@o;	;"section-title-color;i;"section_title_color;	@[o;;"title-font-size;"title_font_size;	@o;	;"section-font-size;i;"section_font_size;	@[o;;"title-bg;"title_bg;	@o;	;"section-title-bg;i;"section_title_bg;	@[o;;"title-bg-hover;"title_bg_hover;	@o;	;"section-title-bg-hover;i;"section_title_bg_hover;	@[o;;"title-bg-active;"title_bg_active;	@o;	;"section-title-bg-active;i;"section_title_bg_active;	@[o;;"title-color-active;"title_color_active;	@o;	;"section-title-color-active;i;"section_title_color_active;	@[o;;"content-bg;"content_bg;	@o;	;"section-content-bg;i;"section_content_bg;	@[o;;"content-padding;"content_padding;	@o;	;"section-content-padding;i;"section_content_padding;	@[o;;"section-border-size;"section_border_size;	@o;	;"section-border-size;i;"section_border_size;	@[o;;"section-border-style;"section_border_style;	@o;	;"section-border-style;i;"section_border_style;	@[o;;"section-border-color;"section_border_color;	@o;	;"section-border-color;i;"section_border_color;	@u;09[o:Sass::Script::Operation
-:
-@linei:@operand2o:Sass::Script::Bool:@valueF;i:@options{ ;
-@:@operand1o:Sass::Script::Variable	:
-@name"!include-html-section-classes;i:@underscored_name"!include_html_section_classes;
-@:@operator:neq0[o:Sass::Tree::CommentNode
-;	["/* Sections */;i;
-@:@children[ :
-@type:normalo:Sass::Tree::RuleNode:@parsed_ruleso:"Sass::Selector::CommaSequence:@filename" :@members[o:Sass::Selector::Sequence;[o:#Sass::Selector::SimpleSequence
-;@;[o:Sass::Selector::Attribute;	["'';@;["data-section;i:@flags0:@namespace0;"=;i:@sourceso:Set:
-@hash{ :@subject0o;;[o;
-;@;[o;;	["'auto';@;["data-section;i;0;0;"=;i;o; ;!{ ;"0o;;[o;
-;@;[o:Sass::Selector::Class;@;["section-container;io;#;@;["	auto;i;i;o; ;!{ ;"0o;;["
-o;
-;@;[o;;	["'vertical-tabs';@;["data-section;i;0;0;"=;i;o; ;!{ ;"0o;;[o;
-;@;[o;#;@;["section-container;io;#;@;["vertical-tabs;i;i;o; ;!{ ;"0o;;["
-o;
-;@;[o;;	["'vertical-nav';@;["data-section;i;0;0;"=;i;o; ;!{ ;"0o;;[o;
-;@;[o;#;@;["section-container;io;#;@;["vertical-nav;i;i;o; ;!{ ;"0o;;["
-o;
-;@;[o;;	["'horizontal-nav';@;["data-section;i;0;0;"=;i;o; ;!{ ;"0o;;[o;
-;@;[o;#;@;["section-container;io;#;@;["horizontal-nav;i;i;o; ;!{ ;"0o;;["
-o;
-;@;[o;;	["'accordion';@;["data-section;i;0;0;"=;i;o; ;!{ ;"0o;;[o;
-;@;[o;#;@;["section-container;io;#;@;["accordion;i;i;o; ;!{ ;"0;i;i:@has_childrenT;
-@:
-@tabsi ;[o:Sass::Tree::MixinNode:@keywords{ ;"section-container-base;i;
-@:@splat0;[ :
-@args[o:Sass::Script::String	;	"accordion;i;
-@;:identifiero;;o;;" ;[o;;[o;
-;@¢;[o:Sass::Selector::Parent;@¢;i;i;o; ;!{ ;"0">o;
-;@¢;[o:Sass::Selector::Element	;@¢;["section;i;0;i;o; ;!{ ;"0o;;[o;
-;@¢;[o;,;@¢;i;i;o; ;!{ ;"0">o;
-;@¢;[o;#;@¢;["section;i;i;o; ;!{ ;"0o;;[o;
-;@¢;[o;,;@¢;i;i;o; ;!{ ;"0">o;
-;@¢;[o;;	0;@¢;["data-section-region;i;0;0;0;i;o; ;!{ ;"0;i;i;$T;
-@;%i ;[o;&;'{ ;"section-base;i ;
-@;(0;[ ;)[o;*	;	"accordion;i ;
-@;;+:
-@rule["9& > section, & > .section, & > [data-section-region];.["I[data-section=''], [data-section='auto'], .section-container.auto,
-  [data-section='vertical-tabs'], .section-container.vertical-tabs,
-  [data-section='vertical-nav'], .section-container.vertical-nav,
-  [data-section='horizontal-nav'], .section-container.horizontal-nav,
-  [data-section='accordion'], .section-container.accordiono;;o;;" ;[
-o;;[o;
-;@ß;[o;#;@ß;["section-container;i(o;#;@ß;["	auto;i(;i(;o; ;!{ ;"0o;;["
-o;
-;@ß;[o;#;@ß;["section-container;i(o;#;@ß;["vertical-tabs;i(;i(;o; ;!{ ;"0o;;["
-o;
-;@ß;[o;#;@ß;["section-container;i(o;#;@ß;["vertical-nav;i(;i(;o; ;!{ ;"0o;;["
-o;
-;@ß;[o;#;@ß;["section-container;i(o;#;@ß;["horizontal-nav;i(;i(;o; ;!{ ;"0o;;["
-o;
-;@ß;[o;#;@ß;["section-container;i(o;#;@ß;["accordion;i(;i(;o; ;!{ ;"0;i(;i(;$T;
-@;%i ;[o;&;'{ ;"section-container-style;i);
-@;(0;[ ;)[o;*	;	"accordion;i);
-@;;+o;;o;;" ;[o;;[o;
-;@+;[o;,;@+;i*;i*;o; ;!{ ;"0">o;
-;@+;[o;-	;@+;["section;i*;0;i*;o; ;!{ ;"0o;;[o;
-;@+;[o;,;@+;i*;i*;o; ;!{ ;"0">o;
-;@+;[o;#;@+;["section;i*;i*;o; ;!{ ;"0;i*;i*;$T;
-@;%i ;[o;&;'{ ;"section-style;i+;
-@;(0;[ ;)[o;*	;	"accordion;i+;
-@;;+;.["& > section, & > .section;.["£.section-container.auto,
-  .section-container.vertical-tabs,
-  .section-container.vertical-nav,
-  .section-container.horizontal-nav,
-  .section-container.accordiono;;o;;" ;[o;;[o;
-;@Y;[o;;	["'tabs';@Y;["data-section;i/;0;0;"=;i/;o; ;!{ ;"0o;;[o;
-;@Y;[o;#;@Y;["section-container;i/o;#;@Y;["	tabs;i/;i/;o; ;!{ ;"0;i/;i/;$T;
-@;%i ;[o;&;'{ ;"section-container-base;i0;
-@;(0;[ ;)[o;*	;	"	tabs;i0;
-@;;+o;;o;;" ;[o;;[o;
-;@};[o;,;@};i1;i1;o; ;!{ ;"0">o;
-;@};[o;-	;@};["section;i1;0;i1;o; ;!{ ;"0o;;[o;
-;@};[o;,;@};i1;i1;o; ;!{ ;"0">o;
-;@};[o;#;@};["section;i1;i1;o; ;!{ ;"0o;;[o;
-;@};[o;,;@};i1;i1;o; ;!{ ;"0">o;
-;@};[o;;	0;@};["data-section-region;i1;0;0;0;i1;o; ;!{ ;"0;i1;i1;$T;
-@;%i ;[o;&;'{ ;"section-base;i2;
-@;(0;[ ;)[o;*	;	"	tabs;i2;
-@;;+;.["9& > section, & > .section, & > [data-section-region];.["3[data-section='tabs'], .section-container.tabso;;o;;" ;[o;;[o;
-;@º;[o;#;@º;["section-container;i6o;#;@º;["	tabs;i6;i6;o; ;!{ ;"0;i6;i6;$T;
-@;%i ;[o;&;'{ ;"section-container-style;i7;
-@;(0;[ ;)[o;*	;	"	tabs;i7;
-@;;+o;;o;;" ;[o;;[o;
-;@Ò;[o;,;@Ò;i8;i8;o; ;!{ ;"0">o;
-;@Ò;[o;-	;@Ò;["section;i8;0;i8;o; ;!{ ;"0o;;[o;
-;@Ò;[o;,;@Ò;i8;i8;o; ;!{ ;"0">o;
-;@Ò;[o;#;@Ò;["section;i8;i8;o; ;!{ ;"0;i8;i8;$T;
-@;%i ;[o;&;'{"title_bg_activeo;	;"!section-title-bg-active-tabs;i9;"!section_title_bg_active_tabs;
-@;"section-style;i9;
-@;(0;[ ;)[o;*	;	"	tabs;i9;
-@;;+;.["& > section, & > .section;.[".section-container.tabso:Sass::Tree::MediaNode;	" ;i=:@query[o;	;"
-small;i=;"
-small;
-@;$T;
-@;%i ;[o;;o;;" ;[o;;[o;
-;@;[o;;	["'';@;["data-section;i?;0;0;"=;i?;o; ;!{ ;"0o;;[o;
-;@;[o;;	["'auto';@;["data-section;i?;0;0;"=;i?;o; ;!{ ;"0o;;[o;
-;@;[o;#;@;["section-container;i?o;#;@;["	auto;i?;i?;o; ;!{ ;"0;i?;i?;$T;
-@;%i ;[o;&;'{ ;"section-container-base;i@;
-@;(0;[ ;)[o;*	;	"	tabs;i@;
-@;;+o;;o;;" ;[o;;[o;
-;@;;[o;,;@;;iA;iA;o; ;!{ ;"0">o;
-;@;;[o;-	;@;;["section;iA;0;iA;o; ;!{ ;"0o;;[o;
-;@;;[o;,;@;;iA;iA;o; ;!{ ;"0">o;
-;@;;[o;#;@;;["section;iA;iA;o; ;!{ ;"0o;;[o;
-;@;;[o;,;@;;iA;iA;o; ;!{ ;"0">o;
-;@;;[o;;	0;@;;["data-section-region;iA;0;0;0;iA;o; ;!{ ;"0;iA;iA;$T;
-@;%i ;[o;&;'{ ;"section-base;iB;
-@;(0;[ ;)[o;*	;	"	tabs;iB;
-@;;+;.["9& > section, & > .section, & > [data-section-region];.["F[data-section=''], [data-section='auto'], .section-container.autoo;;o;;" ;[o;;[o;
-;@x;[o;#;@x;["section-container;iFo;#;@x;["	auto;iF;iF;o; ;!{ ;"0;iF;iF;$T;
-@;%i ;[o;&;'{ ;"section-container-style;iG;
-@;(0;[ ;)[o;*	;	"	tabs;iG;
-@;;+o;;o;;" ;[o;;[o;
-;@;[o;,;@;iH;iH;o; ;!{ ;"0">o;
-;@;[o;-	;@;["section;iH;0;iH;o; ;!{ ;"0o;;[o;
-;@;[o;,;@;iH;iH;o; ;!{ ;"0">o;
-;@;[o;#;@;["section;iH;iH;o; ;!{ ;"0;iH;iH;$T;
-@;%i ;[o;&;'{"title_bg_activeo;	;"!section-title-bg-active-tabs;iI;"!section_title_bg_active_tabs;
-@;"section-style;iI;
-@;(0;[ ;)[o;*	;	"	tabs;iI;
-@;;+;.["& > section, & > .section;.[".section-container.autoo;;o;;" ;[o;;[o;
-;@Â;[o;;	["'vertical-tabs';@Â;["data-section;iM;0;0;"=;iM;o; ;!{ ;"0o;;[o;
-;@Â;[o;#;@Â;["section-container;iMo;#;@Â;["vertical-tabs;iM;iM;o; ;!{ ;"0;iM;iM;$T;
-@;%i ;[o;&;'{ ;"section-container-base;iN;
-@;(0;[ ;)[o;*	;	"vertical-tabs;iN;
-@;;+o;;o;;" ;[o;;[o;
-;@æ;[o;,;@æ;iO;iO;o; ;!{ ;"0">o;
-;@æ;[o;-	;@æ;["section;iO;0;iO;o; ;!{ ;"0o;;[o;
-;@æ;[o;,;@æ;iO;iO;o; ;!{ ;"0">o;
-;@æ;[o;#;@æ;["section;iO;iO;o; ;!{ ;"0o;;[o;
-;@æ;[o;,;@æ;iO;iO;o; ;!{ ;"0">o;
-;@æ;[o;;	0;@æ;["data-section-region;iO;0;0;0;iO;o; ;!{ ;"0;iO;iO;$T;
-@;%i ;[o;&;'{ ;"section-base;iP;
-@;(0;[ ;)[o;*	;	"vertical-tabs;iP;
-@;;+;.["9& > section, & > .section, & > [data-section-region];.["E[data-section='vertical-tabs'], .section-container.vertical-tabso;;o;;" ;[o;;[o;
-;@#;[o;#;@#;["section-container;iTo;#;@#;["vertical-tabs;iT;iT;o; ;!{ ;"0;iT;iT;$T;
-@;%i ;[o;&;'{ ;"section-container-style;iU;
-@;(0;[ ;)[o;*	;	"vertical-tabs;iU;
-@;;+o;;o;;" ;[o;;[o;
-;@;;[o;,;@;;iV;iV;o; ;!{ ;"0">o;
-;@;;[o;-	;@;;["section;iV;0;iV;o; ;!{ ;"0o;;[o;
-;@;;[o;,;@;;iV;iV;o; ;!{ ;"0">o;
-;@;;[o;#;@;;["section;iV;iV;o; ;!{ ;"0;iV;iV;$T;
-@;%i ;[o;&;'{ ;"section-style;iW;
-@;(0;[ ;)[o;*	;	"vertical-tabs;iW;
-@;;+;.["& > section, & > .section;.["%.section-container.vertical-tabso;;o;;" ;[o;;[o;
-;@i;[o;;	["'vertical-nav';@i;["data-section;i[;0;0;"=;i[;o; ;!{ ;"0o;;[o;
-;@i;[o;#;@i;["section-container;i[o;#;@i;["vertical-nav;i[;i[;o; ;!{ ;"0;i[;i[;$T;
-@;%i ;[o;&;'{ ;"section-container-base;i\;
-@;(0;[ ;)[o;*	;	"vertical-nav;i\;
-@;;+o;;o;;" ;[o;;[o;
-;@;[o;,;@;i];i];o; ;!{ ;"0">o;
-;@;[o;-	;@;["section;i];0;i];o; ;!{ ;"0o;;[o;
-;@;[o;,;@;i];i];o; ;!{ ;"0">o;
-;@;[o;#;@;["section;i];i];o; ;!{ ;"0o;;[o;
-;@;[o;,;@;i];i];o; ;!{ ;"0">o;
-;@;[o;;	0;@;["data-section-region;i];0;0;0;i];o; ;!{ ;"0;i];i];$T;
-@;%i ;[o;&;'{ ;"section-base;i^;
-@;(0;[ ;)[o;*	;	"vertical-nav;i^;
-@;;+;.["9& > section, & > .section, & > [data-section-region];.["C[data-section='vertical-nav'], .section-container.vertical-navo;;o;;" ;[o;;[o;
-;@Ê;[o;#;@Ê;["section-container;ibo;#;@Ê;["vertical-nav;ib;ib;o; ;!{ ;"0;ib;ib;$T;
-@;%i ;[o;&;'{ ;"section-container-style;ic;
-@;(0;[ ;)[o;*	;	"vertical-nav;ic;
-@;;+o;;o;;" ;[o;;[o;
-;@â;[o;,;@â;id;id;o; ;!{ ;"0">o;
-;@â;[o;-	;@â;["section;id;0;id;o; ;!{ ;"0o;;[o;
-;@â;[o;,;@â;id;id;o; ;!{ ;"0">o;
-;@â;[o;#;@â;["section;id;id;o; ;!{ ;"0;id;id;$T;
-@;%i ;[o;&;'{ ;"section-style;ie;
-@;(0;[ ;)[o;*	;	"vertical-nav;ie;
-@;;+;.["& > section, & > .section;.["$.section-container.vertical-navo;;o;;" ;[o;;[o;
-;@;[o;;	["'horizontal-nav';@;["data-section;ii;0;0;"=;ii;o; ;!{ ;"0o;;[o;
-;@;[o;#;@;["section-container;iio;#;@;["horizontal-nav;ii;ii;o; ;!{ ;"0;ii;ii;$T;
-@;%i ;[o;&;'{ ;"section-container-base;ij;
-@;(0;[ ;)[o;*	;	"horizontal-nav;ij;
-@;;+o;;o;;" ;[o;;[o;
-;@4;[o;,;@4;ik;ik;o; ;!{ ;"0">o;
-;@4;[o;-	;@4;["section;ik;0;ik;o; ;!{ ;"0o;;[o;
-;@4;[o;,;@4;ik;ik;o; ;!{ ;"0">o;
-;@4;[o;#;@4;["section;ik;ik;o; ;!{ ;"0o;;[o;
-;@4;[o;,;@4;ik;ik;o; ;!{ ;"0">o;
-;@4;[o;;	0;@4;["data-section-region;ik;0;0;0;ik;o; ;!{ ;"0;ik;ik;$T;
-@;%i ;[o;&;'{ ;"section-base;il;
-@;(0;[ ;)[o;*	;	"horizontal-nav;il;
-@;;+;.["9& > section, & > .section, & > [data-section-region];.["G[data-section='horizontal-nav'], .section-container.horizontal-navo;;o;;" ;[o;;[o;
-;@q;[o;#;@q;["section-container;ipo;#;@q;["horizontal-nav;ip;ip;o; ;!{ ;"0;ip;ip;$T;
-@;%i ;[o;&;'{ ;"section-container-style;iq;
-@;(0;[ ;)[o;*	;	"horizontal-nav;iq;
-@;;+o;;o;;" ;[o;;[o;
-;@‰;[o;,;@‰;ir;ir;o; ;!{ ;"0">o;
-;@‰;[o;-	;@‰;["section;ir;0;ir;o; ;!{ ;"0o;;[o;
-;@‰;[o;,;@‰;ir;ir;o; ;!{ ;"0">o;
-;@‰;[o;#;@‰;["section;ir;ir;o; ;!{ ;"0;ir;ir;$T;
-@;%i ;[o;&;'{ ;"section-style;is;
-@;(0;[ ;)[o;*	;	"horizontal-nav;is;
-@;;+;.["& > section, & > .section;.["&.section-container.horizontal-navo;
-;	["O/* Change all variations to expanded accordions when no JS is detected. */;ix;
-@;[ ;:silento;;o;;" ;[o;;[o;
-;@»;[o;#;@»;["
-no-js;iy;iy;o; ;!{ ;"0;iy;iy;$T;
-@;%i ;[o;;o;;" ;[o;;[o;
-;@É;[o;;	0;@É;["data-section;iz;0;0;0;iz;o; ;!{ ;"0o;;[o;
-;@É;[o;#;@É;["section-container;iz;iz;o; ;!{ ;"0;iz;iz;$T;
-@;%i ;[o;&;'{ ;"section-container-base;i{;
-@;(0;[ ;)[o;*	;	"accordion;i{;
-@;;+o;;o;;" ;[o;;[o;
-;@ç;[o;,;@ç;i|;i|;o; ;!{ ;"0">o;
-;@ç;[o;-	;@ç;["section;i|;0;i|;o; ;!{ ;"0o;;[o;
-;@ç;[o;,;@ç;i|;i|;o; ;!{ ;"0">o;
-;@ç;[o;#;@ç;["section;i|;i|;o; ;!{ ;"0o;;[o;
-;@ç;[o;,;@ç;i|;i|;o; ;!{ ;"0">o;
-;@ç;[o;;	0;@ç;["data-section-region;i|;0;0;0;i|;o; ;!{ ;"0;i|;i|;$T;
-@;%i ;[o;&;'{ ;"section-base;i};
-@;(0;[ ;)[o;*	;	"accordion;i};
-@;;+;.["9& > section, & > .section, & > [data-section-region];.["'[data-section], .section-containero;;o;;" ;[o;;[o;
-;@$;[o;#;@$;["section-container;i€;i€;o; ;!{ ;"0;i€;i€;$T;
-@;%i ;[o;&;'{ ;"section-container-style;i;
-@;(0;[ ;)[o;*	;	"accordion;i;
-@;;+o;;o;;" ;[o;;[o;
-;@9;[o;,;@9;i‚;i‚;o; ;!{ ;"0">o;
-;@9;[o;-	;@9;["section;i‚;0;i‚;o; ;!{ ;"0o;;[o;
-;@9;[o;,;@9;i‚;i‚;o; ;!{ ;"0">o;
-;@9;[o;#;@9;["section;i‚;i‚;o; ;!{ ;"0;i‚;i‚;$T;
-@;%i ;[o;&;'{ ;"section-style;iƒ;
-@;(0;[ ;)[o;*	;	"accordion;iƒ;
-@;;+;.["& > section, & > .section;.[".section-container;.[".no-js
