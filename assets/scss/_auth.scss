@@ -33,8 +33,6 @@
   }
 }
 
-
-
 .create-box {
   position: absolute;
   width: rem-calc(300);
@@ -66,7 +64,6 @@
   }
 }
 
-
 .panel {
   border-style: none;
   margin-bottom: rem-calc(10);
@@ -96,7 +93,6 @@ input[type=text], input[type=password], input[type=mail]  {
     border-bottom: 1px solid rgba($white-color, 0.7);
   }
 }
-
 
 .artnation {
   font-weight: $bold;
@@ -130,7 +126,6 @@ input[type=text], input[type=password], input[type=mail]  {
   }
 }
 
-
 a.facebook-auth {
   @include my-button($facebook-color, 50);
   span {
@@ -145,7 +140,6 @@ a.facebook-auth {
   }
 }
 
-
 .button {
   color: rgba($white-color, 0.90);
   text-shadow: 0 -1px 0 rgba($black-color, 0.2);
@@ -157,7 +151,6 @@ a.facebook-auth {
     letter-spacing: -1px;
   }
 }
-
 
 .note {
   font-size: rem-calc(11);
