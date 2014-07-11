@@ -1,0 +1,13 @@
+<aside class="left-off-canvas-menu">
+	<ul class="off-canvas-list">
+		<li><label>Foundation</label></li>
+		<li class="show-for-small nav-search"><input type="search" placeholder="buscar"></li>
+		<li class="divider"></li>-->
+		<li {% if mixture.url == "home" %}class="active"{% endif %}><a href="home">Inicio</a></li>
+		<li class="divider"></li>
+		<li {% if mixture.url == "calls" %}class="active"{% endif %}><a href="calls">Convocatorias</a></li>
+		<li class="divider"></li>
+		<li {% if mixture.url == "exhibitions" %}class="active"{% endif %}><a href="exhibitions">Exposiciones</a></li>
+		<li class="divider"></li>
+	</ul>
+</aside>

@@ -1,0 +1,23 @@
+@import "compass";
+
+$bold: 700;
+$medium: 500;
+$light: 300;
+
+$white-color: #fff;
+$black-color: #000;
+$facebook-color: rgb(41, 91, 133);
+
+
+.alert-box {
+  &.alert {
+    background-color: tint($alert-color, 60%);
+    border-color: tint($alert-color, 40%);
+    color: $alert-color;
+    margin-bottom: rem-calc(10);
+    .close {
+      color: $alert-color;
+      margin-top: rem-calc(-8);
+    }
+  }
+}

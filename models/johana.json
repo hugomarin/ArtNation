@@ -1,0 +1,139 @@
+{
+  "user": "Johana Gómez",
+  "user_img": "https://dl.dropboxusercontent.com/u/991960/hugo/profile.jpg",
+  "user_banner": "???",
+  "user_city": "Stuttgart",
+  "user_country": "Alemania",
+  "user_study": "Universidad Nacional de Colombia",
+  "user_follow": "225",
+  "user_registry": "27 nov 2013",
+  "user_url": "",
+  "user_age": "31",
+  "user_website": "",
+  "user_mail": "acefvi7tao@hotmail.com",
+  "user_phone": "0049 15778913112",
+  "user_address": "Wagenburgstraße 162 ",
+  "no_works": 4,
+  "no_ind_exhibitions": 1,
+  "no_col_exhibitions": 2,
+  "no_projects": 5,
+  "user_statement": "La fusión de las diferentes ramas del arte para reflexionar sobre la función de la identidad individual en el contexto y el grupo.  Procesos y reacciones inmediatas como parte del desarrollo individual y social.",
+
+	"user_activities": [
+	        {
+			"activity": "Performance"
+		},
+		{
+			"activity": "Instalación"
+		},
+                {
+			"activity": "Escenografía"
+		},
+                {
+			"activity": "Vestuario"
+		}
+
+	],
+
+
+	"user_education": [
+		{
+			"school": "Universidad Nacional de Colombia",
+			"degree": "Maestro en Artes Plásticas",
+			"field": "Artes plásticas",
+			"year-start": "2003",
+			"year-finish": "2009",
+			"city": "Bogotá",
+			"country": "Colombia"
+		},
+
+		{
+			"school": "Akademie der Bildenden Kunst",
+			"degree": "Bühnen und Kostüm Bildnerin ",
+			"field": "Artes plásticas",
+			"year-start": "2011",
+			"year-finish": "en curso",
+			"city": "Stuttgart",
+			"country": "Alemania"
+		}
+
+	],
+
+	
+	"user_exhibitions_ind": [
+		{
+			"name": "Ko'a",
+			"institution": "La Troje",
+			"work": "El deseo del viaje",
+			"year": "2008",
+			"city": "Cochabamba",
+			"country": "Bolivia",
+			"media": "Escultura, pintura"
+		}
+	],
+		
+	"user_exhibitions_col": [
+
+		{
+			"name": "Cuatro Artistas Cuatro Miradas",
+			"institution": "Universidad de Ciencias Aplicadas",
+			"work": "",
+			"year": "2009",
+			"city": "Bogotá",
+			"country": "Colombia",
+			"media": "Fotografía, Escultura (calado en madera)"
+		},
+
+		{
+			"name": "Muestra de Trabajos de Grado, Unal",
+			"institution": "Universidad Nacional de Colombia",
+			"work": "Proyecto Nómada",
+			"year": "2009",
+			"city": "Bogotá",
+			"country": "Colombia",
+			"media": "Performance, Video, Fotografía"
+		}
+	
+		],
+
+	
+	"user_works": [
+                {
+			"type": "Performance",
+			"name": "Proyecto Nómada",
+			"image": "???",
+			"year": "2008",
+			"dimension": "variables (3 meses)",
+			"description": "" 
+		},
+
+		{
+			"type": "Escenografía, Vestuario, Dibujo, Fotografía",
+			"name": "Macbeth, Opera de Verdi",
+			"image": "???",
+			"year": "2010",
+			"dimension": "Variables",
+			"description": "Conceptualización e interpretación escenográfica  y de vestuario de la Opera Macbeth de Verdi. Sobre la guerra de Poder. "
+		},
+		
+		{
+			"type": "Escenografía, Vestuario, Dibujo, Fotografía",
+			"name": "Das Weite Land",
+			"image": "???",
+			"year": "2011",
+			"dimension": "Variables",
+			"description": "Escenografía, Vestuario, Dibujo, Fotografía"
+		},
+		
+		{
+			"type": "Escenografía, Vestuario, Dibujo, Fotografía",
+			"name": "La caida de la pantera",
+			"image": "???",
+			"year": "2013",
+			"dimension": "Variables",
+			"description": "Diseno e interpretación plástica y conceptual de escenografía y vestuario para la obra inedita la caida de la pantera de Rodrigo Rodriguez para el teatro ditirambo. Monologos sobre los motivos de una mujer para partir. "
+		}	
+		
+		]
+}
+

@@ -1,0 +1,172 @@
+.cover {
+  background: url(../images/bg/bg-1.jpg);
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  background-position: center top;
+  position: relative;
+}
+
+.auth-box {
+  position: absolute;
+  width: rem-calc(300);
+  margin-left: rem-calc(-150);
+  margin-top: rem-calc(-235);
+  @media #{$medium-up} {
+    width: rem-calc(420);
+    margin-left: rem-calc(-210);
+    margin-top: rem-calc(-243);
+  }
+  left: 50%;
+  top: 50%;
+  header {
+    color: white;
+    font-weight: $light;
+    font-size: rem-calc(23);
+    margin-bottom: rem-calc(13);
+    margin-top: rem-calc(20);
+    letter-spacing: rem-calc(-1);
+    @extend %smooth;
+    @media #{$medium-up} {
+      margin-bottom: rem-calc(23);
+    }
+  }
+}
+
+
+
+.create-box {
+  position: absolute;
+  width: rem-calc(300);
+  margin-left: rem-calc(-150);
+  margin-top: rem-calc(-323);
+  @media #{$medium-up} {
+    width: rem-calc(600);
+    margin-left: rem-calc(-300);
+    margin-top: rem-calc(-243);
+  }
+  @media #{$large-up} {
+    width: rem-calc(720);
+    margin-left: rem-calc(-360);
+    margin-top: rem-calc(-258);
+  }
+  left: 50%;
+  top: 50%;
+  header {
+    color: white;
+    font-weight: $light;
+    font-size: rem-calc(23);
+    margin-bottom: rem-calc(13);
+    margin-top: rem-calc(20);
+    letter-spacing: rem-calc(-1);
+    @extend %smooth;
+    @media #{$medium-up} {
+      margin-bottom: rem-calc(23);
+    }
+  }
+}
+
+
+.panel {
+  border-style: none;
+  margin-bottom: rem-calc(10);
+  background: rgba($white-color, 0.75);
+  padding: rem-calc(10);
+  @include border-radius (3px);
+  @include box-shadow(0 2px 0 rgba($white-color, 0.4));
+  @media #{$medium-up} {
+    padding: rem-calc(20);
+  }
+}
+
+input[type=text], input[type=password], input[type=mail]  {
+  background: tint($black-color, 86%);
+  border: none;
+  border-bottom: 1px solid rgba($white-color, 0.7);
+  height: rem-calc(45);
+  text-shadow: 0 1px 0 rgba($white-color, 0.4);
+  @extend %smooth;
+  @include border-radius (4px);
+  &:focus{
+    @include box-shadow (0 0 0);
+    @include box-shadow (inset 0 1px 2px rgba(0,0,0,.1));
+    background: tint($black-color, 96%);
+    outline: 0;
+    border: 0;
+    border-bottom: 1px solid rgba($white-color, 0.7);
+  }
+}
+
+
+.artnation {
+  font-weight: $bold;
+  @extend %lig;
+}
+
+.login-option {
+  margin-bottom: rem-calc(16);
+  text-align: center;
+  text-transform: uppercase;
+  span {
+    display: inline-block;
+    width: 8%;
+    height: rem-calc(3);
+    border-bottom: rem-calc(3) solid rgba($white-color, 0.50);
+    position: relative;
+    top: rem-calc(2);
+    @media #{$medium-up} {
+      width: 22%;
+    }
+  }
+  em {
+    position: relative;
+    top: rem-calc(4);
+    margin: 0 rem-calc(4);
+    font-weight: $medium;
+    font-style: normal;
+    text-transform: none;
+    color: tint($black-color, 96%);
+    font-size: rem-calc(13);
+  }
+}
+
+
+a.facebook-auth {
+  @include my-button($facebook-color, 50);
+  span {
+    display: inline-block;
+    @include border-radius (4px 0 0 4px);
+    height: rem-calc(50);
+    width: rem-calc(50);
+    line-height: rem-calc(50);
+    float: left;
+    font-size: rem-calc(24);
+    border-right: 1px solid darken($facebook-color, 5%);
+  }
+}
+
+.button {
+  color: rgba($white-color, 0.90);
+  text-shadow: 0 -1px 0 rgba($black-color, 0.2);
+  font-size: rem-calc(16);
+  font-weight: $bold;
+  @extend %smooth;
+  @media #{$medium-up} {
+    font-size: rem-calc(20);
+    letter-spacing: -1px;
+  }
+}
+
+
+.note {
+  font-size: rem-calc(11);
+  font-weight: $light;
+  color: rgba($white-color, 0.8);
+  a {
+    font-weight: $medium;
+    color: $white-color;
+    text-decoration: underline;
+  }
+}
+
+

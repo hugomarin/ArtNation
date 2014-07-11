@@ -1,0 +1,23 @@
+@mixin my-button($color, $size){
+  background-color: $color;
+  color: rgba($white-color, 0.90);
+  display: block;
+  width: 100%;
+  height: rem-calc($size);
+  line-height: rem-calc($size);
+  font-size: rem-calc($size/3.2);
+  text-align: center;
+  font-weight: $bold;
+  cursor: pointer;
+  text-shadow: 0 -1px 0 rgba($black-color, 0.2);
+  @include border-radius (4px);
+  @extend %smooth;
+  @media #{$medium-up} {
+    font-size: rem-calc($size/2.5);
+    letter-spacing: -1px;
+  }
+  &:hover {
+    background-color: darken($color, 10%);
+    @include single-transition;
+  }
+}

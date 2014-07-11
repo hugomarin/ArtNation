@@ -1,0 +1,415 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"text",
+				"text-transform"
+			],
+			[
+				"border",
+				"border-bottom"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 58.0,
+		"selected_items":
+		[
+			[
+				"liqui",
+				"Set Syntax: HTML (Liquid)"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"scss",
+				"Set Syntax: SCSS"
+			],
+			[
+				"",
+				"Package Control: Install Package"
+			],
+			[
+				"sass",
+				"SassBeautify"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 512.0
+	},
+	"console":
+	{
+		"height": 458.0,
+		"history":
+		[
+			"install",
+			"Install Package",
+			"import urllib2,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); os.makedirs( ipp ) if not os.path.exists(ipp) else None; urllib2.install_opener( urllib2.build_opener( urllib2.ProxyHandler()) ); by = urllib2.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); open( os.path.join( ipp, pf), 'wb' ).write(by) if dh == h else None; print('Error validating download (got %s instead of %s), please try manual install' % (dh, h) if dh != h else 'Please restart Sublime Text to finish installation')"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria54.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/js/galerias.js",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/productos.php",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria32.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria30.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria13.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria23.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria24.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria45.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria27.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria16.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria51.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/proyectos.php",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria33.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria26.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria21.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria39.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria40.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria14.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria44.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria36.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria35.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria19.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria20.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria43.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria49.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria48.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria47.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria22.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria17.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria3.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria5.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria4.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria6.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria7.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria9.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria12.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria53.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria8.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria11.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria10.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria1.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/galerias/galeria18.html",
+		"/Users/Hugo/Dropbox/Desarrollo/Enves/enves.sublime-project",
+		"/Users/Hugo/Dropbox/Mixture/CCB/assets/css/app.min.css",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/home.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/cree-su-empresa.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/footer/contact.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/footer/faq.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/assets/scss/_helpers.scss",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/footer/newsletter.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/assets/scss/_global.scss",
+		"/Users/Hugo/Dropbox/Mixture/CCB/assets/scss/_footer.scss",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/footer/footer-holder.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/assets/scss/_relevant.scss",
+		"/Users/Hugo/Dropbox/Mixture/CCB/assets/scss/_events.scss",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/news/news-holder.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/assets/scss/_typo.scss",
+		"/Users/Hugo/Dropbox/Mixture/CCB/assets/scss/app.scss",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/relevant/relevant-1.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/assets/scss/foundation/_settings.scss",
+		"/Users/Hugo/Dropbox/Mixture/CCB/assets/scss/_base.scss",
+		"/Users/Hugo/Dropbox/Mixture/CCB/models/_global.json",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/relevant/mini-relevant-3.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/relevant/mini-relevant-2.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/relevant/mini-relevant-1.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/relevant/relevant-2.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/assets/scss/_icons.scss",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/services/diplomaed-mini.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/services/tools-mini.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/components/side-nav.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/capacitaciones.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/services/seminars-mini.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/services/talks-mini.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/services/tutor-mini.liquid",
+		"/Users/Hugo/Library/Application Support/Sublime Text 3/Packages/Default/Default (OSX).sublime-keymap",
+		"/Users/Hugo/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/Hugo/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/footer/subsidiaries.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/header/top-bar.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/header/search.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/header/eyebrow.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/assets/scss/_foundation.scss",
+		"/Users/Hugo/Dropbox/Mixture/CCB/assets/scss/_tools.scss",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/sectores.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/services/research-mini.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/services/training.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/services/conflicts.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/services/training-mini.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/assets/scss/_training.scss",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/services/research.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/.gitignore",
+		"/Users/Hugo/Dropbox/Mixture/CCB/assets/scss/_affiliates.scss",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/layouts/layout.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/templates/includes/services/affiliates.liquid",
+		"/Users/Hugo/Dropbox/Mixture/CCB/assets/scss/_news.scss",
+		"/C/Users/Javier/Desktop/ccb-web.builds/templates/includes/events/events.liquid",
+		"/C/Users/Javier/Desktop/ccb-web.builds/assets/scss/_news.scss",
+		"/C/Users/Javier/Desktop/ccb-web.builds/assets/scss/_events.scss",
+		"/C/Users/Javier/Desktop/ccb-web.builds/assets/scss/_base.scss",
+		"/C/Users/Javier/Desktop/ccb-web.builds/assets/scss/_mixins.scss",
+		"/C/Users/Javier/Desktop/ccb-web.builds/templates/includes/news/news-mini.liquid",
+		"/C/Users/Javier/Desktop/ccb-web.builds/templates/includes/news/main-news.liquid",
+		"/C/Users/Javier/Desktop/ccb-web.builds/assets/scss/app.scss",
+		"/C/Users/Javier/Desktop/ccb-web.builds/assets/scss/_header.scss",
+		"/C/Users/Javier/Desktop/ccb-web.builds/assets/scss/_typo.scss"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 95.0,
+		"where_history":
+		[
+			"/Users/Hugo/Dropbox/Mixture/CCB/assets/scss",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"loadimages30",
+			"kit_te_cuido",
+			"kit_te_cuido-gal-30",
+			"data-lightbox=\"maletin_portatil_espejo_carta_banner\"",
+			"\"portafolio_mujer_carpa_banner\"",
+			"\"icopor\"",
+			"data-lightbox=\"buchon\"",
+			"data-lightbox=\"eventos\"",
+			"\"muñeco\"",
+			"\"escuela\"",
+			"\"art\"",
+			"data-lightbox=\"neumatico\"",
+			"data-lightbox=\"carpas\"",
+			"data-lightbox=\"guardianes\"",
+			"guardianes",
+			"eyebrow",
+			";\n",
+			"Capacitaciones a sum",
+			"programa",
+			"tools-mini-item",
+			"tools-mini-title",
+			"Capacit",
+			"other",
+			"conozca",
+			"section-title-small",
+			"section-title.small",
+			"event-item"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close"
+							],
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "artnation.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"ccb-web.builds/assets/scss/_base.scss"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 320.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

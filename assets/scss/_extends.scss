@@ -1,0 +1,12 @@
+%smooth {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+%lig {
+    -moz-font-feature-settings: "liga";
+    -ms-font-feature-settings: "liga";
+    -o-font-feature-settings: "liga";
+    -webkit-font-feature-settings: "liga";
+    font-feature-settings: "liga";
+}

@@ -1,0 +1,43 @@
+{% layout "login" %}
+
+{% block content %}
+
+<div class="cover">
+	<div class="auth-box">
+
+		<section class="sign-in">
+			<header><span class="artnation">ArtNation</span>. Registro</header>
+
+			<div class="panel">
+				<a class="facebook-auth"><span aria-hidden="true" data-icon=".">F</span>Registrarse con Facebook</a>
+			</div>
+			<div class="text-center">
+
+				<div class="login-option">
+					<span></span>
+					<em>O regístrate con tu correo electrónico</em>
+					<span></span>
+				</div>
+
+			</div>
+			<div class="panel">
+
+				<form action="">
+					<div data-alert class="alert-box alert radius">
+						El correo debe tener un formato correcto. <a href="#" class="close">&times;</a>
+					</div>
+					<div data-alert class="alert-box alert radius">
+						Este correo ya existe. Intenta con otro.<a href="#" class="close">&times;</a>
+					</div>
+					<input type="text" placeholder="{{ global.mail }}">
+					<input type="password" placeholder="{{ global.password }}">
+					<a href="select-profile" class="button radius expand">Registrarse</a>
+				</form>
+
+			</div><!--/panel-->
+			<div class="text-center note">¿Ya estás registrado? <a href="">inicia de sesión</a></div>
+		</section>
+
+	</div>
+</div>
+{% endblock %}

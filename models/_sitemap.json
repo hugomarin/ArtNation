@@ -1,0 +1,174 @@
+[
+  {
+    "directory": false,
+    "key": "index",
+    "name": "Index",
+    "url": "/index"
+  },
+  {
+    "children": [
+      {
+        "directory": false,
+        "key": "new-password",
+        "name": "New Password",
+        "url": "/auth/new-password"
+      },
+      {
+        "directory": false,
+        "key": "recover-password",
+        "name": "Recover Password",
+        "url": "/auth/recover-password"
+      },
+      {
+        "directory": false,
+        "key": "sign-in",
+        "name": "Sign In",
+        "url": "/auth/sign-in"
+      },
+      {
+        "directory": false,
+        "key": "sign-up",
+        "name": "Sign Up",
+        "url": "/auth/sign-up"
+      }
+    ],
+    "directory": true,
+    "key": "auth",
+    "name": "Auth",
+    "url": "/auth"
+  },
+  {
+    "children": [
+      {
+        "directory": false,
+        "key": "about",
+        "name": "About",
+        "url": "/create/about"
+      },
+      {
+        "directory": false,
+        "key": "influence",
+        "name": "Influence",
+        "url": "/create/influence"
+      },
+      {
+        "directory": false,
+        "key": "select-profile",
+        "name": "Select Profile",
+        "url": "/create/select-profile"
+      },
+      {
+        "directory": false,
+        "key": "tendency",
+        "name": "Tendency",
+        "url": "/create/tendency"
+      }
+    ],
+    "directory": true,
+    "key": "create",
+    "name": "Create",
+    "url": "/create"
+  },
+  {
+    "children": [
+      {
+        "directory": false,
+        "key": "acknowledgements",
+        "name": "Acknowledgements",
+        "url": "/edit/acknowledgements"
+      },
+      {
+        "directory": false,
+        "key": "artist-info",
+        "name": "Artist Info",
+        "url": "/edit/artist-info"
+      },
+      {
+        "directory": false,
+        "key": "education",
+        "name": "Education",
+        "url": "/edit/education"
+      },
+      {
+        "directory": false,
+        "key": "exhibitions",
+        "name": "Exhibitions",
+        "url": "/edit/exhibitions"
+      },
+      {
+        "directory": false,
+        "key": "personal-info",
+        "name": "Personal Info",
+        "url": "/edit/personal-info"
+      },
+      {
+        "directory": false,
+        "key": "projects",
+        "name": "Projects",
+        "url": "/edit/projects"
+      },
+      {
+        "directory": false,
+        "key": "works",
+        "name": "Works",
+        "url": "/edit/works"
+      }
+    ],
+    "directory": true,
+    "key": "edit",
+    "name": "Edit",
+    "url": "/edit"
+  },
+  {
+    "directory": false,
+    "key": "home",
+    "name": "Home",
+    "url": "/home"
+  },
+  {
+    "children": [
+      {
+        "directory": false,
+        "key": "profile",
+        "name": "Profile",
+        "url": "/profile/profile"
+      }
+    ],
+    "directory": true,
+    "key": "profile",
+    "name": "Profile",
+    "url": "/profile"
+  },
+  {
+    "children": [
+      {
+        "directory": false,
+        "key": "settings-account",
+        "name": "Settings Account",
+        "url": "/settings/settings-account"
+      },
+      {
+        "directory": false,
+        "key": "settings-mail",
+        "name": "Settings Mail",
+        "url": "/settings/settings-mail"
+      },
+      {
+        "directory": false,
+        "key": "settings-notification",
+        "name": "Settings Notification",
+        "url": "/settings/settings-notification"
+      },
+      {
+        "directory": false,
+        "key": "settings-profile",
+        "name": "Settings Profile",
+        "url": "/settings/settings-profile"
+      }
+    ],
+    "directory": true,
+    "key": "settings",
+    "name": "Settings",
+    "url": "/settings"
+  }
+]
