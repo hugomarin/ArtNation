@@ -1,0 +1,6 @@
+.sass-cache
+.DS_Store
+compass/config.rb
+.filewatching
+*.sublime-workspace
+*.sublime-project
