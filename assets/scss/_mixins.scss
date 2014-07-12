@@ -21,3 +21,15 @@
     @include single-transition;
   }
 }
+
+@mixin uri-img ($image, $image2)  {
+background-image: inline-image($image);
+height: image-height($image);
+width: image-width($image);
+text-indent: -9999px;
+display: block;
+  @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+    background-image: inline-image($image2);
+    background-size: image-width($image) image-height($image);
+  }
+}

@@ -1,5 +1,5 @@
 .cover {
-  background: url(../images/bg/bg-1.jpg);
+  background: url(../img/bg/bg-1.jpg);
   background-size: cover;
   height: 100%;
   width: 100%;
@@ -67,7 +67,7 @@
 .panel {
   border-style: none;
   margin-bottom: rem-calc(10);
-  background: rgba($white-color, 0.75);
+  background: rgba($white-color, 0.6);
   padding: rem-calc(10);
   @include border-radius (3px);
   @include box-shadow(0 2px 0 rgba($white-color, 0.4));
@@ -105,13 +105,13 @@ input[type=text], input[type=password], input[type=mail]  {
   text-transform: uppercase;
   span {
     display: inline-block;
-    width: 8%;
+    width: 7%;
     height: rem-calc(3);
     border-bottom: rem-calc(3) solid rgba($white-color, 0.50);
     position: relative;
     top: rem-calc(2);
     @media #{$medium-up} {
-      width: 22%;
+      width: 20%;
     }
   }
   em {
@@ -126,7 +126,7 @@ input[type=text], input[type=password], input[type=mail]  {
   }
 }
 
-a.facebook-auth {
+.facebook-auth {
   @include my-button($facebook-color, 50);
   span {
     display: inline-block;
@@ -155,12 +155,38 @@ a.facebook-auth {
 .note {
   font-size: rem-calc(11);
   font-weight: $light;
-  color: rgba($white-color, 0.8);
+  color: rgba($white-color, 0.5);
+  margin-top: rem-calc(20);
   a {
     font-weight: $medium;
-    color: $white-color;
+    color: rgba($white-color, 0.7);
     text-decoration: underline;
   }
+}
+
+.recover-password {
+  font-size: rem-calc(12);
+  font-weight: $light;
+  color: rgba($black-color, 0.5);
+  a {
+    font-weight: $medium;
+    text-decoration: underline;
+    color: rgba($black-color, 0.7);
+  }
+}
+
+// ICONS
+
+.icon_lock {
+  @include uri-img ("data-uri/icon_lock.png", "data-uri/retina/icon_lock.png" );
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+
+.icon_mail {
+  @include uri-img ("data-uri/icon_mail.png", "data-uri/retina/icon_mail.png" );
+  background-repeat: no-repeat;
+  background-position: 10px center;
 }
 
 

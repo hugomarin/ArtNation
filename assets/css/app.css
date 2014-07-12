@@ -6367,7 +6367,7 @@ th.hide-for-touch {
   margin-top: -0.5rem;
 }
 
-.auth-box header, .create-box header, input[type=text], input[type=password], input[type=mail], a.facebook-auth, .button {
+.auth-box header, .create-box header, input[type=text], input[type=password], input[type=mail], .facebook-auth, .button {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -6380,8 +6380,36 @@ th.hide-for-touch {
   font-feature-settings: "liga";
 }
 
+p.tiny, ul.tiny {
+  font-size: 0.75rem;
+}
+
+p.small, ul.small {
+  font-size: 0.8125rem;
+}
+
+p.medium, ul.medium {
+  font-size: 0.875rem;
+}
+
+p.large, ul.large {
+  font-size: 0.9375rem;
+}
+
+p, ul, p.great, ul.great {
+  font-size: 1.0625rem;
+}
+
+p.gigantic, ul.gigantic {
+  font-size: 1.1875rem;
+}
+
+p, ul {
+  color: #4c4c4c;
+}
+
 .cover {
-  background: url(../images/bg/bg-1.jpg);
+  background: url(../img/bg/bg-1.jpg);
   background-size: cover;
   height: 100%;
   width: 100%;
@@ -6457,7 +6485,7 @@ th.hide-for-touch {
 .panel {
   border-style: none;
   margin-bottom: 0.625rem;
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.6);
   padding: 0.625rem;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -6510,7 +6538,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=mail]:focus {
 }
 .login-option span {
   display: inline-block;
-  width: 8%;
+  width: 7%;
   height: 0.1875rem;
   border-bottom: 0.1875rem solid rgba(255, 255, 255, 0.5);
   position: relative;
@@ -6518,7 +6546,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=mail]:focus {
 }
 @media only screen and (min-width: 40.063em) {
   .login-option span {
-    width: 22%;
+    width: 20%;
   }
 }
 .login-option em {
@@ -6532,7 +6560,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=mail]:focus {
   font-size: 0.8125rem;
 }
 
-a.facebook-auth {
+.facebook-auth {
   background-color: #295b85;
   color: rgba(255, 255, 255, 0.9);
   display: block;
@@ -6551,19 +6579,19 @@ a.facebook-auth {
   border-radius: 4px;
 }
 @media only screen and (min-width: 40.063em) {
-  a.facebook-auth {
+  .facebook-auth {
     font-size: 1.25rem;
     letter-spacing: -1px;
   }
 }
-a.facebook-auth:hover {
+.facebook-auth:hover {
   background-color: #1d405e;
   -webkit-transition: all 1s;
   -moz-transition: all 1s;
   -o-transition: all 1s;
   transition: all 1s;
 }
-a.facebook-auth span {
+.facebook-auth span {
   display: inline-block;
   -webkit-border-radius: 4px 0 0 4px;
   -moz-border-radius: 4px 0 0 4px;
@@ -6594,10 +6622,54 @@ a.facebook-auth span {
 .note {
   font-size: 0.6875rem;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 1.25rem;
 }
 .note a {
   font-weight: 500;
-  color: white;
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: underline;
+}
+
+.recover-password {
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.5);
+}
+.recover-password a {
+  font-weight: 500;
+  text-decoration: underline;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.icon_lock {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPBAMAAAAWtvJmAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACRQTFRFAAAAs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OzRUrNKwAAAAt0Uk5TACAwQFCAn7/P3+9eLUM2AAAASUlEQVQI12NgAALTYAYoYNm92wHKZF+kVQBjFrBjYU4vL6+EMgMYGFhhTKmFcKb1ZjiTowHO5NoAZ7IGwJjJxsZmUGYoEDCgAAA5Zg7xHsUVewAAAABJRU5ErkJggg==');
+  height: 15px;
+  width: 20px;
+  text-indent: -9999px;
+  display: block;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .icon_lock {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAeBAMAAACs80HuAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADBQTFRFAAAAs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OzY2V/LQAAAA90Uk5TABAwQFBgcICPn6+/z9/v9SClHgAAAIFJREFUKM9jYMAHJN//m4guxnj+//8/AmiC3P+BYAOaoP7/BLb/n9AE638wMPR/Rxf8zMBgT13B/1BggCz42RgM7FEEP0AofqIEY69iCjL9/6+AIcj+/38BhiDL//8OmGau/43FovrvWAT7f2ER3P8Hi+D9/8T6CFMQayhhDU9yAQDj5lFxCv12jAAAAABJRU5ErkJggg==');
+    background-size: 20px 15px;
+  }
+}
+
+.icon_mail {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAPCAMAAAA8hHRZAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADNQTFRFAAAAs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OzADOjKAAAABB0Uk5TABAgMEBQYHCAj5+vv8/f7yMagooAAABWSURBVBjTrc5LDoAgDATQoSBfB7z/aUUToCbudFbTl6Yp8Et8VHFD9zprYpwqDHcxjG4pTM4GsHWDVoAUf3R57DK4VoRe6zVC+t2SlFY7al4/vP/7KSfKKwLLomvWIwAAAABJRU5ErkJggg==');
+  height: 15px;
+  width: 21px;
+  text-indent: -9999px;
+  display: block;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .icon_mail {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAeBAMAAACs80HuAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAC1QTFRFAAAAs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OzHos+kAAAAA50Uk5TABAgMEBQYHCPn7/P3++rmNFrAAAAmElEQVQoz2NgGJSA7x0SeAATfCUAk2dcBxesuQwTtD0OF3RclwBhsb0SgQs6cLyEsOY1sCAEGXI3ghjS1xiQBZn3GjAwMN82QBFkkHrGwJC3kAFVMHbfRMnXV1EF2V6y3t4bMC8BRbCvgcF6MwPHC2RBTqCJjEBv5U1ACDruDYCwWG8jHJ+N8OY2uOBrBZgg074H+IJukAEAS61IUu7mugkAAAAASUVORK5CYII=');
+    background-size: 21px 15px;
+  }
 }
